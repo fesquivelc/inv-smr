@@ -83,6 +83,8 @@ public class MantenimientoDesplazo extends javax.swing.JInternalFrame {
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Mantenimiento de Desplazos");
 
         jLabel1.setText("Buscar: ");

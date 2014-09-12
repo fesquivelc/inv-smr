@@ -27,7 +27,7 @@ public  class Clase implements Serializable {
 
     @Column(name="id",table="clase",nullable=false)
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
 

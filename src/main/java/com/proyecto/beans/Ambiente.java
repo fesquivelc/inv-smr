@@ -32,7 +32,7 @@ public  class Ambiente implements Serializable {
 
     @Column(name="id",table="ambiente",nullable=false)
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
 

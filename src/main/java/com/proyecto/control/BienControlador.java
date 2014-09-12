@@ -7,6 +7,7 @@
 package com.proyecto.control;
 
 import com.proyecto.beans.Bien;
+import java.util.List;
 
 /**
  *

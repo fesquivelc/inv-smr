@@ -68,6 +68,8 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Mantenimiento de Periodo");
 
         jLabel1.setText("Buscar: ");

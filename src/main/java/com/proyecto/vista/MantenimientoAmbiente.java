@@ -70,6 +70,8 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Mantenimiento de Ambientes");
 
         jLabel1.setText("Buscar: ");

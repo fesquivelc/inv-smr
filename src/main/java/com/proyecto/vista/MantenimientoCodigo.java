@@ -69,6 +69,8 @@ public class MantenimientoCodigo extends javax.swing.JInternalFrame {
         serieLabel = new javax.swing.JLabel();
         serieField = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Mantenimiento de Codigos");
 
         jLabel1.setText("Buscar: ");

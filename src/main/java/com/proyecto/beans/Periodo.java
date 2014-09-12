@@ -21,7 +21,7 @@ public  class Periodo implements Serializable {
 
     @Column(name="id",table="periodo",nullable=false)
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
 
