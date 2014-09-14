@@ -1,13 +1,14 @@
 package com.proyecto.beans;
 
-
 import java.io.Serializable;
 
 import java.lang.Integer;
-import java.util.Collection;
+import java.lang.Long;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,11 +23,11 @@ public  class Periodo implements Serializable {
     @Column(name="id",table="periodo",nullable=false)
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
 
-    @OneToMany(targetEntity=Bien.class,mappedBy="periodoId")
-    private Collection<Bien> bienCollection;
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=Inventario.class,mappedBy="periodo")
+    private List<Inventario> inventarios;
 
 
     @Column(name="periodo",table="periodo")
@@ -38,24 +39,24 @@ public  class Periodo implements Serializable {
     }
 
 
-   public Integer getId() {
+   public Long getId() {
         return this.id;
     }
 
 
-  public void setId (Integer id) {
+  public void setId (Long id) {
         this.id = id;
     }
 
 
 
-   public Collection<Bien> getBienCollection() {
-        return this.bienCollection;
+   public List<Inventario> getInventarios() {
+        return this.inventarios;
     }
 
 
-  public void setBienCollection (Collection<Bien> bienCollection) {
-        this.bienCollection = bienCollection;
+  public void setInventarios (List<Inventario> inventarios) {
+        this.inventarios = inventarios;
     }
 
 

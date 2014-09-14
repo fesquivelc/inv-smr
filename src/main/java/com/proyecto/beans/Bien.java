@@ -2,170 +2,139 @@ package com.proyecto.beans;
 
 import java.io.Serializable;
 
-import java.lang.Integer;
 import java.lang.String;
-import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "bien")
-public class Bien implements Serializable {
+@Table(name="bien")
+public  class Bien implements Serializable {
 
-    @ManyToOne(optional = false, targetEntity = Clase.class)
-    @JoinColumn(name = "clase_id", referencedColumnName = "id", insertable = true, nullable = true, unique = false, updatable = true)
-    private Clase claseId;
 
-    @Column(name = "nombre", table = "bien", length = 45)
+    @Column(name="nombre",table="bien",length=45)
     @Basic
     private String nombre;
 
-    @Column(name = "id", table = "bien", nullable = false)
+
+    @Column(name="codigo",table="bien",nullable=false,length=45)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String codigo;
 
-    @OneToMany(targetEntity = Desplazo.class, mappedBy = "bienId")
-    private Collection<Desplazo> desplazoCollection;
 
-    @Column(name = "estado", table = "bien", length = 45)
+    @Column(name="descripcion",table="bien",length=45)
     @Basic
-    private String estado;
+    private String descripcion;
 
-    @Column(name = "precio", table = "bien")
+
+    @ManyToOne(optional=false,targetEntity=Clase.class)
+    @JoinColumn(name="clase_codigo",referencedColumnName="codigo",insertable=true,nullable=true,unique=false,updatable=true)
+    private Clase clase;
+
+
+    @Column(name="fecha_ingreso",table="bien")
+    @Temporal(TemporalType.TIMESTAMP)
     @Basic
-    private Integer precio;
-    
-    @Column(name = "stock", table = "bien")
+    private Date fechaIngreso;
+
+
+    @Column(name="foto",table="bien",length=45)
     @Basic
-    private Integer stock;
+    private String foto;
 
-    @ManyToOne(optional = false, targetEntity = Ambiente.class)
-    @JoinColumn(name = "ambiente_id", referencedColumnName = "id", insertable = true, nullable = true, unique = false, updatable = true)
-    private Ambiente ambienteId;
 
-    @ManyToOne(optional = false, targetEntity = Periodo.class)
-    @JoinColumn(name = "periodo_id", referencedColumnName = "id", insertable = true, nullable = true, unique = false, updatable = true)
-    private Periodo periodoId;
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=Inventario.class,mappedBy="bien")
+    private List<Inventario> inventarios;
 
-    @ManyToOne(optional = false, targetEntity = Codigo.class)
-    @JoinColumn(name = "codigo_id", referencedColumnName = "id", insertable = true, nullable = true, unique = false, updatable = true)
-    private Codigo codigoId;
-
-    @Column(name = "fotos", table = "bien")
-    @Basic
-    private String fotos;
-
-    @Column(name = "detalle", table = "bien")
-    @Basic
-    private String detalle;
-
-    public Bien() {
+    public Bien(){
 
     }
 
-    public Clase getClaseId() {
-        return this.claseId;
-    }
 
-    public void setClaseId(Clase claseId) {
-        this.claseId = claseId;
-    }
-
-    public String getNombre() {
+   public String getNombre() {
         return this.nombre;
     }
 
-    public void setNombre(String nombre) {
+
+  public void setNombre (String nombre) {
         this.nombre = nombre;
     }
 
-    public Integer getId() {
-        return this.id;
+
+
+   public String getCodigo() {
+        return this.codigo;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+
+  public void setCodigo (String codigo) {
+        this.codigo = codigo;
     }
 
-    public Integer getStock() {
-        return this.stock;
+
+
+   public String getDescripcion() {
+        return this.descripcion;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
+
+  public void setDescripcion (String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public Collection<Desplazo> getDesplazoCollection() {
-        return this.desplazoCollection;
+
+
+   public Clase getClase() {
+        return this.clase;
     }
 
-    public void setDesplazoCollection(Collection<Desplazo> desplazoCollection) {
-        this.desplazoCollection = desplazoCollection;
+
+  public void setClase (Clase clase) {
+        this.clase = clase;
     }
 
-    public String getEstado() {
-        return this.estado;
+
+
+   public Date getFechaIngreso() {
+        return this.fechaIngreso;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+
+  public void setFechaIngreso (Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
 
-    public Integer getPrecio() {
-        return this.precio;
+
+
+   public String getFoto() {
+        return this.foto;
     }
 
-    public void setPrecio(Integer precio) {
-        this.precio = precio;
+
+  public void setFoto (String foto) {
+        this.foto = foto;
     }
 
-    public Ambiente getAmbienteId() {
-        return this.ambienteId;
+
+
+   public List<Inventario> getInventarios() {
+        return this.inventarios;
     }
 
-    public void setAmbienteId(Ambiente ambienteId) {
-        this.ambienteId = ambienteId;
-    }
 
-    public Periodo getPeriodoId() {
-        return this.periodoId;
-    }
-
-    public void setPeriodoId(Periodo periodoId) {
-        this.periodoId = periodoId;
-    }
-
-    public Codigo getCodigoId() {
-        return this.codigoId;
-    }
-
-    public void setCodigoId(Codigo codigoId) {
-        this.codigoId = codigoId;
-    }
-
-    public String getFotos() {
-        return this.fotos;
-    }
-
-    public void setFotos(String fotos) {
-        this.fotos = fotos;
-    }
-
-    public String getDetalle() {
-        return this.detalle;
-    }
-
-    public void setDetalle(String detalle) {
-        this.detalle = detalle;
+  public void setInventarios (List<Inventario> inventarios) {
+        this.inventarios = inventarios;
     }
 
 }
+

@@ -1,17 +1,16 @@
 package com.proyecto.beans;
 
-
 import java.io.Serializable;
 
-import java.lang.Integer;
 import java.lang.String;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,47 +19,40 @@ import javax.persistence.Table;
 public  class Ambiente implements Serializable {
 
 
-    @Column(name="responsable",table="ambiente",length=45)
-    @Basic
-    private String responsable;
-
-
     @Column(name="nombre",table="ambiente",length=45)
     @Basic
     private String nombre;
 
 
-    @Column(name="id",table="ambiente",nullable=false)
+    @Column(name="codigo",table="ambiente",nullable=false,length=10)
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private String codigo;
 
 
-    @OneToMany(targetEntity=Desplazo.class,mappedBy="ambientedestinoId")
-    private Collection<Desplazo> desplazoCollection;
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=Movimiento.class,mappedBy="ambienteOrigen")
+    private List<Movimiento> movimientosOrigen;
 
 
-    @OneToMany(targetEntity=Bien.class,mappedBy="ambienteId")
-    private Collection<Bien> bienCollection;
+    @ManyToOne(optional=false,fetch=FetchType.EAGER,targetEntity=Area.class)
+    @JoinColumn(name="area_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
+    private Area area;
 
 
-    @OneToMany(targetEntity=Desplazo.class,mappedBy="ambienteorigenId")
-    private Collection<Desplazo> desplazoCollection1;
+    @ManyToOne(optional=false,targetEntity=Empleado.class)
+    @JoinColumn(name="empleado_dni",referencedColumnName="dni",insertable=true,nullable=true,unique=false,updatable=true)
+    private Empleado empleado;
+
+
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=Movimiento.class,mappedBy="ambienteDestino")
+    private List<Movimiento> movimientosDestino;
+
+
+    @OneToMany(targetEntity=Inventario.class,mappedBy="ambiente")
+    private List<Inventario> inventarios;
 
     public Ambiente(){
 
     }
-
-
-   public String getResponsable() {
-        return this.responsable;
-    }
-
-
-  public void setResponsable (String responsable) {
-        this.responsable = responsable;
-    }
-
 
 
    public String getNombre() {
@@ -74,46 +66,68 @@ public  class Ambiente implements Serializable {
 
 
 
-   public Integer getId() {
-        return this.id;
+   public String getCodigo() {
+        return this.codigo;
     }
 
 
-  public void setId (Integer id) {
-        this.id = id;
-    }
-
-
-
-   public Collection<Desplazo> getDesplazoCollection() {
-        return this.desplazoCollection;
-    }
-
-
-  public void setDesplazoCollection (Collection<Desplazo> desplazoCollection) {
-        this.desplazoCollection = desplazoCollection;
+  public void setCodigo (String codigo) {
+        this.codigo = codigo;
     }
 
 
 
-   public Collection<Bien> getBienCollection() {
-        return this.bienCollection;
+   public List<Movimiento> getMovimientosOrigen() {
+        return this.movimientosOrigen;
     }
 
 
-  public void setBienCollection (Collection<Bien> bienCollection) {
-        this.bienCollection = bienCollection;
+  public void setMovimientosOrigen (List<Movimiento> movimientosOrigen) {
+        this.movimientosOrigen = movimientosOrigen;
     }
 
 
 
-   public Collection<Desplazo> getDesplazoCollection1() {
-        return this.desplazoCollection1;
+   public Area getArea() {
+        return this.area;
     }
 
 
-  public void setDesplazoCollection1 (Collection<Desplazo> desplazoCollection1) {
-        this.desplazoCollection1 = desplazoCollection1;
+  public void setArea (Area area) {
+        this.area = area;
+    }
+
+
+
+   public Empleado getEmpleado() {
+        return this.empleado;
+    }
+
+
+  public void setEmpleado (Empleado empleado) {
+        this.empleado = empleado;
+    }
+
+
+
+   public List<Movimiento> getMovimientosDestino() {
+        return this.movimientosDestino;
+    }
+
+
+  public void setMovimientosDestino (List<Movimiento> movimientosDestino) {
+        this.movimientosDestino = movimientosDestino;
+    }
+
+
+
+   public List<Inventario> getInventarios() {
+        return this.inventarios;
+    }
+
+
+  public void setInventarios (List<Inventario> inventarios) {
+        this.inventarios = inventarios;
     }
 
 }

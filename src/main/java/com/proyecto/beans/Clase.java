@@ -1,17 +1,17 @@
 package com.proyecto.beans;
 
-
 import java.io.Serializable;
 
-import java.lang.Integer;
+import java.lang.Long;
 import java.lang.String;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,14 +25,18 @@ public  class Clase implements Serializable {
     private String nombre;
 
 
-    @Column(name="id",table="clase",nullable=false)
+    @Column(name="codigo",table="clase",nullable=false)
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer id;
+    private Long codigo;
 
 
-    @OneToMany(targetEntity=Bien.class,mappedBy="claseId")
-    private Collection<Bien> bienCollection;
+    @ManyToOne(optional=false,targetEntity=Tipo.class)
+    @JoinColumn(name="tipo_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
+    private Tipo tipo;
+
+
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=Bien.class,mappedBy="clase")
+    private List<Bien> bienes;
 
     public Clase(){
 
@@ -50,24 +54,35 @@ public  class Clase implements Serializable {
 
 
 
-   public Integer getId() {
-        return this.id;
+   public Long getCodigo() {
+        return this.codigo;
     }
 
 
-  public void setId (Integer id) {
-        this.id = id;
+  public void setCodigo (Long codigo) {
+        this.codigo = codigo;
     }
 
 
 
-   public Collection<Bien> getBienCollection() {
-        return this.bienCollection;
+   public Tipo getTipo() {
+        return this.tipo;
     }
 
 
-  public void setBienCollection (Collection<Bien> bienCollection) {
-        this.bienCollection = bienCollection;
+  public void setTipo (Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+
+
+   public List<Bien> getBienes() {
+        return this.bienes;
+    }
+
+
+  public void setBienes (List<Bien> bienes) {
+        this.bienes = bienes;
     }
 
 }

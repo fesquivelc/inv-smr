@@ -8,12 +8,9 @@ package com.proyecto.vista;
 
 import com.proyecto.beans.Ambiente;
 import com.proyecto.control.AmbienteControlador;
-import java.awt.Frame;
-import java.awt.Window;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -24,7 +21,7 @@ import org.jdesktop.swingbinding.SwingBindings;
  *
  * @author RyuujiMD
  */
-public class DlgAmbienteBusqueda extends JDialog {
+public class DlgAmbienteBusqueda extends DialogoAbstract {
 
     /**
      * Creates new form DlgAmbienteBusqueda
@@ -34,10 +31,11 @@ public class DlgAmbienteBusqueda extends JDialog {
     
     public DlgAmbienteBusqueda(JInternalFrame padre) {
         this.padre = padre;   
-        this.setLocationRelativeTo(padre);
+        
         this.setModal(true);
         initComponents();
         binding();
+        this.setLocationRelativeTo(padre);
     }
 
     /**
@@ -191,5 +189,15 @@ public class DlgAmbienteBusqueda extends JDialog {
         binding.addColumnBinding(bResponsable).setColumnName("RESPONSABLE").setEditable(false);
 
         binding.bind();
+    }
+
+    @Override
+    public void setElemento(String propiedad, Object valor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void actualizar(String valor) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

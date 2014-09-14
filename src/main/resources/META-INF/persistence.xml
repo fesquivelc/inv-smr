@@ -16,4 +16,27 @@
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="DEFAULT_PU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.proyecto.beans.Area</class>
+    <class>com.proyecto.beans.DetalleMovimiento</class>
+    <class>com.proyecto.beans.Empleado</class>
+    <class>com.proyecto.beans.Usuario</class>
+    <class>com.proyecto.beans.Tipo</class>
+    <class>com.proyecto.beans.Clase</class>
+    <class>com.proyecto.beans.Ambiente</class>
+    <class>com.proyecto.beans.Inventario</class>
+    <class>com.proyecto.beans.Proveedor</class>
+    <class>com.proyecto.beans.Periodo</class>
+    <class>com.proyecto.beans.Movimiento</class>
+    <class>com.proyecto.beans.TipoUsuario</class>
+    <class>com.proyecto.beans.Bien</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/sample"/>
+      <property name="javax.persistence.jdbc.password" value="app"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.user" value="app"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
 </persistence>
