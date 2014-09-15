@@ -10,6 +10,7 @@ import com.proyecto.beans.Ambiente;
 import com.proyecto.control.AmbienteControlador;
 import java.util.List;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -28,9 +29,10 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
      */
     private final AmbienteControlador ambienteControlador = new AmbienteControlador();
     private final JInternalFrame padre;
-    
-    public DlgAmbienteBusqueda(JInternalFrame padre) {
-        this.padre = padre;   
+
+    public DlgAmbienteBusqueda(JInternalFrame padre, boolean modal) {
+        super(padre, modal);
+        this.padre = padre;
         
         this.setModal(true);
         initComponents();

@@ -372,9 +372,9 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
             if (JOptionPane.showConfirmDialog(this, "¿Desea " + palabra + " el Bien?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 bienControlador.getSeleccionado().setNombre(nombreField.getText());
-                bienControlador.getSeleccionado().setDetalle(detalleField.getText());
-                bienControlador.getSeleccionado().setFotos(fotosField.getText());
-                bienControlador.getSeleccionado().setEstado(estadoField.getText());
+                bienControlador.getSeleccionado().setDescripcion(detalleField.getText());
+                bienControlador.getSeleccionado().setFoto(fotosField.getText());
+                
                 bienControlador.getSeleccionado().setPrecio(Integer.parseInt(precioField.getText()));
                 bienControlador.getSeleccionado().getClaseId().setId(Integer.parseInt(claseIdField.getText()));                
                 bienControlador.getSeleccionado().getCodigoId().setId(Integer.parseInt(codigoIdField.getText()));
