@@ -10,10 +10,15 @@ import com.proyecto.beans.Bien;
 import com.proyecto.control.AbstractControlador;
 import com.proyecto.control.AmbienteControlador;
 import com.proyecto.control.BienControlador;
+import java.awt.Image;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.commons.beanutils.BeanUtils;
 import org.jdesktop.beansbinding.AutoBinding;
@@ -62,26 +67,17 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         idField = new javax.swing.JTextField();
         nombreLabel = new javax.swing.JLabel();
         nombreField = new javax.swing.JTextField();
-        detalleLabel = new javax.swing.JLabel();
-        detalleField = new javax.swing.JTextField();
         fotosLabel = new javax.swing.JLabel();
         fotosField = new javax.swing.JTextField();
-        estadoLabel = new javax.swing.JLabel();
-        estadoField = new javax.swing.JTextField();
-        precioLabel = new javax.swing.JLabel();
-        precioField = new javax.swing.JTextField();
-        claseIdLabel = new javax.swing.JLabel();
-        claseIdField = new javax.swing.JTextField();
         ambienteIdLabel = new javax.swing.JLabel();
         ambienteIdField = new javax.swing.JTextField();
-        codigoIdLabel = new javax.swing.JLabel();
-        codigoIdField = new javax.swing.JTextField();
-        periodoIdLabel = new javax.swing.JLabel();
-        periodoIdField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        nombreLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        nombreLabel2 = new javax.swing.JLabel();
+        cmbclase = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
@@ -92,6 +88,9 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblbienes = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        panelFondo = new javax.swing.JPanel();
+        fotolbl = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -100,31 +99,20 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         jPanel1.setToolTipText("");
 
-        idLabel.setText("Id:");
+        idLabel.setText("Código:");
 
         nombreLabel.setText("Nombre:");
 
-        detalleLabel.setText("Detalle:");
-
-        fotosLabel.setText("Fotos:");
-
-        estadoLabel.setText("Estado:");
-
-        precioLabel.setText("Precio:");
-
-        claseIdLabel.setText("Clase Id:");
+        fotosLabel.setText("Foto:");
 
         ambienteIdLabel.setText("Ambiente:");
 
         ambienteIdField.setEditable(false);
-
-        codigoIdLabel.setText("Codigo Id:");
-
-        periodoIdLabel.setText("Periodo Id:");
-
-        jLabel5.setText("Stock: ");
-
-        jLabel6.setText("Unidades");
+        ambienteIdField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ambienteIdFieldActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -133,44 +121,50 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
             }
         });
 
+        nombreLabel1.setText("Descripción: ");
+
+        jButton2.setText("...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        nombreLabel2.setText("Clase:");
+
+        cmbclase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idLabel)
+                    .addComponent(nombreLabel1)
                     .addComponent(nombreLabel)
-                    .addComponent(detalleLabel)
+                    .addComponent(idLabel)
                     .addComponent(fotosLabel)
-                    .addComponent(estadoLabel)
-                    .addComponent(precioLabel)
-                    .addComponent(claseIdLabel)
                     .addComponent(ambienteIdLabel)
-                    .addComponent(codigoIdLabel)
-                    .addComponent(periodoIdLabel)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(nombreLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(detalleField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(fotosField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(estadoField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(precioField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(claseIdField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(codigoIdField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
-                    .addComponent(periodoIdField, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                    .addComponent(nombreField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(idField, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(ambienteIdField)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cmbclase, javax.swing.GroupLayout.Alignment.LEADING, 0, 235, Short.MAX_VALUE)
+                            .addComponent(ambienteIdField)
+                            .addComponent(fotosField))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -185,25 +179,14 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                     .addComponent(nombreLabel)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(detalleLabel)
-                    .addComponent(detalleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreLabel1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fotosLabel)
-                    .addComponent(fotosField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(estadoLabel)
-                    .addComponent(estadoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(precioLabel)
-                    .addComponent(precioField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(claseIdLabel)
-                    .addComponent(claseIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fotosField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ambienteIdLabel)
@@ -211,18 +194,9 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoIdLabel)
-                    .addComponent(codigoIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(periodoIdLabel)
-                    .addComponent(periodoIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(nombreLabel2)
+                    .addComponent(cmbclase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
@@ -261,26 +235,24 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(72, 72, 72)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(btnnuevo)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnguardar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnmodificar)
-                .addGap(18, 18, 18)
-                .addComponent(btneliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btneliminar))
         );
 
         jLabel1.setText("Buscar: ");
@@ -300,6 +272,26 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblbienes);
 
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        panelFondo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+
+        javax.swing.GroupLayout panelFondoLayout = new javax.swing.GroupLayout(panelFondo);
+        panelFondo.setLayout(panelFondoLayout);
+        panelFondoLayout.setHorizontalGroup(
+            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(fotolbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelFondoLayout.setVerticalGroup(
+            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(fotolbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,18 +299,22 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(484, 572, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(txtbuscar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(txtbuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -327,17 +323,19 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -348,14 +346,9 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         btnguardar.setEnabled(true);
         nombreField.setEnabled(true);
-        detalleField.setEnabled(true);
         fotosField.setEnabled(true);
-        estadoField.setEnabled(true);
-        precioField.setEnabled(true);
-        claseIdField.setEnabled(true);
+        cmbclase.setEnabled(true);
         ambienteIdField.setEnabled(true);
-        codigoIdField.setEnabled(true);
-        periodoIdField.setEnabled(true);
 
         btnnuevo.setEnabled(false);
         accion = AbstractControlador.NUEVO;
@@ -372,41 +365,24 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
             if (JOptionPane.showConfirmDialog(this, "¿Desea " + palabra + " el Bien?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 bienControlador.getSeleccionado().setNombre(nombreField.getText());
-                bienControlador.getSeleccionado().setDescripcion(detalleField.getText());
                 bienControlador.getSeleccionado().setFoto(fotosField.getText());
-                
-                bienControlador.getSeleccionado().setPrecio(Integer.parseInt(precioField.getText()));
-                bienControlador.getSeleccionado().getClaseId().setId(Integer.parseInt(claseIdField.getText()));                
-                bienControlador.getSeleccionado().getCodigoId().setId(Integer.parseInt(codigoIdField.getText()));
-                bienControlador.getSeleccionado().getPeriodoId().setId(Integer.parseInt(periodoIdField.getText()));
 
+//                bienControlador.getSeleccionado().getClase().setCodigo(Long.valueOf(cmbclase.getCurso));
                 bienControlador.accion(accion);
                 System.out.println("se guardo");
                 lista.add(bienControlador.getSeleccionado());
                 if (accion == 1) {
                     JOptionPane.showMessageDialog(this, "Bien " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
                     nombreField.setText(null);
-                    detalleField.setText(null);
                     fotosField.setText(null);
-                    estadoField.setText(null);
-                    precioField.setText(null);
-                    claseIdField.setText(null);
                     ambienteIdField.setText(null);
-                    codigoIdField.setText(null);
-                    periodoIdField.setText(null);
                 } else {
                     JOptionPane.showMessageDialog(this, "Bien no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 nombreField.setText(null);
-                detalleField.setText(null);
                 fotosField.setText(null);
-                estadoField.setText(null);
-                precioField.setText(null);
-                claseIdField.setText(null);
                 ambienteIdField.setText(null);
-                codigoIdField.setText(null);
-                periodoIdField.setText(null);
                 JOptionPane.showMessageDialog(this, "Bien no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         } else if (accion == 2) {
@@ -418,41 +394,24 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 if (accion == 2) {
                     JOptionPane.showMessageDialog(this, "Bien " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
                     nombreField.setText(null);
-                    detalleField.setText(null);
                     fotosField.setText(null);
-                    estadoField.setText(null);
-                    precioField.setText(null);
-                    claseIdField.setText(null);
                     ambienteIdField.setText(null);
-                    codigoIdField.setText(null);
-                    periodoIdField.setText(null);
                 } else {
                     JOptionPane.showMessageDialog(this, "Bien no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 nombreField.setText(null);
-                detalleField.setText(null);
                 fotosField.setText(null);
-                estadoField.setText(null);
-                precioField.setText(null);
-                claseIdField.setText(null);
                 ambienteIdField.setText(null);
-                codigoIdField.setText(null);
-                periodoIdField.setText(null);
                 JOptionPane.showMessageDialog(this, "Bien no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         }
 
         btnguardar.setEnabled(false);
         nombreField.setEnabled(false);
-        detalleField.setEnabled(false);
         fotosField.setEnabled(false);
-        estadoField.setEnabled(false);
-        precioField.setEnabled(false);
-        claseIdField.setEnabled(false);
+        cmbclase.setEnabled(false);
         ambienteIdField.setEnabled(false);
-        codigoIdField.setEnabled(false);
-        periodoIdField.setEnabled(false);
         btnnuevo.setEnabled(true);
         btnmodificar.setEnabled(true);
     }//GEN-LAST:event_btnguardarActionPerformed
@@ -498,10 +457,43 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        DlgAmbienteBusqueda ambienteDialogo = new DlgAmbienteBusqueda(this);
+        DlgAmbienteBusqueda ambienteDialogo = new DlgAmbienteBusqueda(this, true);
         ambienteDialogo.setVisible(true);
         ambienteDialogo.setModal(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        //Crear un objeto FileChooser
+        JFileChooser fc = new JFileChooser();
+        //Mostrar la ventana para abrir archivo y recoger la respuesta
+        //En el parámetro del showOpenDialog se indica la ventana
+        //  al que estará asociado. Con el valor this se asocia a la
+        //  ventana que la abre.
+        int respuesta = fc.showOpenDialog(this);
+        //Comprobar si se ha pulsado Aceptar
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            //Crear un objeto File con el archivo elegido
+            File archivoElegido = fc.getSelectedFile();
+            //Mostrar el nombre del archvivo en un campo de texto
+            fotosField.setText(archivoElegido.getName());
+
+//            fotolbl.setIcon(new ImageIcon("C:/Users/Documentos/Desktop/HS/" + fotosField.getText()));
+            ImageIcon fot = new ImageIcon("C:/Users/Documentos/Desktop/HS/" + fotosField.getText());
+            Icon icono = new ImageIcon(fot.getImage().getScaledInstance(fotolbl.getWidth(), fotolbl.getHeight(), Image.SCALE_DEFAULT));
+            fotolbl.setIcon(icono);
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void ambienteIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambienteIdFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ambienteIdFieldActionPerformed
     private int accion;
     private List<Bien> lista;
     private final BienControlador bienControlador = new BienControlador();
@@ -513,33 +505,27 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
-    private javax.swing.JTextField claseIdField;
-    private javax.swing.JLabel claseIdLabel;
-    private javax.swing.JTextField codigoIdField;
-    private javax.swing.JLabel codigoIdLabel;
-    private javax.swing.JTextField detalleField;
-    private javax.swing.JLabel detalleLabel;
-    private javax.swing.JTextField estadoField;
-    private javax.swing.JLabel estadoLabel;
+    private javax.swing.JComboBox cmbclase;
+    private javax.swing.JLabel fotolbl;
     private javax.swing.JTextField fotosField;
     private javax.swing.JLabel fotosLabel;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel idLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreLabel;
-    private javax.swing.JTextField periodoIdField;
-    private javax.swing.JLabel periodoIdLabel;
-    private javax.swing.JTextField precioField;
-    private javax.swing.JLabel precioLabel;
+    private javax.swing.JLabel nombreLabel1;
+    private javax.swing.JLabel nombreLabel2;
+    private javax.swing.JPanel panelFondo;
     private javax.swing.JTable tblbienes;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
@@ -575,31 +561,24 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         binding.bind();
 
     }
-    
-    public void setAmbiente(Ambiente ambiente){
-        this.bienControlador.getSeleccionado().setAmbienteId(ambiente);
-        this.ambienteIdField.setText(this.bienControlador.getSeleccionado().getAmbienteId().getNombre());
-    }
-    
-    public void setElemento(String propiedad, Object valor){
-        try {
-            BeanUtils.setProperty(this.bienControlador.getSeleccionado(), propiedad, valor);
-            this.mostrar(propiedad);
-            
-        } catch (IllegalAccessException | InvocationTargetException ex) {
-            Logger.getLogger(MantenimientoBien.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void mostrar(String propiedad){
-        if(propiedad.equals("ambienteId")){
-            this.ambienteIdField.setText(this.bienControlador.getSeleccionado().getAmbienteId().getNombre());
-        }else if(propiedad.equals("codigoId")){
-            this.codigoIdField.setText(this.bienControlador.getSeleccionado().getCodigoId().getCodigo());
-        }else if(propiedad.equals("periodoId")){
-            this.periodoIdField.setText(this.bienControlador.getSeleccionado().getPeriodoId().getPeriodo()+"");
-        }else if(propiedad.equals("claseId")){
-            this.claseIdField.setText(this.bienControlador.getSeleccionado().getClaseId().getNombre());
-        }
-    }
+
+//    public void setAmbiente(Ambiente ambiente) {
+//        this.bienControlador.getSeleccionado().set(ambiente);
+//        this.ambienteIdField.setText(this.bienControlador.getSeleccionado().getAmbienteId().getNombre());
+//    }
+//    public void setElemento(String propiedad, Object valor) {
+//        try {
+//            BeanUtils.setProperty(this.bienControlador.getSeleccionado(), propiedad, valor);
+//            this.mostrar(propiedad);
+//
+//        } catch (IllegalAccessException | InvocationTargetException ex) {
+//            Logger.getLogger(MantenimientoBien.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+////
+//    private void mostrar(String propiedad) {
+//        if (propiedad.equals("codigo")) {
+//            this.ambienteIdField.setText(this.bienControlador.getSeleccionado().getAmbienteId().getNombre());
+//        }
+//    }
 }

@@ -36,11 +36,13 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEMA DE PATRIMONIO v0.1");
@@ -78,6 +80,14 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
+        jMenuItem8.setText("Área");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem8);
+
         jMenuItem2.setText("Bien");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,21 +104,21 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem3);
 
-        jMenuItem4.setText("Código");
+        jMenuItem9.setText("Empleado");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem9);
+
+        jMenuItem4.setText("Inventario");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
             }
         });
         jMenu2.add(jMenuItem4);
-
-        jMenuItem5.setText("Desplazo");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem5);
 
         jMenuItem6.setText("Periodo");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +127,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItem6);
+
+        jMenuItem5.setText("Tipo");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
 
         jMenuBar1.add(jMenu2);
 
@@ -165,19 +183,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        MantenimientoCodigo codigo = MantenimientoCodigo.getInstancia();
-        if (!this.desktoppane.isAncestorOf(codigo)) {
-            this.desktoppane.add(codigo);
-            codigo.setVisible(true);
+        MantenimientoInventario inventaario = MantenimientoInventario.getInstancia();
+        if (!this.desktoppane.isAncestorOf(inventaario)) {
+            this.desktoppane.add(inventaario);
+            inventaario.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
-        MantenimientoDesplazo desplazo = MantenimientoDesplazo.getInstancia();
-        if (!this.desktoppane.isAncestorOf(desplazo)) {
-            this.desktoppane.add(desplazo);
-            desplazo.setVisible(true);
+//         TODO add your handling code here:
+        MantenimientoTipo tipo = MantenimientoTipo.getInstancia();
+        if (!this.desktoppane.isAncestorOf(tipo)) {
+            this.desktoppane.add(tipo);
+            tipo.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
@@ -198,6 +216,24 @@ public class Principal extends javax.swing.JFrame {
             ingreso.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        MantenimientoArea area = MantenimientoArea.getInstancia();
+        if (!this.desktoppane.isAncestorOf(area)) {
+            this.desktoppane.add(area);
+            area.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        MantenimientoEmpleado empleado = MantenimientoEmpleado.getInstancia();
+        if (!this.desktoppane.isAncestorOf(empleado)) {
+            this.desktoppane.add(empleado);
+            empleado.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -246,5 +282,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }

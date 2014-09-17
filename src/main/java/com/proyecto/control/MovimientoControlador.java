@@ -6,14 +6,16 @@
 
 package com.proyecto.control;
 
-import com.proyecto.beans.Desplazo;
+import com.proyecto.beans.Movimiento;
 
 /**
  *
  * @author Documentos
  */
-public class DesplazoControlador extends AbstractControlador<Desplazo>{
-     public DesplazoControlador() {
-        super(Desplazo.class);
+public class MovimientoControlador extends AbstractControlador<Movimiento>{
+
+    public MovimientoControlador() {
+        super(Movimiento.class);
     }
+    
 }

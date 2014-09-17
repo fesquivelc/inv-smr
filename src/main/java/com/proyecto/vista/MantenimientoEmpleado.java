@@ -5,13 +5,17 @@
  */
 package com.proyecto.vista;
 
-import com.proyecto.beans.Ambiente;
+import com.proyecto.beans.Area;
 import com.proyecto.control.AbstractControlador;
-import com.proyecto.control.AmbienteControlador;
-import java.util.ArrayList;
+import com.proyecto.control.AreaControlador;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import javax.swing.text.MaskFormatter;
+import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.swingbinding.JTableBinding;
@@ -21,24 +25,23 @@ import org.jdesktop.swingbinding.SwingBindings;
  *
  * @author Documentos
  */
-public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
+public class MantenimientoEmpleado extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form MantenimientoAmbiente
+     * Creates new form MantenimientoArea
      */
-    private static MantenimientoAmbiente instancia;
+    private static MantenimientoEmpleado instancia;
 
-    public MantenimientoAmbiente() {
+    public MantenimientoEmpleado(){
         initComponents();
         listar();
         btnguardar.setEnabled(false);
-        txtnombre.setEnabled(false);
-        txtresponsable.setEnabled(false);
+        nombreField.setEnabled(false);
     }
 
-    public static MantenimientoAmbiente getInstancia() {
+    public static MantenimientoEmpleado getInstancia(){
         if (instancia == null) {
-            instancia = new MantenimientoAmbiente();
+            instancia = new MantenimientoEmpleado();
         }
         return instancia;
     }
@@ -54,38 +57,35 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtbuscar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblambientes = new javax.swing.JTable();
+        tblempleado = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         idLabel = new javax.swing.JLabel();
+        idField = new javax.swing.JTextField();
         nombreLabel = new javax.swing.JLabel();
-        responsableLabel = new javax.swing.JLabel();
-        txtresponsable = new javax.swing.JTextField();
-        txtnombre = new javax.swing.JTextField();
-        txtid = new javax.swing.JTextField();
+        nombreField = new javax.swing.JTextField();
+        apellidoField = new javax.swing.JTextField();
+        nombreLabel1 = new javax.swing.JLabel();
+        nombreLabel2 = new javax.swing.JLabel();
+        telefonoField = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
-        setIconifiable(true);
-        setTitle("Mantenimiento de Ambientes");
+        setTitle("Mantenimiento Tipo");
 
         jLabel1.setText("Buscar: ");
 
-        txtbuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtbuscarKeyReleased(evt);
-            }
-        });
+        jButton1.setText("Buscar");
 
-        jLabel2.setText("Lista de ambientes:");
+        jLabel2.setText("Lista de empleados:");
 
-        tblambientes.setModel(new javax.swing.table.DefaultTableModel(
+        tblempleado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -96,36 +96,37 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblambientes);
+        jScrollPane1.setViewportView(tblempleado);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         jPanel1.setToolTipText("");
 
-        idLabel.setText("Id:");
+        idLabel.setText("DNI:");
 
-        nombreLabel.setText("Nombre:");
+        nombreLabel.setText("Apellidos: ");
 
-        responsableLabel.setText("Responsable:");
+        nombreLabel1.setText("Nombres:");
 
-        txtid.setEditable(false);
-        txtid.setEnabled(false);
+        nombreLabel2.setText("Teléfono");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(idLabel)
                     .addComponent(nombreLabel)
-                    .addComponent(responsableLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtresponsable, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(nombreLabel1)
+                    .addComponent(nombreLabel2))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(apellidoField)
+                    .addComponent(idField, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(nombreField, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(telefonoField))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,16 +134,20 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idLabel)
-                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
-                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(apellidoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(responsableLabel)
-                    .addComponent(txtresponsable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(112, Short.MAX_VALUE))
+                    .addComponent(nombreLabel1)
+                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreLabel2)
+                    .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
@@ -200,10 +205,8 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
                 .addComponent(btnmodificar)
                 .addGap(18, 18, 18)
                 .addComponent(btneliminar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
-
-        jButton1.setText("Buscar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,22 +214,21 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,13 +242,11 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -255,104 +255,60 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
         btnguardar.setEnabled(true);
-        txtnombre.setEnabled(true);
-        txtresponsable.setEnabled(true);
+        nombreField.setEnabled(true);
         btnnuevo.setEnabled(false);
         accion = AbstractControlador.NUEVO;
-        ambienteControlador.prepararCrear();
-
+        areaControlador.prepararCrear();
     }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:
-
         String palabra = "";
         String palabra2 = "";
         if (accion == 1) {
             palabra = "registrar";
             palabra2 = "registrado";
 
-            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " el Ambiente?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                ambienteControlador.getSeleccionado().setNombre(txtnombre.getText());
-//                ambienteControlador.getSeleccionado().setResponsable(txtresponsable.getText());
-                ambienteControlador.accion(accion);
+            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                areaControlador.getSeleccionado().setNombre(nombreField.getText());
+                areaControlador.accion(accion);
                 System.out.println("se guardo");
-                lista.add(ambienteControlador.getSeleccionado());
+                lista.add(areaControlador.getSeleccionado());
                 if (accion == 1) {
-                    JOptionPane.showMessageDialog(null, "Ambiente " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                    txtnombre.setText(null);
-                    txtresponsable.setText(null);
+                    JOptionPane.showMessageDialog(null, "Area " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+                    nombreField.setText(null);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ambiente no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                txtnombre.setText(null);
-                txtresponsable.setText(null);
-                JOptionPane.showMessageDialog(null, "Ambiente no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                nombreField.setText(null);
+                JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         } else if (accion == 2) {
             palabra = "modificar";
             palabra2 = "modificado";
 
-            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " el Ambiente?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
                 if (accion == 2) {
-                    JOptionPane.showMessageDialog(null, "Ambiente " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                    txtnombre.setText(null);
-                    txtresponsable.setText(null);
+                    JOptionPane.showMessageDialog(null, "Area " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+                    nombreField.setText(null);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ambiente no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                txtnombre.setText(null);
-                txtresponsable.setText(null);
-                JOptionPane.showMessageDialog(null, "Ambiente no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                nombreField.setText(null);
+                JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         }
 
         btnguardar.setEnabled(false);
-        txtnombre.setEnabled(false);
-        txtresponsable.setEnabled(false);
+        nombreField.setEnabled(false);
         btnnuevo.setEnabled(true);
         btnmodificar.setEnabled(true);
+
     }//GEN-LAST:event_btnguardarActionPerformed
-
-    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
-        if (tblambientes.getSelectedRow() != -1) {
-            Integer codigo = (Integer) tblambientes.getModel().getValueAt(tblambientes.getSelectedRow(), 0);
-
-            Ambiente ambiente = ambienteControlador.buscarPorId(codigo);
-
-            if (ambiente != null) {
-                if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar el Ambiente?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                    int[] filas = tblambientes.getSelectedRows();
-                    for (int i = 0; i < filas.length; i++) {
-                        Ambiente ambiente2 = lista.get(filas[0]);
-                        lista.remove(ambiente2);
-                        ambienteControlador.setSeleccionado(ambiente2);
-                        ambienteControlador.accion(accion);
-                    }
-                    if (ambienteControlador.accion(accion) == 3) {
-                        JOptionPane.showMessageDialog(null, "Ambiente eliminado correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Ambiente no eliminado", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ambiente no eliminado", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-    }//GEN-LAST:event_btneliminarActionPerformed
-
-    private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
-        // TODO add your handling code here:
-        lista = ambienteControlador.buscar(txtbuscar.getText());
-
-    }//GEN-LAST:event_txtbuscarKeyReleased
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
@@ -362,14 +318,47 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
         btnnuevo.setEnabled(false);
     }//GEN-LAST:event_btnmodificarActionPerformed
 
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        // TODO add your handling code here:
+        accion = AbstractControlador.ELIMINAR;
+        if (tblempleado.getSelectedRow() != -1) {
+            Integer codigo = (Integer) tblempleado.getModel().getValueAt(tblempleado.getSelectedRow(), 0);
+
+            Area area = areaControlador.buscarPorId(codigo);
+
+            if (area != null) {
+                if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                    int[] filas = tblempleado.getSelectedRows();
+                    for (int i = 0; i < filas.length; i++) {
+                        Area area2 = lista.get(filas[0]);
+                        lista.remove(area2);
+                        areaControlador.setSeleccionado(area2);
+                        areaControlador.accion(accion);
+                    }
+                    if (areaControlador.accion(accion) == 3) {
+                        JOptionPane.showMessageDialog(null, "Area eliminada correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Area no eliminada", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Area no eliminada", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_btneliminarActionPerformed
     private int accion;
-    private List<Ambiente> lista;
-    private final AmbienteControlador ambienteControlador = new AmbienteControlador();
+    private List<Area> lista;
+    private final AreaControlador areaControlador = new AreaControlador();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apellidoField;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
+    private javax.swing.JTextField idField;
     private javax.swing.JLabel idLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -377,28 +366,26 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreLabel;
-    private javax.swing.JLabel responsableLabel;
-    private javax.swing.JTable tblambientes;
+    private javax.swing.JLabel nombreLabel1;
+    private javax.swing.JLabel nombreLabel2;
+    private javax.swing.JTable tblempleado;
+    private javax.swing.JFormattedTextField telefonoField;
     private javax.swing.JTextField txtbuscar;
-    private javax.swing.JTextField txtid;
-    private javax.swing.JTextField txtnombre;
-    private javax.swing.JTextField txtresponsable;
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        lista = ambienteControlador.buscarTodos();
+        lista = areaControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
-        JTableBinding binding = SwingBindings.createJTableBinding(UpdateStrategy.READ, lista, tblambientes);
+        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblempleado);
 
         BeanProperty bId = BeanProperty.create("id");
         BeanProperty bNombre = BeanProperty.create("nombre");
-        BeanProperty bResponsable = BeanProperty.create("responsable");
 
         binding.addColumnBinding(bId).setColumnName("ID").setEditable(false);
 
         binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
-        binding.addColumnBinding(bResponsable).setColumnName("RESPONSABLE").setEditable(false);
 
         binding.bind();
 

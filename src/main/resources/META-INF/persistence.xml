@@ -4,13 +4,20 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.proyecto.beans.Periodo</class>
     <class>com.proyecto.beans.Bien</class>
-    <class>com.proyecto.beans.Desplazo</class>
     <class>com.proyecto.beans.Clase</class>
-    <class>com.proyecto.beans.Codigo</class>
     <class>com.proyecto.beans.Ambiente</class>
+    <class>com.proyecto.beans.Area</class>
+    <class>com.proyecto.beans.DetalleMovimiento</class>
+    <class>com.proyecto.beans.Empleado</class>
+    <class>com.proyecto.beans.Inventario</class>
+    <class>com.proyecto.beans.Movimiento</class>
+    <class>com.proyecto.beans.Proveedor</class>
+    <class>com.proyecto.beans.Tipo</class>
+    <class>com.proyecto.beans.TipoUsuario</class>
+    <class>com.proyecto.beans.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/inventario"/>
-      <property name="javax.persistence.jdbc.password" value="root"/>
+      <property name="javax.persistence.jdbc.password" value="jcskeeter"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

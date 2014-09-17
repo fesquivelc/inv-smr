@@ -7,7 +7,9 @@
 package com.proyecto.vista;
 
 import com.proyecto.beans.Ambiente;
+import com.proyecto.beans.Tipo;
 import com.proyecto.control.AmbienteControlador;
+import com.proyecto.control.TipoControlador;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -20,18 +22,18 @@ import org.jdesktop.swingbinding.SwingBindings;
 
 /**
  *
- * @author RyuujiMD
+ * @author Documentos
  */
-public class DlgAmbienteBusqueda extends DialogoAbstract {
+public class DlgTipoBusqueda extends DialogoAbstract {
 
     /**
      * Creates new form DlgAmbienteBusqueda
      */
-    private final AmbienteControlador ambienteControlador = new AmbienteControlador();
+    private final TipoControlador tipoControlador = new TipoControlador();
     private final JInternalFrame padre;
 
-    public DlgAmbienteBusqueda(JInternalFrame padre, boolean modal) {
-        super(padre, modal);
+    public DlgTipoBusqueda(JInternalFrame padre) {
+        super(padre, true);
         this.padre = padre;
         
         this.setModal(true);
@@ -53,7 +55,7 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
         txtBusqueda = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAmbiente = new javax.swing.JTable();
+        tblTipo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,7 +68,7 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
             }
         });
 
-        tblAmbiente.setModel(new javax.swing.table.DefaultTableModel(
+        tblTipo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -77,12 +79,12 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblAmbiente.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblTipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblAmbienteMouseReleased(evt);
+                tblTipoMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblAmbiente);
+        jScrollPane1.setViewportView(tblTipo);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,20 +121,21 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         lista.clear();
-        lista.addAll(this.ambienteControlador.buscarXNombre(txtBusqueda.getText().toUpperCase()));
+        lista.addAll(this.tipoControlador.buscarXNombre(txtBusqueda.getText().toUpperCase()));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tblAmbienteMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAmbienteMouseReleased
+    private void tblTipoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipoMouseReleased
         // TODO add your handling code here:
         if(evt.getClickCount() == 2){
-            int fila = tblAmbiente.getSelectedRow();
-            if(padre instanceof MantenimientoBien){
+            int fila = tblTipo.getSelectedRow();
+            if(padre instanceof MantenimientoClase){
+                System.out.println("NOMBRE: "+ lista.get(fila).getNombre());
+                ((MantenimientoClase)padre).setElemento("tipoId", lista.get(fila));
                 
-                ((MantenimientoInventario)padre).setElemento("ambienteId", lista.get(fila));                
             }
             this.dispose();
         }
-    }//GEN-LAST:event_tblAmbienteMouseReleased
+    }//GEN-LAST:event_tblTipoMouseReleased
 
     /**
      * @param args the command line arguments
@@ -169,26 +172,24 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
 //        });
 //    }
 
-    private List<Ambiente> lista;
+    private List<Tipo> lista;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblAmbiente;
+    private javax.swing.JTable tblTipo;
     private javax.swing.JTextField txtBusqueda;
     // End of variables declaration//GEN-END:variables
 
     private void binding() {
-        lista = this.ambienteControlador.buscarTodos();
+        lista = this.tipoControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
         
-        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblAmbiente);
+        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblTipo);
 
         BeanProperty bNombre = BeanProperty.create("nombre");
-        BeanProperty bResponsable = BeanProperty.create("responsable");
 
         binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
-        binding.addColumnBinding(bResponsable).setColumnName("RESPONSABLE").setEditable(false);
 
         binding.bind();
     }

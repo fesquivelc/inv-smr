@@ -6,14 +6,16 @@
 
 package com.proyecto.control;
 
-import com.proyecto.beans.Codigo;
+import com.proyecto.beans.Area;
 
 /**
  *
  * @author Documentos
  */
-public class CodigoControlador extends AbstractControlador<Codigo>{
-     public CodigoControlador() {
-        super(Codigo.class);
+public class AreaControlador extends AbstractControlador<Area>{
+
+    public AreaControlador() {
+        super(Area.class);
     }
+    
 }
