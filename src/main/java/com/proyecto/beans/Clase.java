@@ -27,7 +27,7 @@ public  class Clase implements Serializable {
 
     @Column(name="codigo",table="clase",nullable=false)
     @Id
-    private Long codigo;
+    private String codigo;
 
 
     @ManyToOne(optional=false,targetEntity=Tipo.class)
@@ -54,12 +54,12 @@ public  class Clase implements Serializable {
 
 
 
-   public Long getCodigo() {
+   public String getCodigo() {
         return this.codigo;
     }
 
 
-  public void setCodigo (Long codigo) {
+  public void setCodigo (String codigo) {
         this.codigo = codigo;
     }
 
@@ -85,5 +85,9 @@ public  class Clase implements Serializable {
         this.bienes = bienes;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
 

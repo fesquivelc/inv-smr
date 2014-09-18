@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.proyecto.vista;
 
 import com.proyecto.beans.Clase;
 import com.proyecto.beans.Tipo;
 import com.proyecto.control.AbstractControlador;
 import com.proyecto.control.ClaseControlador;
+import com.proyecto.control.TipoControlador;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,15 +32,20 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
      * Creates new form MantenimientoClase
      */
     private static MantenimientoClase instancia;
+
     public MantenimientoClase() {
         initComponents();
         listar();
         btnguardar.setEnabled(false);
         nombreField.setEnabled(false);
+        idField.setEnabled(false);
+        tipoField.setEnabled(false);
+        btntipo.setEnabled(false);
+        btncancelar.setEnabled(false);
     }
-    
-    public static MantenimientoClase getInstancia(){
-        if(instancia == null){
+
+    public static MantenimientoClase getInstancia() {
+        if (instancia == null) {
             instancia = new MantenimientoClase();
         }
         return instancia;
@@ -62,18 +67,19 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
         tblclase = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         idLabel = new javax.swing.JLabel();
-        idField = new javax.swing.JTextField();
         nombreLabel = new javax.swing.JLabel();
         nombreField = new javax.swing.JTextField();
         nombreLabel1 = new javax.swing.JLabel();
         tipoField = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btntipo = new javax.swing.JButton();
+        idField = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btncancelar = new javax.swing.JButton();
+        btnbuscar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -105,10 +111,10 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
         nombreLabel1.setText("Tipo: ");
 
-        jButton2.setText("...");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btntipo.setText("...");
+        btntipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btntipoActionPerformed(evt);
             }
         });
 
@@ -124,12 +130,12 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                     .addComponent(nombreLabel1))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(idField)
                     .addComponent(nombreField)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tipoField, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)))
+                        .addComponent(btntipo, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
+                    .addComponent(idField))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -147,7 +153,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel1)
                     .addComponent(tipoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(btntipo))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -182,6 +188,13 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             }
         });
 
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -192,7 +205,8 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                     .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -200,16 +214,23 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnnuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnmodificar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btneliminar)
                 .addGap(18, 18, 18)
                 .addComponent(btnguardar)
-                .addGap(18, 18, 18)
-                .addComponent(btnmodificar)
-                .addGap(18, 18, 18)
-                .addComponent(btneliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Buscar");
+        btnbuscar.setText("Buscar");
+        btnbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,7 +244,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnbuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2)
@@ -240,7 +261,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnbuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,9 +280,15 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         btnguardar.setEnabled(true);
         nombreField.setEnabled(true);
+        tipoField.setEnabled(true);
+        tipoField.setEditable(false);
+        btntipo.setEnabled(true);
         btnnuevo.setEnabled(false);
         accion = AbstractControlador.NUEVO;
         claseControlador.prepararCrear();
+        idField.setEnabled(true);
+        idField.requestFocusInWindow();
+        txtbuscar.setText(null);
     }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -273,19 +300,23 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             palabra2 = "registrado";
 
             if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Clase?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                claseControlador.getSeleccionado().setCodigo(Long.valueOf(idField.getText()));
+                claseControlador.getSeleccionado().setCodigo(idField.getText());
                 claseControlador.getSeleccionado().setNombre(nombreField.getText());
-                claseControlador.accion(accion);
-                System.out.println("se guardo");
+
                 lista.add(claseControlador.getSeleccionado());
+                claseControlador.accion(accion);
                 if (accion == 1) {
                     JOptionPane.showMessageDialog(null, "Clase " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
                     nombreField.setText(null);
+                    idField.setText(null);
+                    tipoField.setText(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 nombreField.setText(null);
+                idField.setText(null);
+                tipoField.setText(null);
                 JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         } else if (accion == 2) {
@@ -297,20 +328,30 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                 if (accion == 2) {
                     JOptionPane.showMessageDialog(null, "Clase " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
                     nombreField.setText(null);
+                    idField.setText(null);
+                    tipoField.setText(null);
                 } else {
                     JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 nombreField.setText(null);
+                idField.setText(null);
+                tipoField.setText(null);
                 JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         }
 
         btnguardar.setEnabled(false);
         nombreField.setEnabled(false);
+        idField.setEnabled(false);
+        tipoField.setEnabled(false);
+        idField.setEditable(false);
+        tipoField.setEditable(false);
         btnnuevo.setEnabled(true);
         btnmodificar.setEnabled(true);
-            
+        btntipo.setEnabled(false);
+        btncancelar.setEnabled(false);
+
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
@@ -352,25 +393,39 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
         btnnuevo.setEnabled(false);
     }//GEN-LAST:event_btnmodificarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btntipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntipoActionPerformed
         // TODO add your handling code here:
         DlgTipoBusqueda tipoDialogo = new DlgTipoBusqueda(this);
         tipoDialogo.setVisible(true);
         tipoDialogo.setModal(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btntipoActionPerformed
+
+    private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
+        // TODO add your handling code here:
+        lista.clear();
+        lista.addAll(this.claseControlador.buscarXNombre(txtbuscar.getText().toUpperCase()));
+    }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+        // TODO add your handling code here:
+        btnnuevo.setEnabled(true);
+        btnmodificar.setEnabled(true);
+        btneliminar.setEnabled(true);
+    }//GEN-LAST:event_btncancelarActionPerformed
 
     private int accion;
     private List<Clase> lista;
     private final ClaseControlador claseControlador = new ClaseControlador();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnbuscar;
+    private javax.swing.JButton btncancelar;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
+    private javax.swing.JButton btntipo;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel idLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -389,23 +444,22 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
         lista = ObservableCollections.observableList(lista);
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblclase);
 
-        BeanProperty bId = BeanProperty.create("id");
+        BeanProperty bId = BeanProperty.create("codigo");
         BeanProperty bNombre = BeanProperty.create("nombre");
-        BeanProperty bTipoId = BeanProperty.create("tipoId");
+        BeanProperty bTipoId = BeanProperty.create("tipo");
 
-        binding.addColumnBinding(bId).setColumnName("ID").setEditable(false);
+        binding.addColumnBinding(bId).setColumnName("CODIGO").setEditable(false);
         binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
         binding.addColumnBinding(bTipoId).setColumnName("TIPO_ID").setEditable(false);
 
         binding.bind();
 
     }
-    Clase clase = new Clase();
-    public void setAmbiente(Tipo tipo) {
-        this.claseControlador.getSeleccionado().setTipo(tipo);
-        this.tipoField.setText(this.claseControlador.getSeleccionado().getTipo().getNombre());
-    }
-    
+
+//    public void setAmbiente(Tipo tipo) {
+//        this.claseControlador.getSeleccionado().setTipo(tipo);
+//        this.tipoField.setText(this.claseControlador.getSeleccionado().getTipo().getNombre());
+//    }
     public void setElemento(String propiedad, Object valor) {
         try {
             BeanUtils.setProperty(this.claseControlador.getSeleccionado(), propiedad, valor);
@@ -415,9 +469,9 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             Logger.getLogger(MantenimientoBien.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void mostrar(String propiedad) {
-        if (propiedad.equals("tipoId")) {
+        if (propiedad.equals("tipo")) {
             this.tipoField.setText(this.claseControlador.getSeleccionado().getTipo().getNombre());
         }
     }

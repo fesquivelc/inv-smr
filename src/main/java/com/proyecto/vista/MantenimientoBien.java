@@ -7,15 +7,19 @@ package com.proyecto.vista;
 
 import com.proyecto.beans.Ambiente;
 import com.proyecto.beans.Bien;
+import com.proyecto.beans.Clase;
 import com.proyecto.control.AbstractControlador;
 import com.proyecto.control.AmbienteControlador;
 import com.proyecto.control.BienControlador;
+import com.proyecto.control.ClaseControlador;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -41,9 +45,12 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
     public MantenimientoBien() {
         initComponents();
         listar();
+        cargarCombo();
         btnguardar.setEnabled(false);
         idField.setEnabled(false);
         nombreField.setEnabled(false);
+        fotosField.setMaximumSize(new Dimension(235, 20));
+        fotosField.setEditable(false);
     }
 
     public static MantenimientoBien getInstancia() {
@@ -105,6 +112,8 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
         fotosLabel.setText("Foto:");
 
+        fotosField.setEditable(false);
+
         ambienteIdLabel.setText("Ambiente:");
 
         ambienteIdField.setEditable(false);
@@ -160,7 +169,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(cmbclase, javax.swing.GroupLayout.Alignment.LEADING, 0, 235, Short.MAX_VALUE)
                             .addComponent(ambienteIdField)
-                            .addComponent(fotosField))
+                            .addComponent(fotosField, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -465,22 +474,14 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        //Crear un objeto FileChooser
         JFileChooser fc = new JFileChooser();
-        //Mostrar la ventana para abrir archivo y recoger la respuesta
-        //En el parámetro del showOpenDialog se indica la ventana
-        //  al que estará asociado. Con el valor this se asocia a la
-        //  ventana que la abre.
         int respuesta = fc.showOpenDialog(this);
-        //Comprobar si se ha pulsado Aceptar
         if (respuesta == JFileChooser.APPROVE_OPTION) {
-            //Crear un objeto File con el archivo elegido
             File archivoElegido = fc.getSelectedFile();
-            //Mostrar el nombre del archvivo en un campo de texto
-            fotosField.setText(archivoElegido.getName());
+            fotosField.setText(archivoElegido.getAbsolutePath());
 
 //            fotolbl.setIcon(new ImageIcon("C:/Users/Documentos/Desktop/HS/" + fotosField.getText()));
-            ImageIcon fot = new ImageIcon("C:/Users/Documentos/Desktop/HS/" + fotosField.getText());
+            ImageIcon fot = new ImageIcon(fotosField.getText());
             Icon icono = new ImageIcon(fot.getImage().getScaledInstance(fotolbl.getWidth(), fotolbl.getHeight(), Image.SCALE_DEFAULT));
             fotolbl.setIcon(icono);
 
@@ -561,6 +562,16 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         binding.bind();
 
     }
+    private void cargarCombo() {
+         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+         ClaseControlador periodoControlador = new ClaseControlador();
+         List<Clase> clase = periodoControlador.buscarTodos();
+         modeloCombo.addElement("-- Seleccionar --");
+         for (int i = 0; i < clase.size(); i++) {
+             modeloCombo.addElement(clase.get(i).getNombre());
+         }
+         cmbclase.setModel(modeloCombo);
+     }
 
 //    public void setAmbiente(Ambiente ambiente) {
 //        this.bienControlador.getSeleccionado().set(ambiente);

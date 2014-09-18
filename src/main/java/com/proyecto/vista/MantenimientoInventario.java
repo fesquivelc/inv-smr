@@ -8,14 +8,18 @@ package com.proyecto.vista;
 import com.proyecto.beans.Ambiente;
 import com.proyecto.beans.Bien;
 import com.proyecto.beans.Inventario;
+import com.proyecto.beans.Periodo;
 import com.proyecto.control.AbstractControlador;
 import com.proyecto.control.BienControlador;
 import com.proyecto.control.InventarioControlador;
+import com.proyecto.control.PeriodoControlador;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.commons.beanutils.BeanUtils;
 import org.jdesktop.beansbinding.AutoBinding;
@@ -37,6 +41,8 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     
     public MantenimientoInventario() {
         initComponents();
+        cargarCombo();
+        listar();
     }
     
     public static MantenimientoInventario getInstancia() {
@@ -604,4 +610,15 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
             this.proveedorIdField.setText(this.inventarioControlador.getSeleccionado().getProveedor().getNombreProveedor());
         }
     }
+    
+     private void cargarCombo() {
+         DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+         PeriodoControlador periodoControlador = new PeriodoControlador();
+         List<Periodo> periodo = periodoControlador.buscarTodos();
+         modeloCombo.addElement("-- Seleccionar --");
+         for (int i = 0; i < periodo.size(); i++) {
+             modeloCombo.addElement(periodo.get(i).getPeriodo());
+         }
+         cmbperiodo.setModel(modeloCombo);
+     }
 }

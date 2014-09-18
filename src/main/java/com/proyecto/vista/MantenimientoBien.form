@@ -114,7 +114,7 @@
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="cmbclase" alignment="0" pref="235" max="32767" attributes="0"/>
                               <Component id="ambienteIdField" max="32767" attributes="0"/>
-                              <Component id="fotosField" max="32767" attributes="0"/>
+                              <Component id="fotosField" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -188,6 +188,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="fotosField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="ambienteIdLabel">
           <Properties>

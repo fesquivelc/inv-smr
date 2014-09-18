@@ -129,8 +129,7 @@ public class DlgTipoBusqueda extends DialogoAbstract {
         if(evt.getClickCount() == 2){
             int fila = tblTipo.getSelectedRow();
             if(padre instanceof MantenimientoClase){
-                System.out.println("NOMBRE: "+ lista.get(fila).getNombre());
-                ((MantenimientoClase)padre).setElemento("tipoId", lista.get(fila));
+                ((MantenimientoClase)padre).setElemento("tipo", lista.get(fila));
                 
             }
             this.dispose();

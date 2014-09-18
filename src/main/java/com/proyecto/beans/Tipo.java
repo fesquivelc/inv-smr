@@ -15,59 +15,51 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tipo")
-public  class Tipo implements Serializable {
+@Table(name = "tipo")
+public class Tipo implements Serializable {
 
-
-    @Column(name="nombre",table="tipo",length=45)
+    @Column(name = "nombre", table = "tipo", length = 45)
     @Basic
     private String nombre;
 
-
-    @Column(name="id",table="tipo",nullable=false)
+    @Column(name = "id", table = "tipo", nullable = false)
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @OneToMany(targetEntity=Clase.class,mappedBy="tipo")
+    @OneToMany(targetEntity = Clase.class, mappedBy = "tipo")
     private List<Clase> clases;
 
-    public Tipo(){
+    public Tipo() {
 
     }
 
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-
-  public void setId (Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-
-
-   public List<Clase> getClases() {
+    public List<Clase> getClases() {
         return this.clases;
     }
 
-
-  public void setClases (List<Clase> clases) {
+    public void setClases(List<Clase> clases) {
         this.clases = clases;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }
-
