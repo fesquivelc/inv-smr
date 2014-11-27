@@ -320,6 +320,9 @@
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
+            <jpa:basic name="valor" attribute-type="String" id="_141711281283460">
+                <jpa:column name="valor" unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
             <jpa:many-to-one name="campo" target-entity="Campo" optional="true" primaryKey="false" connected-entity-id="_1417050170063" connected-attribute-id="_141710769675341" id="_141710769675140">
                 <jpa:join-column name="campo_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
                 <jpa:join-table/>
@@ -393,7 +396,7 @@
                 <Bounds x="1007.0" y="64.0" width="176.0" height="113.0"/>
             </shape>
             <shape elementRef="_1417107658024" id="_1417107658024_gui">
-                <Bounds x="700.0" y="17.0" width="200.0" height="113.0"/>
+                <Bounds x="723.0" y="17.0" width="200.0" height="147.0"/>
             </shape>
             <shape elementRef="_1417109901470" id="_1417109901470_gui">
                 <Bounds x="774.0" y="908.0" width="139.0" height="147.0"/>
