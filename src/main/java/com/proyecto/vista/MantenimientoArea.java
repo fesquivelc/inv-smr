@@ -8,8 +8,13 @@ package com.proyecto.vista;
 import com.proyecto.beans.Area;
 import com.proyecto.control.AbstractControlador;
 import com.proyecto.control.AreaControlador;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.commons.beanutils.BeanUtils;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -26,11 +31,10 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
      * Creates new form MantenimientoArea
      */
     private static MantenimientoArea instancia;
+
     public MantenimientoArea() {
         initComponents();
         listar();
-        btnguardar.setEnabled(false);
-        nombreField.setEnabled(false);
     }
 
     public static MantenimientoArea getInstancia() {
@@ -55,19 +59,19 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblarea = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        idLabel = new javax.swing.JLabel();
-        idField = new javax.swing.JTextField();
+        panelDatos = new javax.swing.JPanel();
         nombreLabel = new javax.swing.JLabel();
         nombreField = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        panelOpciones = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
-        btnguardar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
+        panelGuardar = new javax.swing.JPanel();
+        btnguardar = new javax.swing.JButton();
+        btncancelar = new javax.swing.JButton();
 
         setClosable(true);
-        setTitle("Mantenimiento Tipo");
+        setTitle("Mantenimiento Area");
 
         jLabel1.setText("Buscar: ");
 
@@ -88,58 +92,39 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblarea);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
-        jPanel1.setToolTipText("");
-
-        idLabel.setText("Id:");
-
-        idField.setEditable(false);
+        panelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+        panelDatos.setToolTipText("");
 
         nombreLabel.setText("Nombre:");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
+        panelDatos.setLayout(panelDatosLayout);
+        panelDatosLayout.setHorizontalGroup(
+            panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idLabel)
-                    .addComponent(nombreLabel))
+                .addComponent(nombreLabel)
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(idField, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
-                    .addComponent(nombreField))
+                .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idLabel)
-                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        panelDatosLayout.setVerticalGroup(
+            panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
-        jPanel2.setToolTipText("");
+        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+        panelOpciones.setToolTipText("");
 
         btnnuevo.setText("Nuevo");
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnuevoActionPerformed(evt);
-            }
-        });
-
-        btnguardar.setText("Guardar");
-        btnguardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnguardarActionPerformed(evt);
             }
         });
 
@@ -157,30 +142,64 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnnuevo)
-                .addGap(18, 18, 18)
-                .addComponent(btnguardar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnmodificar)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btneliminar)
+                .addContainerGap())
+        );
+
+        panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnguardar.setText("Guardar");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
+
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelGuardarLayout = new javax.swing.GroupLayout(panelGuardar);
+        panelGuardar.setLayout(panelGuardarLayout);
+        panelGuardarLayout.setHorizontalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGuardarLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
+        );
+        panelGuardarLayout.setVerticalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnguardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -190,21 +209,28 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGap(1, 1, 1))
+                                        .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,15 +240,19 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -230,77 +260,45 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        btnguardar.setEnabled(true);
-        nombreField.setEnabled(true);
-        btnnuevo.setEnabled(false);
         accion = AbstractControlador.NUEVO;
         areaControlador.prepararCrear();
+        FormularioUtil.activarComponente(panelOpciones, false);
+        FormularioUtil.activarComponente(panelGuardar, true);
+        FormularioUtil.activarComponente(panelDatos, true);
+        nombreField.requestFocusInWindow();
     }//GEN-LAST:event_btnnuevoActionPerformed
-
-    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-        // TODO add your handling code here:
-        String palabra = "";
-        String palabra2 = "";
-        if (accion == 1) {
-            palabra = "registrar";
-            palabra2 = "registrado";
-
-            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                areaControlador.getSeleccionado().setNombre(nombreField.getText());
-                areaControlador.accion(accion);
-                System.out.println("se guardo");
-                lista.add(areaControlador.getSeleccionado());
-                if (accion == 1) {
-                    JOptionPane.showMessageDialog(null, "Area " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                    nombreField.setText(null);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                nombreField.setText(null);
-                JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (accion == 2) {
-            palabra = "modificar";
-            palabra2 = "modificado";
-
-            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                if (accion == 2) {
-                    JOptionPane.showMessageDialog(null, "Area " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                    nombreField.setText(null);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                nombreField.setText(null);
-                JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
-        btnguardar.setEnabled(false);
-        nombreField.setEnabled(false);
-        btnnuevo.setEnabled(true);
-        btnmodificar.setEnabled(true);
-
-    }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.MODIFICAR;
-        btnguardar.setEnabled(true);
-        btnmodificar.setEnabled(false);
-        btnnuevo.setEnabled(false);
+
+        int fila = this.tblarea.getSelectedRow();
+        if (fila != -1) {
+            FormularioUtil.activarComponente(panelDatos, true);
+            FormularioUtil.activarComponente(panelOpciones, false);
+            FormularioUtil.activarComponente(panelGuardar, true);
+
+            accion = AbstractControlador.MODIFICAR;
+            areaControlador.setSeleccionado(lista.get(fila));
+            Area area = areaControlador.getSeleccionado();
+            try {
+                nombreField.setText(BeanUtils.getProperty(area, "nombre"));
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+                Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Clase", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.ELIMINAR;
         if (tblarea.getSelectedRow() != -1) {
-            Integer codigo = (Integer) tblarea.getModel().getValueAt(tblarea.getSelectedRow(), 0);
 
-            Area area = areaControlador.buscarPorId(codigo);
+            Integer codigo = tblarea.getSelectedRow();
+
+            Area area = areaControlador.buscarPorId(lista.get(codigo).getId());
 
             if (area != null) {
                 if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -322,27 +320,102 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Area no eliminada", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Area", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btneliminarActionPerformed
+
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        // TODO add your handling code here:
+        List<Integer> array = new ArrayList();
+        array.add(FormularioUtil.Validar(FormularioUtil.TipoValidacion.NUMERO, this.nombreField, "Nombre"));
+        FormularioUtil.validar2(array);
+
+        if (FormularioUtil.error) {
+            JOptionPane.showMessageDialog(null, FormularioUtil.mensaje, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            FormularioUtil.mensaje = "";
+            FormularioUtil.error = false;
+        } else {
+            String palabra = "";
+            String palabra2 = "";
+            if (accion == 1) {
+                palabra = "registrar";
+                palabra2 = "registrado";
+
+                if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                    areaControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
+
+                    areaControlador.accion(accion);
+                    lista.add(areaControlador.getSeleccionado());
+
+                    if (accion == 1) {
+                        JOptionPane.showMessageDialog(null, "Area " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+                        FormularioUtil.limpiarComponente(panelDatos);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    FormularioUtil.limpiarComponente(panelDatos);
+                    JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (accion == 2) {
+                palabra = "modificar";
+                palabra2 = "modificado";
+
+                if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Area?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                    if (accion == 2) {
+                        JOptionPane.showMessageDialog(null, "Area " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+
+                        lista.clear();
+                        areaControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
+                        areaControlador.accion(accion);
+                        listar();
+
+                        FormularioUtil.limpiarComponente(panelDatos);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    FormularioUtil.limpiarComponente(panelDatos);
+                    JOptionPane.showMessageDialog(null, "Area no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            FormularioUtil.activarComponente(panelOpciones, true);
+            FormularioUtil.activarComponente(panelGuardar, false);
+            FormularioUtil.activarComponente(panelDatos, false);
+        }
+    }//GEN-LAST:event_btnguardarActionPerformed
+
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+        // TODO add your handling code here:
+        FormularioUtil.activarComponente(panelDatos, false);
+        FormularioUtil.limpiarComponente(panelDatos);
+        FormularioUtil.activarComponente(panelOpciones, true);
+        FormularioUtil.activarComponente(panelGuardar, false);
+    }//GEN-LAST:event_btncancelarActionPerformed
     private int accion;
     private List<Area> lista;
     private final AreaControlador areaControlador = new AreaControlador();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btncancelar;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
-    private javax.swing.JTextField idField;
-    private javax.swing.JLabel idLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreLabel;
+    private javax.swing.JPanel panelDatos;
+    private javax.swing.JPanel panelGuardar;
+    private javax.swing.JPanel panelOpciones;
     private javax.swing.JTable tblarea;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables

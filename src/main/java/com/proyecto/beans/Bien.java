@@ -136,5 +136,11 @@ public  class Bien implements Serializable {
         this.inventarios = inventarios;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+  
 }
 

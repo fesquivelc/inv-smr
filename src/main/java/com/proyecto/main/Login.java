@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.proyecto.main;
 
 import com.proyecto.beans.Usuario;
 import com.proyecto.control.UsuarioControlador;
+import com.proyecto.vista.FormularioUtil;
 import com.proyecto.vista.Principal;
+import com.proyecto.vista.UsuarioUtil;
+import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +25,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -46,12 +50,33 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("jLabel2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LOGIN");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
 
         jLabel1.setText("Usuario: ");
 
         jLabel3.setText("Contraseña: ");
+
+        txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtusuarioKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtusuarioKeyReleased(evt);
+            }
+        });
+
+        txtpassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtpasswordKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,28 +168,73 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void entrar() {
+        FormularioUtil.convertirMayusculas(txtusuario);
+
         String user = txtusuario.getText();
         String password = txtpassword.getText();
-        
         UsuarioControlador usuarioControlador = new UsuarioControlador();
-        
         List<Usuario> usuarios = usuarioControlador.buscarXNombre(user);
         
-        Usuario usuario = usuarios.get(0);
+        Usuario usuario = new Usuario();
         
-        if(usuario.getPassword().equals(password)){
+        if(!usuarios.isEmpty()){
+           usuario = usuarios.get(0);  
+        }               
+        
+        if (!user.equals("") &&  !password.equals("") && !usuarios.isEmpty() && usuario.getPassword().equals(password)) {
+            UsuarioUtil.setUsuarioActual(usuario);
             Principal principal = new Principal();
             principal.setVisible(true);
             this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            txtusuario.setText(null);
+            txtpassword.setText(null);
+            txtusuario.requestFocusInWindow();
         }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Datos incorrectos", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+//            txtusuario.setText(null);
+//            txtpassword.setText(null);
+//            txtusuario.requestFocusInWindow();
+//        }
+    }
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        entrar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
+        // TODO add your handling code here:
+        int code = evt.getKeyCode();
+        if (code == KeyEvent.VK_ENTER) {
+            entrar();
+        }
+
+    }//GEN-LAST:event_txtpasswordKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
+
+    private void txtusuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusuarioKeyReleased
+
+    private void txtusuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyPressed
+        // TODO add your handling code here:
+        int code = evt.getKeyCode();
+        if (code == KeyEvent.VK_ENTER) {
+            entrar();
+        }
+    }//GEN-LAST:event_txtusuarioKeyPressed
 
     /**
      * @param args the command line arguments

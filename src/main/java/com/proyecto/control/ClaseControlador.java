@@ -26,5 +26,10 @@ public class ClaseControlador extends AbstractControlador<Clase> {
         parametros.put("nombre", nombre);
         return this.getDao().buscar(jpql, parametros);
     }
-
+    
+    public List<Clase> buscarXIdLazy(int limite, int offset) {
+        String jpql = "SELECT a FROM Clase a ORDER BY a.codigo";
+        
+        return this.getDao().buscar(jpql, null, limite, offset);
+    }
 }

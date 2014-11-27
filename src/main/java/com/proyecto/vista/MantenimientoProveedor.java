@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.proyecto.vista;
 
-import com.proyecto.beans.Periodo;
+import com.proyecto.beans.Empleado;
+import com.proyecto.beans.Proveedor;
 import com.proyecto.control.AbstractControlador;
-import com.proyecto.control.PeriodoControlador;
+import com.proyecto.control.EmpleadoControlador;
+import com.proyecto.control.ProveedorControlador;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,25 +27,24 @@ import org.jdesktop.swingbinding.SwingBindings;
  *
  * @author Documentos
  */
-public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
+public class MantenimientoProveedor extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form MantenimientoPeriodo
+     * Creates new form MantenimientoArea
      */
-    private static MantenimientoPeriodo instancia;
-    
-    public MantenimientoPeriodo() {
+    private static MantenimientoProveedor instancia;
+
+    public MantenimientoProveedor() {
         initComponents();
         listar();
-        
         FormularioUtil.activarComponente(panelDatos, false);
         FormularioUtil.activarComponente(panelOpciones, true);
         FormularioUtil.activarComponente(panelGuardar, false);
     }
-    
-    public static MantenimientoPeriodo getInstancia(){
-        if(instancia == null){
-            instancia = new MantenimientoPeriodo();
+
+    public static MantenimientoProveedor getInstancia() {
+        if (instancia == null) {
+            instancia = new MantenimientoProveedor();
         }
         return instancia;
     }
@@ -59,13 +60,19 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         txtbuscar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblperiodo = new javax.swing.JTable();
+        tblProveedor = new javax.swing.JTable();
         panelDatos = new javax.swing.JPanel();
-        periodoLabel = new javax.swing.JLabel();
-        periodoField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        nombreLabel = new javax.swing.JLabel();
+        nombreField = new javax.swing.JTextField();
+        direccionField = new javax.swing.JTextField();
+        nombreLabel1 = new javax.swing.JLabel();
+        nombreLabel2 = new javax.swing.JLabel();
+        telefonoField = new javax.swing.JFormattedTextField();
+        nombreLabel3 = new javax.swing.JLabel();
+        rucField = new javax.swing.JTextField();
         panelOpciones = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
@@ -76,13 +83,15 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Mantenimiento de Periodo");
+        setTitle("Mantenimiento Empleado");
 
         jLabel1.setText("Buscar: ");
 
-        jLabel2.setText("Lista de periodos:");
+        jButton1.setText("Buscar");
 
-        tblperiodo.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel2.setText("Lista de proveedores:");
+
+        tblProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -93,12 +102,18 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblperiodo);
+        jScrollPane1.setViewportView(tblProveedor);
 
         panelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         panelDatos.setToolTipText("");
 
-        periodoLabel.setText("Periodo:");
+        nombreLabel.setText("Dirección");
+
+        nombreLabel1.setText("Nombre:");
+
+        nombreLabel2.setText("Teléfono");
+
+        nombreLabel3.setText("R.U.C");
 
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
@@ -106,22 +121,40 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(periodoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(periodoField, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(nombreLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                    .addComponent(nombreLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nombreLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nombreLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(rucField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(direccionField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(telefonoField))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(periodoLabel)
-                    .addComponent(periodoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(171, Short.MAX_VALUE))
+                    .addComponent(nombreLabel1)
+                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreLabel)
+                    .addComponent(direccionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreLabel3)
+                    .addComponent(rucField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreLabel2)
+                    .addComponent(telefonoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jButton1.setText("Buscar");
 
         panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         panelOpciones.setToolTipText("");
@@ -217,23 +250,20 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(1, 1, 1))
-                            .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(3, 3, 3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(1, 1, 1))
+                            .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -244,17 +274,17 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -264,122 +294,149 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.NUEVO;
-        periodoControlador.prepararCrear();
+        proveedorControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
         FormularioUtil.activarComponente(panelDatos, true);
-        periodoField.requestFocusInWindow();
+        nombreField.requestFocusInWindow();
     }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.MODIFICAR;
 
-        int fila = this.tblperiodo.getSelectedRow();
+        int fila = this.tblProveedor.getSelectedRow();
         if (fila != -1) {
             FormularioUtil.activarComponente(panelDatos, true);
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
 
             accion = AbstractControlador.MODIFICAR;
-            periodoControlador.setSeleccionado(lista.get(fila));
-            Periodo periodo = periodoControlador.getSeleccionado();
-            try {                
-                periodoField.setText(BeanUtils.getProperty(periodo, "periodo"));
+            proveedorControlador.setSeleccionado(lista.get(fila));
+            Proveedor proveedor = proveedorControlador.getSeleccionado();
+            try {
+                nombreField.setText(BeanUtils.getProperty(proveedor, "nombreProveedor"));
+                direccionField.setText(BeanUtils.getProperty(proveedor, "direccion"));
+                rucField.setText(BeanUtils.getProperty(proveedor, "ruc"));
+                telefonoField.setText(BeanUtils.getProperty(proveedor, "telefono"));
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
                 Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Clase", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Proveedor", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.ELIMINAR;
-        if (tblperiodo.getSelectedRow() != -1) {
+        if (tblProveedor.getSelectedRow() != -1) {
 
-            Integer codigo = tblperiodo.getSelectedRow();
+            Integer codigo = tblProveedor.getSelectedRow();
 
-            Periodo periodo = periodoControlador.buscarPorId(lista.get(codigo).getId());
+            Proveedor proveedor = lista.get(codigo);
 
-            if (periodo != null) {
-                if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar el Periodo?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (proveedor != null) {
+                if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar el Proveedor?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                    int[] filas = tblperiodo.getSelectedRows();
+                    int[] filas = tblProveedor.getSelectedRows();
                     for (int i = 0; i < filas.length; i++) {
-                        Periodo periodo2 = lista.get(filas[0]);
-                        lista.remove(periodo2);
-                        periodoControlador.setSeleccionado(periodo2);
-                        periodoControlador.accion(accion);
+                        Proveedor empleado2 = lista.get(filas[0]);
+                        lista.remove(empleado2);
+                        proveedorControlador.setSeleccionado(empleado2);
+                        proveedorControlador.accion(accion);
                     }
-                    if (periodoControlador.accion(accion) == 3) {
-                        JOptionPane.showMessageDialog(null, "Periodo eliminado correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+                    if (proveedorControlador.accion(accion) == 3) {
+                        JOptionPane.showMessageDialog(null, "Proveedor eliminado correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "Periodo no eliminada", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Proveedor no eliminado", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Periodo no eliminada", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Proveedor no eliminado", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un Periodo", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Empleado", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:
-        String palabra = "";
-        String palabra2 = "";
-        if (accion == 1) {
-            palabra = "registrar";
-            palabra2 = "registrado";
+        List<Integer> array = new ArrayList();
 
-            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Periodo?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                periodoControlador.getSeleccionado().setPeriodo(Integer.parseInt(periodoField.getText()));
+        array.add(FormularioUtil.Validar(FormularioUtil.TipoValidacion.LETRA, this.telefonoField, "telefono"));
+        array.add(FormularioUtil.Validar(FormularioUtil.TipoValidacion.LETRA, this.rucField, "ruc"));
+//        array.add(FormularioUtil.Validar(FormularioUtil.TipoValidacion.NUMERO, this.direccionField, "direccion"));
+        array.add(FormularioUtil.Validar(FormularioUtil.TipoValidacion.NUMERO, this.nombreField, "nombreProveedor"));
 
-                periodoControlador.accion(accion);
-                lista.add(periodoControlador.getSeleccionado());
+        FormularioUtil.validar2(array);
 
-                if (accion == 1) {
-                    JOptionPane.showMessageDialog(null, "Periodo " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                    FormularioUtil.limpiarComponente(panelDatos);
+        if (FormularioUtil.error) {
+            JOptionPane.showMessageDialog(null, FormularioUtil.mensaje, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            FormularioUtil.mensaje = "";
+            FormularioUtil.error = false;
+        } else {
+            String palabra = "";
+            String palabra2 = "";
+            if (accion == 1) {
+                palabra = "registrar";
+                palabra2 = "registrado";
+
+                if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " el Proveedor?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+//                    proveedorControlador.getSeleccionado().setDni(idField.getText().toUpperCase());
+                    proveedorControlador.getSeleccionado().setNombreProveedor(nombreField.getText().toUpperCase());
+                    proveedorControlador.getSeleccionado().setDireccion(direccionField.getText().toUpperCase());
+                    proveedorControlador.getSeleccionado().setRuc(rucField.getText().toUpperCase());
+                    proveedorControlador.getSeleccionado().setTelefono(telefonoField.getText().toUpperCase());
+
+                    proveedorControlador.accion(accion);
+                    lista.add(proveedorControlador.getSeleccionado());
+
+                    if (accion == 1) {
+                        JOptionPane.showMessageDialog(null, "Proveedor " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+                        FormularioUtil.limpiarComponente(panelDatos);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Proveedor no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Periodo no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                FormularioUtil.limpiarComponente(panelDatos);
-                JOptionPane.showMessageDialog(null, "Periodo no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-            }
-        } else if (accion == 2) {
-            palabra = "modificar";
-            palabra2 = "modificado";
-
-            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " el Periodo?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-                if (accion == 2) {
-                    JOptionPane.showMessageDialog(null, "Periodo " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-
-                    lista.clear();
-                    periodoControlador.getSeleccionado().setPeriodo(Integer.parseInt(periodoField.getText()));
-                    periodoControlador.accion(accion);
-                    listar();
-
                     FormularioUtil.limpiarComponente(panelDatos);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Periodo no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Proveedor no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                FormularioUtil.limpiarComponente(panelDatos);
-                JOptionPane.showMessageDialog(null, "Periodo no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            } else if (accion == 2) {
+                palabra = "modificar";
+                palabra2 = "modificado";
+
+                if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " el Proveedor?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                    if (accion == 2) {
+                        JOptionPane.showMessageDialog(null, "Proveedor " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+
+                        lista.clear();
+                        proveedorControlador.getSeleccionado().setNombreProveedor(nombreField.getText().toUpperCase());
+                        proveedorControlador.getSeleccionado().setDireccion(direccionField.getText().toUpperCase());
+                        proveedorControlador.getSeleccionado().setRuc(rucField.getText().toUpperCase());
+                        proveedorControlador.getSeleccionado().setTelefono(telefonoField.getText().toUpperCase());
+
+                        proveedorControlador.accion(accion);
+                        listar();
+
+                        FormularioUtil.limpiarComponente(panelDatos);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Proveedor no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    FormularioUtil.limpiarComponente(panelDatos);
+                    JOptionPane.showMessageDialog(null, "Proveedor no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
+            FormularioUtil.limpiarComponente(panelDatos);
+            FormularioUtil.activarComponente(panelOpciones, true);
+            FormularioUtil.activarComponente(panelGuardar, false);
+            FormularioUtil.activarComponente(panelDatos, false);
         }
-
-        FormularioUtil.activarComponente(panelOpciones, true);
-        FormularioUtil.activarComponente(panelGuardar, false);
-        FormularioUtil.activarComponente(panelDatos, false);
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -389,10 +446,9 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
         FormularioUtil.activarComponente(panelOpciones, true);
         FormularioUtil.activarComponente(panelGuardar, false);
     }//GEN-LAST:event_btncancelarActionPerformed
-
     private int accion;
-    private List<Periodo> lista;
-    private final PeriodoControlador periodoControlador = new PeriodoControlador();
+    private List<Proveedor> lista;
+    private final ProveedorControlador proveedorControlador = new ProveedorControlador();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncancelar;
@@ -400,30 +456,39 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
+    private javax.swing.JTextField direccionField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nombreField;
+    private javax.swing.JLabel nombreLabel;
+    private javax.swing.JLabel nombreLabel1;
+    private javax.swing.JLabel nombreLabel2;
+    private javax.swing.JLabel nombreLabel3;
     private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelGuardar;
     private javax.swing.JPanel panelOpciones;
-    private javax.swing.JTextField periodoField;
-    private javax.swing.JLabel periodoLabel;
-    private javax.swing.JTable tblperiodo;
+    private javax.swing.JTextField rucField;
+    private javax.swing.JTable tblProveedor;
+    private javax.swing.JFormattedTextField telefonoField;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        lista = periodoControlador.buscarTodos();
+        lista = proveedorControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
-        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblperiodo);
+        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblProveedor);
 
-        BeanProperty bId = BeanProperty.create("id");
-        BeanProperty bPeriodo = BeanProperty.create("periodo");
+        BeanProperty bNombre = BeanProperty.create("nombreProveedor");
+        BeanProperty bDireccion = BeanProperty.create("direccion");
+        BeanProperty bRuc = BeanProperty.create("ruc");
+        BeanProperty bTelefono = BeanProperty.create("telefono");
 
-        binding.addColumnBinding(bId).setColumnName("ID").setEditable(false);
-
-        binding.addColumnBinding(bPeriodo).setColumnName("PERIODO").setEditable(false);
+        binding.addColumnBinding(bNombre).setColumnName("NOMBRES").setEditable(false);
+        binding.addColumnBinding(bDireccion).setColumnName("DIRECCION").setEditable(false);
+        binding.addColumnBinding(bRuc).setColumnName("RUC").setEditable(false);
+        binding.addColumnBinding(bTelefono).setColumnName("TELEFONO").setEditable(false);
 
         binding.bind();
 

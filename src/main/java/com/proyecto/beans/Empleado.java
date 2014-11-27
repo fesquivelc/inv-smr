@@ -128,5 +128,12 @@ public  class Empleado implements Serializable {
         this.dni = dni;
     }
 
+    @Override
+    public String toString() {
+        return dni;
+    }
+  
+  
+
 }
 

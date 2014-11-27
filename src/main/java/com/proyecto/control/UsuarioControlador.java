@@ -21,7 +21,7 @@ public class UsuarioControlador extends AbstractControlador<Usuario> {
     }
     
     public List<Usuario> buscarXNombre(String nombre){
-        String jpql = "SELECT a FROM Usuario a WHERE a.nombre LIKE CONCAT('%',:nombre,'%')";
+        String jpql = "SELECT a FROM Usuario a WHERE a.nombre = :nombre";
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("nombre", nombre);
         return this.getDao().buscar(jpql, parametros);

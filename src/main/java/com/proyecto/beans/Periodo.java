@@ -70,5 +70,12 @@ public  class Periodo implements Serializable {
         this.periodo = periodo;
     }
 
+    @Override
+    public String toString() {
+        return periodo.toString();
+    }
+  
+  
+
 }
 

@@ -26,5 +26,11 @@ public class AmbienteControlador extends AbstractControlador<Ambiente> {
         parametros.put("nombre", nombre);
         return this.getDao().buscar(jpql, parametros);
     }
+    
+    public List<Ambiente> buscarXIdLazy(int limite, int offset) {
+        String jpql = "SELECT a FROM Clase a ORDER BY a.codigo";
+        
+        return this.getDao().buscar(jpql, null, limite, offset);
+    }
 
 }

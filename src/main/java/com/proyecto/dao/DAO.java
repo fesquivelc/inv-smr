@@ -62,7 +62,7 @@ public class DAO<T> {
         return this.buscar(queryJPQL, parametros, -1, -1);
     }
 
-    public List<T> buscar(String queryJPQL, Map<String, Object> parametros, int inicio, int tamanio) {
+    public List<T> buscar(String queryJPQL, Map<String, Object> parametros, int offset, int limit) {
         Query query = getEntityManager().createQuery(queryJPQL);
 
         if (parametros != null) {
@@ -71,12 +71,12 @@ public class DAO<T> {
             }
         }
 
-        if (inicio != -1) {
-            query.setFirstResult(inicio);
+        if (offset != -1) {
+            query.setFirstResult(offset);
         }
 
-        if (tamanio != -1) {
-            query.setMaxResults(tamanio);
+        if (limit != -1) {
+            query.setMaxResults(limit);
         }
 
         List<T> lista = query.getResultList();

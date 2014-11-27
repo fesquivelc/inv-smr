@@ -5,6 +5,7 @@
  */
 package com.proyecto.vista;
 
+import com.proyecto.main.Login;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,15 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        menuUsuario.setEnabled(false);
+        System.out.println("USUARIO ACTUAL: "+UsuarioUtil.getUsuarioActual().getNombre());
+        
+        if(UsuarioUtil.getUsuarioActual().getNombre().equals("ADMIN1")){
+            menuUsuario.setEnabled(true);
+            menuTipoUsuario.setEnabled(true);
+        }else{
+            menuUsuario.setEnabled(false);
+            menuTipoUsuario.setEnabled(false);
+        }
     }
 
     /**
@@ -46,7 +55,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
+        menuTipoUsuario = new javax.swing.JMenuItem();
         menuUsuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -64,10 +73,11 @@ public class Principal extends javax.swing.JFrame {
         );
         desktoppaneLayout.setVerticalGroup(
             desktoppaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Actividades");
+        jMenu1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jMenuItem7.setText("Ingreso/Salida");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +90,9 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         menuMantenimiento.setText("Mantenimiento");
+        menuMantenimiento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
+        jMenuItem1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem1.setText("Ambiente");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +101,7 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem1);
 
+        jMenuItem8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem8.setText("Área");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +110,7 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem8);
 
+        jMenuItem2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem2.setText("Bien");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +119,7 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem2);
 
+        jMenuItem3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem3.setText("Clase");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +128,7 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem3);
 
+        jMenuItem9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem9.setText("Empleado");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +137,7 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem9);
 
+        jMenuItem4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem4.setText("Inventario");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +146,7 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem4);
 
+        jMenuItem6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem6.setText("Periodo");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,9 +155,16 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem6);
 
+        jMenuItem13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem13.setText("Proveedor");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
         menuMantenimiento.add(jMenuItem13);
 
+        jMenuItem5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem5.setText("Tipo");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,15 +173,28 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem5);
 
-        jMenuItem14.setText("Tipo Usuario");
-        menuMantenimiento.add(jMenuItem14);
+        menuTipoUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        menuTipoUsuario.setText("Tipo Usuario");
+        menuTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTipoUsuarioActionPerformed(evt);
+            }
+        });
+        menuMantenimiento.add(menuTipoUsuario);
 
+        menuUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         menuUsuario.setText("Usuario");
+        menuUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuUsuarioActionPerformed(evt);
+            }
+        });
         menuMantenimiento.add(menuUsuario);
 
         jMenuBar1.add(menuMantenimiento);
 
         jMenu3.setText("Reportes");
+        jMenu3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jMenuItem11.setText("Coming Soon...");
         jMenu3.add(jMenuItem11);
@@ -164,6 +202,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Cerrar Sesión");
+        jMenu4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jMenuItem10.setText("Cerrar");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
@@ -247,10 +286,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         // TODO add your handling code here:
-        IngresoSalida ingreso = IngresoSalida.getInstancia();
-        if (!this.desktoppane.isAncestorOf(ingreso)) {
-            this.desktoppane.add(ingreso);
-            ingreso.setVisible(true);
+        ActualizarInventario inventario = ActualizarInventario.getInstancia();
+        if (!this.desktoppane.isAncestorOf(inventario)) {
+            this.desktoppane.add(inventario);
+            inventario.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
@@ -275,11 +314,40 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            System.exit(0);
+            this.dispose();
+            Login login = new Login();
+            login.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "okis", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void menuTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTipoUsuarioActionPerformed
+        // TODO add your handling code here:
+        MantenimientoTipoUsuario tipoUsuario = MantenimientoTipoUsuario.getInstancia();
+        if (!this.desktoppane.isAncestorOf(tipoUsuario)) {
+            this.desktoppane.add(tipoUsuario);
+            tipoUsuario.setVisible(true);
+        }
+    }//GEN-LAST:event_menuTipoUsuarioActionPerformed
+
+    private void menuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuUsuarioActionPerformed
+        // TODO add your handling code here:
+        MantenimientoUsuario usuario = MantenimientoUsuario.getInstancia();
+        if (!this.desktoppane.isAncestorOf(usuario)) {
+            this.desktoppane.add(usuario);
+            usuario.setVisible(true);
+        }
+    }//GEN-LAST:event_menuUsuarioActionPerformed
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        // TODO add your handling code here:
+        MantenimientoProveedor proveedor = MantenimientoProveedor.getInstancia();
+        if (!this.desktoppane.isAncestorOf(proveedor)) {
+            this.desktoppane.add(proveedor);
+            proveedor.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,7 +385,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane desktoppane;
+    public static javax.swing.JDesktopPane desktoppane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -326,7 +394,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -336,6 +403,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenu menuMantenimiento;
+    private javax.swing.JMenuItem menuTipoUsuario;
     private javax.swing.JMenuItem menuUsuario;
     // End of variables declaration//GEN-END:variables
 }

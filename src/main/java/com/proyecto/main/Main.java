@@ -16,11 +16,11 @@ import javax.swing.UIManager;
 public class Main {
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-        } catch (Exception e) {
-        }
-        Principal prueba = new Principal();
-        prueba.setVisible(true);
+//        try {
+//            UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+//        } catch (Exception e) {
+//        }
+//        Principal prueba = new Principal();
+//        prueba.setVisible(true);
     }
 }

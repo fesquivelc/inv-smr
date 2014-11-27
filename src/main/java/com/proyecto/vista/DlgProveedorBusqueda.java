@@ -6,12 +6,11 @@
 
 package com.proyecto.vista;
 
-import com.proyecto.beans.Tipo;
-import com.proyecto.control.TipoControlador;
+import com.proyecto.beans.Proveedor;
+import com.proyecto.control.ProveedorControlador;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.JDialog;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -23,18 +22,18 @@ import org.jdesktop.swingbinding.SwingBindings;
  *
  * @author Documentos
  */
-public class DlgTipoBusqueda extends JDialog {
+public class DlgProveedorBusqueda extends JDialog {
 
     /**
      * Creates new form DlgAmbienteBusqueda
      */
-    private final TipoControlador tipoControlador;
-    private Tipo tipo;
-    private List<Tipo> lista;
+    private final ProveedorControlador proveedorControlador;
+    private Proveedor proveedor;
+    private List<Proveedor> lista;
 
-    public DlgTipoBusqueda(Component componente) {
+    public DlgProveedorBusqueda(Component componente) {
         super(JOptionPane.getFrameForComponent(componente), true);
-        this.tipoControlador = new TipoControlador();
+        this.proveedorControlador = new ProveedorControlador();
         initComponents();        
         this.setLocationRelativeTo(componente);
         listar();
@@ -53,7 +52,7 @@ public class DlgTipoBusqueda extends JDialog {
         txtBusqueda = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblTipo = new javax.swing.JTable();
+        tblProveedor = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,7 +65,7 @@ public class DlgTipoBusqueda extends JDialog {
             }
         });
 
-        tblTipo.setModel(new javax.swing.table.DefaultTableModel(
+        tblProveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -77,12 +76,12 @@ public class DlgTipoBusqueda extends JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblProveedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblTipoMouseReleased(evt);
+                tblProveedorMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblTipo);
+        jScrollPane1.setViewportView(tblProveedor);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,17 +118,17 @@ public class DlgTipoBusqueda extends JDialog {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         lista.clear();
-        lista.addAll(this.tipoControlador.buscarXNombre(txtBusqueda.getText().toUpperCase()));
+        lista.addAll(this.proveedorControlador.buscarXNombre(txtBusqueda.getText().toUpperCase()));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tblTipoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipoMouseReleased
+    private void tblProveedorMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProveedorMouseReleased
         // TODO add your handling code here:
         if(evt.getClickCount() == 2){
-            int fila = tblTipo.getSelectedRow();
-            this.tipo = lista.get(fila);
+            int fila = tblProveedor.getSelectedRow();
+            this.proveedor = lista.get(fila);
             this.dispose();
         }
-    }//GEN-LAST:event_tblTipoMouseReleased
+    }//GEN-LAST:event_tblProveedorMouseReleased
 
     /**
      * @param args the command line arguments
@@ -171,25 +170,31 @@ public class DlgTipoBusqueda extends JDialog {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblTipo;
+    private javax.swing.JTable tblProveedor;
     private javax.swing.JTextField txtBusqueda;
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        lista = this.tipoControlador.buscarTodos();
+        lista = this.proveedorControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
         
-        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblTipo);
+        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblProveedor);
 
-        BeanProperty bNombre = BeanProperty.create("nombre");
+        BeanProperty bNombre = BeanProperty.create("nombreProveedor");
+        BeanProperty bDireccion = BeanProperty.create("direccion");
+        BeanProperty bRuc = BeanProperty.create("ruc");
+        BeanProperty bTelefono = BeanProperty.create("telefono");
 
-        binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
+        binding.addColumnBinding(bNombre).setColumnName("NOMBRES").setEditable(false);
+        binding.addColumnBinding(bDireccion).setColumnName("DIRECCION").setEditable(false);
+        binding.addColumnBinding(bRuc).setColumnName("RUC").setEditable(false);
+        binding.addColumnBinding(bTelefono).setColumnName("TELEFONO").setEditable(false);
 
         binding.bind();
     }
     
-    public Tipo getTipo(){
+    public Proveedor getProveedor(){
         this.setVisible(true);
-        return this.tipo;
+        return this.proveedor;
     }
 }

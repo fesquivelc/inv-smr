@@ -56,6 +56,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     private List<Inventario> lista;
     private final BienControlador bienControlador = new BienControlador();
     private final InventarioControlador inventarioControlador = new InventarioControlador();
+    private Bien bien;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -412,7 +413,6 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                 
                 inventarioControlador.accion(accion);
                 
-                System.out.println("se guardo");
                 lista.add(inventarioControlador.getSeleccionado());
                 if (accion == 1) {
                     JOptionPane.showMessageDialog(this, "Bien " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);

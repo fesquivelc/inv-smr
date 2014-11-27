@@ -6,14 +6,13 @@
 package com.proyecto.vista;
 
 import com.proyecto.beans.Clase;
-import com.proyecto.beans.Tipo;
 import com.proyecto.control.AbstractControlador;
 import com.proyecto.control.ClaseControlador;
-import com.proyecto.control.TipoControlador;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import org.apache.commons.beanutils.BeanUtils;
 import org.jdesktop.beansbinding.AutoBinding;
@@ -32,16 +31,23 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
      * Creates new form MantenimientoClase
      */
     private static MantenimientoClase instancia;
+    private int limite;
+    private int offset;
 
     public MantenimientoClase() {
         initComponents();
+        cargarCombo();
+        limite = (Integer) cmblazy.getSelectedItem();
+        offset = 0;
         listar();
-        btnguardar.setEnabled(false);
-        nombreField.setEnabled(false);
-        idField.setEnabled(false);
-        tipoField.setEnabled(false);
-        btntipo.setEnabled(false);
-        btncancelar.setEnabled(false);
+        txtpagina.setText("1");
+        btnAtras.setEnabled(false);
+        btnInicio.setEnabled(false);
+        txtpagina.setEditable(false);
+
+        FormularioUtil.activarComponente(panelDatos, false);
+        FormularioUtil.activarComponente(panelOpciones, true);
+        FormularioUtil.activarComponente(panelGuardar, false);
     }
 
     public static MantenimientoClase getInstancia() {
@@ -60,12 +66,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        txtbuscar = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblclase = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        panelDatos = new javax.swing.JPanel();
         idLabel = new javax.swing.JLabel();
         nombreLabel = new javax.swing.JLabel();
         nombreField = new javax.swing.JTextField();
@@ -73,37 +74,35 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
         tipoField = new javax.swing.JTextField();
         btntipo = new javax.swing.JButton();
         idField = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
+        panelOpciones = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
-        btnguardar = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
-        btncancelar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtbuscar = new javax.swing.JTextField();
         btnbuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblclase = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        txtpagina = new javax.swing.JTextField();
+        cmblazy = new javax.swing.JComboBox();
+        spnIr = new javax.swing.JSpinner();
+        btnAtras = new javax.swing.JButton();
+        btnAdelante = new javax.swing.JButton();
+        btnFin = new javax.swing.JButton();
+        btnInicio = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        panelGuardar = new javax.swing.JPanel();
+        btnguardar = new javax.swing.JButton();
+        btncancelar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setTitle("Mantenimiento de Clases");
 
-        jLabel1.setText("Buscar: ");
-
-        jLabel2.setText("Lista de clases:");
-
-        tblclase.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblclase);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
-        jPanel1.setToolTipText("");
+        panelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+        panelDatos.setToolTipText("");
 
         idLabel.setText("Código: ");
 
@@ -118,59 +117,52 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
+        panelDatos.setLayout(panelDatosLayout);
+        panelDatosLayout.setHorizontalGroup(
+            panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(idLabel)
                     .addComponent(nombreLabel)
                     .addComponent(nombreLabel1))
                 .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(nombreField)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(panelDatosLayout.createSequentialGroup()
                         .addComponent(tipoField, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btntipo, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
                     .addComponent(idField))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelDatosLayout.setVerticalGroup(
+            panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idLabel)
                     .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel1)
                     .addComponent(tipoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btntipo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
-        jPanel2.setToolTipText("");
+        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+        panelOpciones.setToolTipText("");
 
         btnnuevo.setText("Nuevo");
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnuevoActionPerformed(evt);
-            }
-        });
-
-        btnguardar.setText("Guardar");
-        btnguardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnguardarActionPerformed(evt);
             }
         });
 
@@ -188,42 +180,31 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             }
         });
 
-        btncancelar.setText("Cancelar");
-        btncancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncancelarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnnuevo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnmodificar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btneliminar)
-                .addGap(18, 18, 18)
-                .addComponent(btnguardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btncancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        jLabel1.setText("Buscar: ");
 
         btnbuscar.setText("Buscar");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -232,45 +213,198 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             }
         });
 
+        tblclase.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblclase);
+
+        jLabel2.setText("Lista de clases:");
+
+        txtpagina.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        cmblazy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmblazyActionPerformed(evt);
+            }
+        });
+
+        spnIr.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+
+        btnAtras.setText("<");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
+        btnAdelante.setText(">");
+        btnAdelante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdelanteActionPerformed(evt);
+            }
+        });
+
+        btnFin.setText(">>");
+        btnFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinActionPerformed(evt);
+            }
+        });
+
+        btnInicio.setText("<<");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Ir");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtbuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnbuscar))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(cmblazy, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(btnInicio)
+                        .addGap(9, 9, 9)
+                        .addComponent(btnAtras)
+                        .addGap(12, 12, 12)
+                        .addComponent(txtpagina, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAdelante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnFin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(spnIr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(spnIr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdelante)
+                        .addComponent(btnFin)
+                        .addComponent(jButton5))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmblazy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAtras)
+                        .addComponent(btnInicio)
+                        .addComponent(txtpagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnguardar.setText("Guardar");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
+
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelGuardarLayout = new javax.swing.GroupLayout(panelGuardar);
+        panelGuardar.setLayout(panelGuardarLayout);
+        panelGuardarLayout.setHorizontalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGuardarLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
+        );
+        panelGuardarLayout.setVerticalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnguardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btncancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap()
+                        .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnbuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(1, 1, 1))
+                            .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(5, 5, 5)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnbuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -278,17 +412,12 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        btnguardar.setEnabled(true);
-        nombreField.setEnabled(true);
-        tipoField.setEnabled(true);
-        tipoField.setEditable(false);
-        btntipo.setEnabled(true);
-        btnnuevo.setEnabled(false);
         accion = AbstractControlador.NUEVO;
         claseControlador.prepararCrear();
-        idField.setEnabled(true);
+        FormularioUtil.activarComponente(panelOpciones, false);
+        FormularioUtil.activarComponente(panelGuardar, true);
+        FormularioUtil.activarComponente(panelDatos, true);
         idField.requestFocusInWindow();
-        txtbuscar.setText(null);
     }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -300,23 +429,20 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             palabra2 = "registrado";
 
             if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Clase?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                claseControlador.getSeleccionado().setCodigo(idField.getText());
-                claseControlador.getSeleccionado().setNombre(nombreField.getText());
+                claseControlador.getSeleccionado().setCodigo(idField.getText().toUpperCase());
+                claseControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
 
-                lista.add(claseControlador.getSeleccionado());
                 claseControlador.accion(accion);
+                lista.add(claseControlador.getSeleccionado());
+
                 if (accion == 1) {
                     JOptionPane.showMessageDialog(null, "Clase " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                    nombreField.setText(null);
-                    idField.setText(null);
-                    tipoField.setText(null);
+                    FormularioUtil.limpiarComponente(panelDatos);
                 } else {
                     JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                nombreField.setText(null);
-                idField.setText(null);
-                tipoField.setText(null);
+                FormularioUtil.limpiarComponente(panelDatos);
                 JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         } else if (accion == 2) {
@@ -327,30 +453,27 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
                 if (accion == 2) {
                     JOptionPane.showMessageDialog(null, "Clase " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                    nombreField.setText(null);
-                    idField.setText(null);
-                    tipoField.setText(null);
+
+                    lista.clear();
+                    claseControlador.getSeleccionado().setCodigo(idField.getText().toUpperCase());
+                    claseControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
+                    claseControlador.accion(accion);
+                    listar();
+
+                    FormularioUtil.limpiarComponente(panelDatos);
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                nombreField.setText(null);
-                idField.setText(null);
-                tipoField.setText(null);
+                FormularioUtil.limpiarComponente(panelDatos);
                 JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         }
 
-        btnguardar.setEnabled(false);
-        nombreField.setEnabled(false);
-        idField.setEnabled(false);
-        tipoField.setEnabled(false);
-        idField.setEditable(false);
-        tipoField.setEditable(false);
-        btnnuevo.setEnabled(true);
-        btnmodificar.setEnabled(true);
-        btntipo.setEnabled(false);
-        btncancelar.setEnabled(false);
+        FormularioUtil.activarComponente(panelOpciones, true);
+        FormularioUtil.activarComponente(panelGuardar, false);
+        FormularioUtil.activarComponente(panelDatos, false);
 
     }//GEN-LAST:event_btnguardarActionPerformed
 
@@ -358,9 +481,10 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         accion = AbstractControlador.ELIMINAR;
         if (tblclase.getSelectedRow() != -1) {
-            Integer codigo = (Integer) tblclase.getModel().getValueAt(tblclase.getSelectedRow(), 0);
 
-            Clase clase = claseControlador.buscarPorId(codigo);
+            Integer codigo = tblclase.getSelectedRow();
+
+            Clase clase = claseControlador.buscarPorId(lista.get(codigo).getCodigo());
 
             if (clase != null) {
                 if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar la Clase?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -382,22 +506,41 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Clase no eliminada", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una clase", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.MODIFICAR;
-        btnguardar.setEnabled(true);
-        btnmodificar.setEnabled(false);
-        btnnuevo.setEnabled(false);
+
+        int fila = this.tblclase.getSelectedRow();
+        if (fila != -1) {
+            FormularioUtil.activarComponente(panelDatos, true);
+            FormularioUtil.activarComponente(panelOpciones, false);
+            FormularioUtil.activarComponente(panelGuardar, true);
+
+            accion = AbstractControlador.MODIFICAR;
+            claseControlador.setSeleccionado(lista.get(fila));
+            Clase clase = claseControlador.getSeleccionado();
+            try {
+                idField.setText(BeanUtils.getProperty(clase, "codigo"));
+                nombreField.setText(BeanUtils.getProperty(clase, "nombre"));
+                tipoField.setText(BeanUtils.getProperty(clase, "tipo"));
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+                Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Clase", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btntipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntipoActionPerformed
         // TODO add your handling code here:
         DlgTipoBusqueda tipoDialogo = new DlgTipoBusqueda(this);
-        tipoDialogo.setVisible(true);
-        tipoDialogo.setModal(true);
+        this.claseControlador.getSeleccionado().setTipo(tipoDialogo.getTipo());
+        this.tipoField.setText(this.claseControlador.getSeleccionado().getTipo().getNombre().toUpperCase());
     }//GEN-LAST:event_btntipoActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
@@ -408,15 +551,98 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
         // TODO add your handling code here:
-        btnnuevo.setEnabled(true);
-        btnmodificar.setEnabled(true);
-        btneliminar.setEnabled(true);
+        FormularioUtil.activarComponente(panelDatos, false);
+        FormularioUtil.limpiarComponente(panelDatos);
+        FormularioUtil.activarComponente(panelOpciones, true);
+        FormularioUtil.activarComponente(panelGuardar, false);
     }//GEN-LAST:event_btncancelarActionPerformed
+
+    private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
+        // TODO add your handling code here:
+        btnAtras.setEnabled(true);
+        btnInicio.setEnabled(true);
+
+        lista.clear();
+        offset = offset + (Integer) cmblazy.getSelectedItem();
+        int pagina = Integer.parseInt(txtpagina.getText()) + 1;
+        txtpagina.setText(String.valueOf(pagina));
+        lista.addAll(this.claseControlador.buscarXIdLazy(offset, limite));
+
+//        lista2.addAll(this.claseControlador.buscarXIdLazy(offset+5, limite));
+//        
+//        if(lista2.isEmpty()){
+//            btnAdelante.setEnabled(false);
+//        }
+    }//GEN-LAST:event_btnAdelanteActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // TODO add your handling code here:
+        lista.clear();
+        offset = offset - (Integer) cmblazy.getSelectedItem();
+        int pagina = Integer.parseInt(txtpagina.getText()) - 1;
+        if (pagina == 1) {
+            btnAtras.setEnabled(false);
+            btnInicio.setEnabled(false);
+        }
+        txtpagina.setText(String.valueOf(pagina));
+        lista.addAll(this.claseControlador.buscarXIdLazy(offset, limite));;
+
+    }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        lista.clear();
+        int pagina = (int) spnIr.getModel().getValue();
+        if (pagina == 1) {
+            btnAtras.setEnabled(false);
+            btnInicio.setEnabled(false);
+        } else {
+            btnAtras.setEnabled(true);
+            btnInicio.setEnabled(true);
+        }
+        offset = (pagina - 1) * (Integer) cmblazy.getSelectedItem();
+        txtpagina.setText(String.valueOf(pagina));
+        lista.addAll(this.claseControlador.buscarXIdLazy(offset, limite));;
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btnFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFinActionPerformed
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        // TODO add your handling code here:
+        lista.clear();
+        int pagina = 1;
+        offset = 0;
+        txtpagina.setText(String.valueOf(pagina));
+        lista.addAll(this.claseControlador.buscarXIdLazy(offset, limite));
+        if (pagina == 1) {
+            btnInicio.setEnabled(false);
+            btnAtras.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void cmblazyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmblazyActionPerformed
+        // TODO add your handling code here:
+        limite = (Integer) cmblazy.getSelectedItem();
+        offset = 0;
+        txtpagina.setText("1");
+        btnAtras.setEnabled(false);
+        btnInicio.setEnabled(false);
+
+        lista.clear();
+        lista.addAll(this.claseControlador.buscarXIdLazy(offset, limite));
+
+    }//GEN-LAST:event_cmblazyActionPerformed
 
     private int accion;
     private List<Clase> lista;
     private final ClaseControlador claseControlador = new ClaseControlador();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdelante;
+    private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnFin;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btneliminar;
@@ -424,23 +650,29 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
     private javax.swing.JButton btntipo;
+    private javax.swing.JComboBox cmblazy;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel idLabel;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JLabel nombreLabel1;
+    private javax.swing.JPanel panelDatos;
+    private javax.swing.JPanel panelGuardar;
+    private javax.swing.JPanel panelOpciones;
+    private javax.swing.JSpinner spnIr;
     private javax.swing.JTable tblclase;
     private javax.swing.JTextField tipoField;
     private javax.swing.JTextField txtbuscar;
+    private javax.swing.JTextField txtpagina;
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        lista = claseControlador.buscarTodos();
+        lista = claseControlador.buscarXIdLazy(offset, limite);
         lista = ObservableCollections.observableList(lista);
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblclase);
 
@@ -456,10 +688,6 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
     }
 
-//    public void setAmbiente(Tipo tipo) {
-//        this.claseControlador.getSeleccionado().setTipo(tipo);
-//        this.tipoField.setText(this.claseControlador.getSeleccionado().getTipo().getNombre());
-//    }
     public void setElemento(String propiedad, Object valor) {
         try {
             BeanUtils.setProperty(this.claseControlador.getSeleccionado(), propiedad, valor);
@@ -474,5 +702,15 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
         if (propiedad.equals("tipo")) {
             this.tipoField.setText(this.claseControlador.getSeleccionado().getTipo().getNombre());
         }
+    }
+
+    private void cargarCombo() {
+        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+        int paginacion = 5;
+        for (int i = 0; i < 4; i++) {
+            modeloCombo.addElement(paginacion);
+            paginacion = paginacion + 5;
+        }
+        cmblazy.setModel(modeloCombo);
     }
 }
