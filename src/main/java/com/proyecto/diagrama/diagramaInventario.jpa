@@ -388,7 +388,7 @@
             <jpa:basic name="numeroFactura" attribute-type="String" id="_141711004543853">
                 <jpa:column name="numero_factura" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="inventarioList" target-entity="Inventario" mapped-by="factura" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141711023842956" id="_141711023845757">
+            <jpa:one-to-many name="inventarioList" target-entity="Inventario" fetch="LAZY" mapped-by="factura" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141711023842956" id="_141711023845757">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>

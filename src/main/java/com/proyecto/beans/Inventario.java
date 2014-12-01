@@ -2,7 +2,6 @@ package com.proyecto.beans;
 
 import java.io.Serializable;
 
-import java.lang.Integer;
 import java.lang.Long;
 import java.lang.String;
 import java.util.List;

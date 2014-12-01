@@ -19,104 +19,81 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="clase")
-public  class Clase implements Serializable {
+@Table(name = "clase")
+public class Clase implements Serializable {
 
-
-    @Column(name="codigo")
+    @Column(name = "codigo")
     @Basic
     private String codigo;
 
-
-    @Column(name="nombre",table="clase",length=45)
+    @Column(name = "nombre", table = "clase", length = 45)
     @Basic
     private String nombre;
 
-
-    @Column(name="id",table="clase")
+    @Column(name = "id", table = "clase")
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @ManyToOne(optional=false,targetEntity=Tipo.class)
-    @JoinColumn(name="tipo_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
+    @ManyToOne(optional = false, targetEntity = Tipo.class)
+    @JoinColumn(name = "tipo_id", referencedColumnName = "id", insertable = true, nullable = true, unique = false, updatable = true)
     private Tipo tipo;
 
-
-    @OneToMany(fetch=FetchType.LAZY,targetEntity=Bien.class,mappedBy="clase")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Bien.class, mappedBy = "clase")
     private List<Bien> bienes;
 
-
-    @OneToMany(fetch=FetchType.LAZY,targetEntity=Campo.class,mappedBy="clase")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Campo.class, mappedBy = "clase")
     private Collection<Campo> campoList;
 
-    public Clase(){
+    public Clase() {
 
     }
 
-
-   public String getCodigo() {
+    public String getCodigo() {
         return this.codigo;
     }
 
-
-  public void setCodigo (String codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-
-  public void setId (Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-
-
-   public Tipo getTipo() {
+    public Tipo getTipo() {
         return this.tipo;
     }
 
-
-  public void setTipo (Tipo tipo) {
+    public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
 
-
-
-   public List<Bien> getBienes() {
+    public List<Bien> getBienes() {
         return this.bienes;
     }
 
-
-  public void setBienes (List<Bien> bienes) {
+    public void setBienes(List<Bien> bienes) {
         this.bienes = bienes;
     }
 
-
-
-   public Collection<Campo> getCampoList() {
+    public Collection<Campo> getCampoList() {
         return this.campoList;
     }
 
-
-  public void setCampoList (Collection<Campo> campoList) {
+    public void setCampoList(Collection<Campo> campoList) {
         this.campoList = campoList;
     }
 
@@ -125,6 +102,4 @@ public  class Clase implements Serializable {
         return nombre;
     }
 
-  
 }
-

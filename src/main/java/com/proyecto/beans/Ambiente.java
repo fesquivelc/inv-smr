@@ -130,5 +130,11 @@ public  class Ambiente implements Serializable {
         this.inventarios = inventarios;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+  
 }
 

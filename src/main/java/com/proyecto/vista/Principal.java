@@ -81,7 +81,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.setText("Actividades");
         jMenu1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jMenuItem7.setText("Ingreso/Salida");
+        jMenuItem7.setText("Actualizar Inventario");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
