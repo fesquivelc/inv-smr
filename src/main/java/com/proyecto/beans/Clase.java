@@ -4,11 +4,14 @@ import java.io.Serializable;
 
 import java.lang.Long;
 import java.lang.String;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,14 +23,20 @@ import javax.persistence.Table;
 public  class Clase implements Serializable {
 
 
+    @Column(name="codigo")
+    @Basic
+    private String codigo;
+
+
     @Column(name="nombre",table="clase",length=45)
     @Basic
     private String nombre;
 
 
-    @Column(name="codigo",table="clase",nullable=false)
+    @Column(name="id",table="clase")
     @Id
-    private String codigo;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
 
 
     @ManyToOne(optional=false,targetEntity=Tipo.class)
@@ -38,9 +47,24 @@ public  class Clase implements Serializable {
     @OneToMany(fetch=FetchType.LAZY,targetEntity=Bien.class,mappedBy="clase")
     private List<Bien> bienes;
 
+
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=Campo.class,mappedBy="clase")
+    private Collection<Campo> campoList;
+
     public Clase(){
 
     }
+
+
+   public String getCodigo() {
+        return this.codigo;
+    }
+
+
+  public void setCodigo (String codigo) {
+        this.codigo = codigo;
+    }
+
 
 
    public String getNombre() {
@@ -54,13 +78,13 @@ public  class Clase implements Serializable {
 
 
 
-   public String getCodigo() {
-        return this.codigo;
+   public Long getId() {
+        return this.id;
     }
 
 
-  public void setCodigo (String codigo) {
-        this.codigo = codigo;
+  public void setId (Long id) {
+        this.id = id;
     }
 
 
@@ -85,9 +109,22 @@ public  class Clase implements Serializable {
         this.bienes = bienes;
     }
 
+
+
+   public Collection<Campo> getCampoList() {
+        return this.campoList;
+    }
+
+
+  public void setCampoList (Collection<Campo> campoList) {
+        this.campoList = campoList;
+    }
+
     @Override
     public String toString() {
         return nombre;
     }
+
+  
 }
 

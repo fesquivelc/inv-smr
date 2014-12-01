@@ -2,39 +2,35 @@ package com.proyecto.beans;
 
 import java.io.Serializable;
 
-import java.lang.Long;
-import java.lang.String;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tipo_usuario")
-public  class TipoUsuario implements Serializable {
+@Table(name="unidad_medida")
+public  class UnidadMedida implements Serializable {
 
 
-    @Column(name="nombre",table="tipo_usuario",length=45)
+    @Column(name="nombre")
     @Basic
     private String nombre;
 
 
-    @Column(name="id",table="tipo_usuario",nullable=false)
+    @Column(name="id")
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
 
-    @OneToMany(fetch=FetchType.LAZY,targetEntity=Usuario.class,mappedBy="tipoUsuario")
-    private List<Usuario> usuarios;
+    @Column(name="abreviatura")
+    @Basic
+    private String abreviatura;
 
-    public TipoUsuario(){
+    public UnidadMedida(){
 
     }
 
@@ -61,13 +57,13 @@ public  class TipoUsuario implements Serializable {
 
 
 
-   public List<Usuario> getUsuarios() {
-        return this.usuarios;
+   public String getAbreviatura() {
+        return this.abreviatura;
     }
 
 
-  public void setUsuarios (List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+  public void setAbreviatura (String abreviatura) {
+        this.abreviatura = abreviatura;
     }
 
 }

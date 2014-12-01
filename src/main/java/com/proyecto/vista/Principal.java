@@ -49,6 +49,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        MenuCampo = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -56,6 +57,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         menuTipoUsuario = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         menuUsuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -119,6 +121,15 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(jMenuItem2);
 
+        MenuCampo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        MenuCampo.setText("Campo");
+        MenuCampo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCampoActionPerformed(evt);
+            }
+        });
+        menuMantenimiento.add(MenuCampo);
+
         jMenuItem3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem3.setText("Clase");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
@@ -174,13 +185,22 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem5);
 
         menuTipoUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        menuTipoUsuario.setText("Tipo Usuario");
+        menuTipoUsuario.setText("Tipo de Usuario");
         menuTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuTipoUsuarioActionPerformed(evt);
             }
         });
         menuMantenimiento.add(menuTipoUsuario);
+
+        jMenuItem12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem12.setText("Unidades de Medida");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        menuMantenimiento.add(jMenuItem12);
 
         menuUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         menuUsuario.setText("Usuario");
@@ -349,6 +369,24 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void MenuCampoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCampoActionPerformed
+        // TODO add your handling code here:
+        MantenimientoCampo campo = MantenimientoCampo.getInstancia();
+        if (!this.desktoppane.isAncestorOf(campo)) {
+            this.desktoppane.add(campo);
+            campo.setVisible(true);
+        }
+    }//GEN-LAST:event_MenuCampoActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        MantenimientoUnidadMedida unidad = MantenimientoUnidadMedida.getInstancia();
+        if (!this.desktoppane.isAncestorOf(unidad)) {
+            this.desktoppane.add(unidad);
+            unidad.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -385,6 +423,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuCampo;
     public static javax.swing.JDesktopPane desktoppane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
@@ -393,6 +432,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;

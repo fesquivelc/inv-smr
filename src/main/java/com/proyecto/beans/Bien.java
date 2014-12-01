@@ -9,6 +9,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -27,9 +29,14 @@ public  class Bien implements Serializable {
     private String nombre;
 
 
-    @Column(name="codigo",table="bien",nullable=false,length=45)
+    @Column(name="id",table="bien",nullable=false,length=45)
     @Id
-    private String codigo;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+
+
+    @OneToMany(targetEntity=DetalleBienCampo.class,mappedBy="bien")
+    private List<DetalleBienCampo> detalleBienCampoList;
 
 
     @Column(name="descripcion",table="bien",length=45)
@@ -38,7 +45,7 @@ public  class Bien implements Serializable {
 
 
     @ManyToOne(optional=false,targetEntity=Clase.class)
-    @JoinColumn(name="clase_codigo",referencedColumnName="codigo",insertable=true,nullable=true,unique=false,updatable=true)
+    @JoinColumn(name="clase_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
     private Clase clase;
 
 
@@ -72,13 +79,24 @@ public  class Bien implements Serializable {
 
 
 
-   public String getCodigo() {
-        return this.codigo;
+   public Long getId() {
+        return this.id;
     }
 
 
-  public void setCodigo (String codigo) {
-        this.codigo = codigo;
+  public void setId (Long id) {
+        this.id = id;
+    }
+
+
+
+   public List<DetalleBienCampo> getDetalleBienCampoList() {
+        return this.detalleBienCampoList;
+    }
+
+
+  public void setDetalleBienCampoList (List<DetalleBienCampo> detalleBienCampoList) {
+        this.detalleBienCampoList = detalleBienCampoList;
     }
 
 
@@ -136,11 +154,5 @@ public  class Bien implements Serializable {
         this.inventarios = inventarios;
     }
 
-    @Override
-    public String toString() {
-        return nombre;
-    }
-
-  
 }
 

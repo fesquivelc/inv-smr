@@ -23,9 +23,14 @@ import javax.persistence.Table;
 public  class Inventario implements Serializable {
 
 
+    @Column(name="codigo_fabrica")
+    @Basic
+    private String codigoFabrica;
+
+
     @Column(name="serie",table="inventario")
     @Basic
-    private Integer serie;
+    private String serie;
 
 
     @Column(name="id",table="inventario",nullable=false)
@@ -39,9 +44,14 @@ public  class Inventario implements Serializable {
     private String estado;
 
 
+    @ManyToOne(targetEntity=Factura.class)
+    @JoinColumn(name="factura_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
+    private Factura factura;
+
+
     @Column(name="precio",table="inventario")
     @Basic
-    private Integer precio;
+    private Double precio;
 
 
     @ManyToOne(optional=false,targetEntity=Ambiente.class)
@@ -59,7 +69,7 @@ public  class Inventario implements Serializable {
 
 
     @ManyToOne(optional=false,targetEntity=Bien.class)
-    @JoinColumn(name="bien_codigo",referencedColumnName="codigo",insertable=true,nullable=true,unique=false,updatable=true)
+    @JoinColumn(name="bien_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
     private Bien bien;
 
 
@@ -71,12 +81,23 @@ public  class Inventario implements Serializable {
     }
 
 
-   public Integer getSerie() {
+   public String getCodigoFabrica() {
+        return this.codigoFabrica;
+    }
+
+
+  public void setCodigoFabrica (String codigoFabrica) {
+        this.codigoFabrica = codigoFabrica;
+    }
+
+
+
+   public String getSerie() {
         return this.serie;
     }
 
 
-  public void setSerie (Integer serie) {
+  public void setSerie (String serie) {
         this.serie = serie;
     }
 
@@ -104,12 +125,23 @@ public  class Inventario implements Serializable {
 
 
 
-   public Integer getPrecio() {
+   public Factura getFactura() {
+        return this.factura;
+    }
+
+
+  public void setFactura (Factura factura) {
+        this.factura = factura;
+    }
+
+
+
+   public Double getPrecio() {
         return this.precio;
     }
 
 
-  public void setPrecio (Integer precio) {
+  public void setPrecio (Double precio) {
         this.precio = precio;
     }
 

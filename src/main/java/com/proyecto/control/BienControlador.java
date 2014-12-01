@@ -22,15 +22,15 @@ public class BienControlador extends AbstractControlador<Bien>{
     }
      
      public List<Bien> buscarXIdLazy(int limite, int offset) {
-        String jpql = "SELECT a FROM Bien a ORDER BY a.codigo";
+        String jpql = "SELECT a FROM Bien a ORDER BY a.id";
         
         return this.getDao().buscar(jpql, null, limite, offset);
     }
      
-     public List<Bien> buscarXCodigo(String codigo) {
-        String jpql = "SELECT a FROM Bien a WHERE a.codigo = :codigo";
+     public List<Bien> buscarXCodigo(String id) {
+        String jpql = "SELECT a FROM Bien a WHERE a.id = :id";
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("codigo", codigo);
+        parametros.put("id", id);
         return this.getDao().buscar(jpql, parametros);
     }
      

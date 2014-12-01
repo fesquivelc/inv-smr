@@ -55,7 +55,7 @@
                       <Component id="panelOpciones" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelGuardar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
                   </Group>
                   <Component id="panelDatos" max="32767" attributes="0"/>
               </Group>
@@ -82,20 +82,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="idLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="nombreLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="nombreLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="nombreField" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="tipoField" min="-2" pref="201" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btntipo" pref="56" max="32767" attributes="0"/>
+                          <Component id="nombreLabel3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="abreviaturaField" min="-2" pref="267" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="codigoField" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="nombreLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="nombreField" min="-2" pref="267" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
               </Group>
@@ -104,11 +101,6 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="idLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="codigoField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="nombreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -116,21 +108,15 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="nombreLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tipoField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btntipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nombreLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="abreviaturaField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="115" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="idLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xf3;digo: "/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="nombreLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre:"/>
@@ -138,22 +124,12 @@
         </Component>
         <Component class="javax.swing.JTextField" name="nombreField">
         </Component>
-        <Component class="javax.swing.JLabel" name="nombreLabel1">
+        <Component class="javax.swing.JLabel" name="nombreLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo: "/>
+            <Property name="text" type="java.lang.String" value="Abreviatura"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tipoField">
-        </Component>
-        <Component class="javax.swing.JButton" name="btntipo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntipoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="codigoField">
+        <Component class="javax.swing.JTextField" name="abreviaturaField">
         </Component>
       </SubComponents>
     </Container>
@@ -293,7 +269,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblclase">
+            <Component class="javax.swing.JTable" name="tblUnidad">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="4" rowCount="4">
@@ -309,7 +285,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Lista de clases:"/>
+            <Property name="text" type="java.lang.String" value="Lista de unidades de medida:"/>
           </Properties>
         </Component>
       </SubComponents>

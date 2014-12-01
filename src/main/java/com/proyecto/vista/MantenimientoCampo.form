@@ -55,7 +55,7 @@
                       <Component id="panelOpciones" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelGuardar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
                   </Group>
                   <Component id="panelDatos" max="32767" attributes="0"/>
               </Group>
@@ -83,19 +83,15 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="idLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="nombreLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="nombreLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="nombreLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="nombreField" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="tipoField" min="-2" pref="201" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="btntipo" pref="56" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="codigoField" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="nombreField" min="-2" pref="267" max="-2" attributes="0"/>
+                      <Component id="cmbClase" min="-2" pref="196" max="-2" attributes="0"/>
+                      <Component id="cmbUnidad" alignment="0" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
               </Group>
@@ -104,11 +100,6 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="idLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="codigoField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="nombreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -117,20 +108,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="nombreLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tipoField" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btntipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbClase" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="115" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="nombreLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbUnidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="idLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="C&#xf3;digo: "/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="nombreLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nombre:"/>
@@ -140,20 +130,37 @@
         </Component>
         <Component class="javax.swing.JLabel" name="nombreLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo: "/>
+            <Property name="text" type="java.lang.String" value="Clase"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tipoField">
-        </Component>
-        <Component class="javax.swing.JButton" name="btntipo">
+        <Component class="javax.swing.JComboBox" name="cmbClase">
           <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntipoActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="codigoField">
+        <Component class="javax.swing.JLabel" name="nombreLabel2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Unidad"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbUnidad">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
@@ -309,7 +316,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Lista de clases:"/>
+            <Property name="text" type="java.lang.String" value="Lista de campos:"/>
           </Properties>
         </Component>
       </SubComponents>

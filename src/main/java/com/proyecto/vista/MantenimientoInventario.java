@@ -402,11 +402,11 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
             palabra2 = "registrado";
 
             if (JOptionPane.showConfirmDialog(this, "¿Desea " + palabra + " el Bien?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                inventarioControlador.getSeleccionado().setPrecio(Integer.valueOf(precioField.getText()));
+                inventarioControlador.getSeleccionado().setPrecio(Double.valueOf(precioField.getText()));
                 //MODIFICAR COMBOBOX
                 inventarioControlador.getSeleccionado().setEstado(title);
 
-                inventarioControlador.getSeleccionado().setSerie(Integer.valueOf(serieField.getText()));
+                inventarioControlador.getSeleccionado().setSerie(serieField.getText());
                 
                 bienControlador.buscarPorId(ui);
                 this.setAmbiente(null);

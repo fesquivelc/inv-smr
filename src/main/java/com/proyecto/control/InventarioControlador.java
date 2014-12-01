@@ -6,6 +6,7 @@
 
 package com.proyecto.control;
 
+import com.proyecto.beans.Bien;
 import com.proyecto.beans.Inventario;
 import java.util.HashMap;
 import java.util.List;
@@ -21,11 +22,27 @@ public class InventarioControlador extends AbstractControlador<Inventario>{
         super(Inventario.class);
     }
     
-    public List<Inventario> buscarXCodigo(String codigo) {
-        String jpql = "SELECT a FROM Inventario a WHERE a.bien.codigo = :codigo";
+    public List<Inventario> buscarXSerie(String buscar) {
+        String jpql = "SELECT a FROM Inventario a WHERE CONCAT(a.bien.clase.codigo, a.serie) = :buscar";
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("codigo", codigo);
+        parametros.put("buscar", buscar);
         return this.getDao().buscar(jpql, parametros);
     }
+    
+    public int buscarXBien(Bien bien) {
+        String jpql = "SELECT COUNT(a) FROM Inventario a WHERE a.bien = :bien";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("bien", bien);
+        return this.getDao().contarFiltro(jpql, parametros);
+    }
+    
+    public List<Inventario> buscarXBien2(Bien bien) {
+        String jpql = "SELECT a FROM Inventario a WHERE a.bien = :bien";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("bien", bien);
+        return this.getDao().buscar(jpql, parametros);
+    }
+    
+   
     
 }

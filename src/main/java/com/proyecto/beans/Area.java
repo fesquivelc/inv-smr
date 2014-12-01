@@ -20,6 +20,11 @@ import javax.persistence.Table;
 public  class Area implements Serializable {
 
 
+    @Column(name="codigo")
+    @Basic
+    private String codigo;
+
+
     @Column(name="nombre",table="area",length=45)
     @Basic
     private String nombre;
@@ -37,6 +42,17 @@ public  class Area implements Serializable {
     public Area(){
 
     }
+
+
+   public String getCodigo() {
+        return this.codigo;
+    }
+
+
+  public void setCodigo (String codigo) {
+        this.codigo = codigo;
+    }
+
 
 
    public String getNombre() {
@@ -69,13 +85,6 @@ public  class Area implements Serializable {
   public void setAmbientes (List<Ambiente> ambientes) {
         this.ambientes = ambientes;
     }
-
-    @Override
-    public String toString() {
-        return nombre ;
-    }
-  
-  
 
 }
 

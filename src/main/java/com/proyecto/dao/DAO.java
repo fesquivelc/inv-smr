@@ -89,16 +89,27 @@ public class DAO<T> {
         cq.select(cq.from(clase));
         return getEntityManager().createQuery(cq).getResultList();
     }
-    
-    public int contar(){
+
+    public int contar() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         javax.persistence.criteria.Root<T> rt = cq.from(clase);
         cq.select(getEntityManager().getCriteriaBuilder().count(rt));
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
-    public T buscarPorId(Object id){
+
+    public int contarFiltro(String queryJPQL, Map<String, Object> parametros) {
+        Query query = getEntityManager().createQuery(queryJPQL);
+
+        if (parametros != null) {
+            for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+        return  ((Long) query.getSingleResult()).intValue();
+    }
+
+    public T buscarPorId(Object id) {
         return getEntityManager().find(clase, id);
     }
 }
