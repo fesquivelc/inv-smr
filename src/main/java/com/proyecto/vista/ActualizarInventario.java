@@ -692,7 +692,7 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
 
                 System.out.println("CANTIDAD: " + cantidad);
                 for (int i = 0; i < cantidad; i++) {
-                    List<Inventario> conteo = inventarioControlador.buscarXBien2(bienGlobal, (Periodo) cmbPeriodo.getSelectedItem());
+                    List<Inventario> conteo = inventarioControlador.buscarXBien2(bienGlobal);
                     int contar = conteo.size();
                     Inventario inventarioFinal = new Inventario();
 
@@ -712,6 +712,14 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
                     inventarioFinal.setSerie(serie);
 
                     inventarioControlador.setSeleccionado(inventarioFinal);
+
+//                    listarCamposNoMod(bienGlobal);
+//                    crearDetalleInventario();
+//                    for (DetalleBienCampo detalle : listaDetalle) {
+//
+//                        detalleControlador.setSeleccionado(detalle);
+//                        detalleControlador.accion(AbstractControlador.MODIFICAR);
+//                    }
 
                     inventarioControlador.accion(accion);
                 }
@@ -884,7 +892,7 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         if (accion == 2) {
             facturaDialogo.setFacturas(factura);
         }
-        
+
         this.inventarioControlador.getSeleccionado().setFactura(facturaDialogo.getFactura());
 
         this.facturaField.setText(this.inventarioControlador.getSeleccionado().getFactura().getNumeroFactura().toUpperCase());
@@ -1054,7 +1062,7 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
                 factura = inventarioControlador.getSeleccionado().getFactura();
             }
 
-            List<Inventario> conteo = inventarioControlador.buscarXBien2(inventarioControlador.getSeleccionado().getBien(), inventarioControlador.getSeleccionado().getPeriodo());
+            List<Inventario> conteo = inventarioControlador.buscarXBien3(inventarioControlador.getSeleccionado().getBien(), inventarioControlador.getSeleccionado().getPeriodo());
             int contar = conteo.size();
 
             lblStock.setText(String.valueOf(contar));
@@ -1069,14 +1077,15 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         }
     }
 
-    private List<DetalleBienCampo> listaDetalle;
+    private List<DetalleBienCampo> listaDetalle = new ArrayList();
     private final DetalleBienCampoControlador detalleControlador = new DetalleBienCampoControlador();
     private List<DetalleBienCampo> nuevaListaDetalle;
 
     Boolean crearDetalle = true;
 
     private void listarCamposNoMod(Bien bien) {
-        listaDetalle = detalleControlador.buscarXInventario(inventarioControlador.getSeleccionado());
+        listaDetalle.clear();
+        listaDetalle.addAll(detalleControlador.buscarXInventario(inventarioControlador.getSeleccionado()));
 
         if (listaDetalle.isEmpty()) {
 

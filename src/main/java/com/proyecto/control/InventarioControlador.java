@@ -7,6 +7,7 @@
 package com.proyecto.control;
 
 import com.proyecto.beans.Bien;
+import com.proyecto.beans.Clase;
 import com.proyecto.beans.Inventario;
 import com.proyecto.beans.Periodo;
 import java.util.Date;
@@ -40,7 +41,15 @@ public class InventarioControlador extends AbstractControlador<Inventario>{
         return this.getDao().contarFiltro(jpql, parametros);
     }
     
-    public List<Inventario> buscarXBien2(Bien bien, Periodo periodo) {
+    public List<Inventario> buscarXBien2(Bien bien) {
+        Clase clase = bien.getClase();
+        String jpql = "SELECT a FROM Inventario a WHERE a.bien.clase = :clase";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("clase", clase);
+        return this.getDao().buscar(jpql, parametros);
+    }
+    
+    public List<Inventario> buscarXBien3(Bien bien, Periodo periodo) {
         String jpql = "SELECT a FROM Inventario a WHERE a.bien = :bien AND a.periodo = :periodo";
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("bien", bien);
@@ -49,7 +58,7 @@ public class InventarioControlador extends AbstractControlador<Inventario>{
     }
     
     public List<Inventario> buscarXPeriodoXFecha(Periodo periodo, Date inicio, Date fin) {
-        String jpql = "SELECT a FROM Inventario a WHERE a.periodo = :periodo OR a.fechaIngreso BETWEEN :inicio AND :fin";
+        String jpql = "SELECT a FROM Inventario a WHERE a.periodo = :periodo AND a.fechaIngreso BETWEEN :inicio AND :fin";
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("periodo", periodo);
         parametros.put("inicio", inicio);
