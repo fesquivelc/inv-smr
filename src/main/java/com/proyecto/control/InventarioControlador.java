@@ -49,7 +49,7 @@ public class InventarioControlador extends AbstractControlador<Inventario>{
     }
     
     public List<Inventario> buscarXPeriodoXFecha(Periodo periodo, Date inicio, Date fin) {
-        String jpql = "SELECT a FROM Inventario a WHERE a.periodo = :periodo AND a.fechaIngreso BETWEEN :inicio AND :fin";
+        String jpql = "SELECT a FROM Inventario a WHERE a.periodo = :periodo OR a.fechaIngreso BETWEEN :inicio AND :fin";
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("periodo", periodo);
         parametros.put("inicio", inicio);

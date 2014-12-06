@@ -166,7 +166,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         }
         
         lista.clear();
-        lista =  inventarioControlador.buscarXPeriodoXFecha(periodo, inicio, fin);
+        lista.addAll(inventarioControlador.buscarXPeriodoXFecha(periodo, inicio, fin));
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
