@@ -8,6 +8,7 @@ package com.proyecto.control;
 
 import com.proyecto.beans.Bien;
 import com.proyecto.beans.DetalleBienCampo;
+import com.proyecto.beans.Inventario;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,18 @@ public class DetalleBienCampoControlador extends AbstractControlador<DetalleBien
     }
     
     public List<DetalleBienCampo> buscarXBien(Bien bien) {
-        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.bien = :bien";
+        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.bien = :bien AND a.campo.modificable = true AND a.inventario = null";
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("bien", bien);
         return this.getDao().buscar(jpql, parametros);
     }
+    
+    public List<DetalleBienCampo> buscarXInventario(Inventario inventario) {
+        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.inventario = :inventario";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("inventario", inventario);
+        return this.getDao().buscar(jpql, parametros);
+    }
+    
+    
 }

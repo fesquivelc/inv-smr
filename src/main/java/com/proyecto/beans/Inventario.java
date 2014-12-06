@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import java.lang.Long;
 import java.lang.String;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="inventario")
@@ -27,9 +30,34 @@ public  class Inventario implements Serializable {
     private String codigoFabrica;
 
 
-    @Column(name="serie",table="inventario")
+    @ManyToOne(targetEntity=Factura.class)
+    @JoinColumn(name="factura_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
+    private Factura factura;
+
+
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=DetalleBienCampo.class,mappedBy="inventario")
+    private List<DetalleBienCampo> detalleBienCampoList;
+
+
+    @Column(name="fecha_ingreso")
+    @Temporal(TemporalType.DATE)
     @Basic
-    private String serie;
+    private Date fechaIngreso;
+
+
+    @ManyToOne(optional=false,targetEntity=Ambiente.class)
+    @JoinColumn(name="ambiente_codigo",referencedColumnName="codigo",insertable=true,nullable=true,unique=false,updatable=true)
+    private Ambiente ambiente;
+
+
+    @ManyToOne(optional=false,targetEntity=Bien.class)
+    @JoinColumn(name="bien_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
+    private Bien bien;
+
+
+    @Column(name="baja")
+    @Basic
+    private Boolean baja;
 
 
     @Column(name="id",table="inventario",nullable=false)
@@ -38,14 +66,14 @@ public  class Inventario implements Serializable {
     private Long id;
 
 
+    @Column(name="serie",table="inventario")
+    @Basic
+    private String serie;
+
+
     @Column(name="estado",table="inventario",length=45)
     @Basic
     private String estado;
-
-
-    @ManyToOne(targetEntity=Factura.class)
-    @JoinColumn(name="factura_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
-    private Factura factura;
 
 
     @Column(name="precio",table="inventario")
@@ -53,23 +81,13 @@ public  class Inventario implements Serializable {
     private Double precio;
 
 
-    @ManyToOne(optional=false,targetEntity=Ambiente.class)
-    @JoinColumn(name="ambiente_codigo",referencedColumnName="codigo",insertable=true,nullable=true,unique=false,updatable=true)
-    private Ambiente ambiente;
-
-
-    @ManyToOne(targetEntity=Proveedor.class)
-    private Proveedor proveedor;
-
-
     @ManyToOne(optional=false,targetEntity=Periodo.class)
     @JoinColumn(name="periodo_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
     private Periodo periodo;
 
 
-    @ManyToOne(optional=false,targetEntity=Bien.class)
-    @JoinColumn(name="bien_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
-    private Bien bien;
+    @ManyToOne(targetEntity=Proveedor.class)
+    private Proveedor proveedor;
 
 
     @OneToMany(fetch=FetchType.LAZY,targetEntity=DetalleMovimiento.class,mappedBy="inventario")
@@ -91,39 +109,6 @@ public  class Inventario implements Serializable {
 
 
 
-   public String getSerie() {
-        return this.serie;
-    }
-
-
-  public void setSerie (String serie) {
-        this.serie = serie;
-    }
-
-
-
-   public Long getId() {
-        return this.id;
-    }
-
-
-  public void setId (Long id) {
-        this.id = id;
-    }
-
-
-
-   public String getEstado() {
-        return this.estado;
-    }
-
-
-  public void setEstado (String estado) {
-        this.estado = estado;
-    }
-
-
-
    public Factura getFactura() {
         return this.factura;
     }
@@ -135,13 +120,24 @@ public  class Inventario implements Serializable {
 
 
 
-   public Double getPrecio() {
-        return this.precio;
+   public List<DetalleBienCampo> getDetalleBienCampoList() {
+        return this.detalleBienCampoList;
     }
 
 
-  public void setPrecio (Double precio) {
-        this.precio = precio;
+  public void setDetalleBienCampoList (List<DetalleBienCampo> detalleBienCampoList) {
+        this.detalleBienCampoList = detalleBienCampoList;
+    }
+
+
+
+   public Date getFechaIngreso() {
+        return this.fechaIngreso;
+    }
+
+
+  public void setFechaIngreso (Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
     }
 
 
@@ -157,13 +153,68 @@ public  class Inventario implements Serializable {
 
 
 
-   public Proveedor getProveedor() {
-        return this.proveedor;
+   public Bien getBien() {
+        return this.bien;
     }
 
 
-  public void setProveedor (Proveedor proveedor) {
-        this.proveedor = proveedor;
+  public void setBien (Bien bien) {
+        this.bien = bien;
+    }
+
+
+
+    public Boolean getBaja() {
+        return this.baja;
+    }
+
+
+  public void setBaja (Boolean baja) {
+        this.baja = baja;
+    }
+
+
+
+   public Long getId() {
+        return this.id;
+    }
+
+
+  public void setId (Long id) {
+        this.id = id;
+    }
+
+
+
+   public String getSerie() {
+        return this.serie;
+    }
+
+
+  public void setSerie (String serie) {
+        this.serie = serie;
+    }
+
+
+
+   public String getEstado() {
+        return this.estado;
+    }
+
+
+  public void setEstado (String estado) {
+        this.estado = estado;
+    }
+
+
+
+   public Double getPrecio() {
+        return this.precio;
+    }
+
+
+  public void setPrecio (Double precio) {
+        this.precio = precio;
     }
 
 
@@ -179,13 +230,13 @@ public  class Inventario implements Serializable {
 
 
 
-   public Bien getBien() {
-        return this.bien;
+   public Proveedor getProveedor() {
+        return this.proveedor;
     }
 
 
-  public void setBien (Bien bien) {
-        this.bien = bien;
+  public void setProveedor (Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 
 

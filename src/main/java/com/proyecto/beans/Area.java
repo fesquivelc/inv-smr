@@ -86,5 +86,11 @@ public  class Area implements Serializable {
         this.ambientes = ambientes;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+  
 }
 

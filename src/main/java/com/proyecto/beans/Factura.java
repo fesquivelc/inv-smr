@@ -2,6 +2,7 @@ package com.proyecto.beans;
 
 import java.io.Serializable;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="factura")
@@ -26,6 +29,12 @@ public  class Factura implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+
+
+    @Column(name="fecha")
+    @Temporal(TemporalType.DATE)
+    @Basic
+    private Date fecha;
 
 
     @Column(name="numero_factura")
@@ -64,6 +73,17 @@ public  class Factura implements Serializable {
 
 
 
+   public Date getFecha() {
+        return this.fecha;
+    }
+
+
+  public void setFecha (Date fecha) {
+        this.fecha = fecha;
+    }
+
+
+
    public String getNumeroFactura() {
         return this.numeroFactura;
     }
@@ -82,6 +102,11 @@ public  class Factura implements Serializable {
 
   public void setRuta (String ruta) {
         this.ruta = ruta;
+    }
+  
+  @Override
+    public String toString() {
+        return numeroFactura;
     }
 
 }

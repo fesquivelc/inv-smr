@@ -8,10 +8,12 @@ package com.proyecto.vista;
 
 import com.proyecto.beans.Ambiente;
 import com.proyecto.control.AmbienteControlador;
+import java.awt.Component;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.observablecollections.ObservableCollections;
@@ -22,22 +24,20 @@ import org.jdesktop.swingbinding.SwingBindings;
  *
  * @author RyuujiMD
  */
-public class DlgAmbienteBusqueda extends DialogoAbstract {
+public class DlgAmbienteBusqueda extends JDialog {
 
     /**
      * Creates new form DlgAmbienteBusqueda
      */
-    private final AmbienteControlador ambienteControlador = new AmbienteControlador();
-    private final JInternalFrame padre;
+    private final AmbienteControlador ambienteControlador;
+    private Ambiente ambiente;
 
-    public DlgAmbienteBusqueda(JInternalFrame padre, boolean modal) {
-        super(padre, modal);
-        this.padre = padre;
-        
-        this.setModal(true);
+    public DlgAmbienteBusqueda(Component componente) {
+        super(JOptionPane.getFrameForComponent(componente), true);
+        this.ambienteControlador = new AmbienteControlador();
         initComponents();
-        binding();
-        this.setLocationRelativeTo(padre);
+        this.setLocationRelativeTo(componente);
+        listar();
     }
 
     /**
@@ -126,10 +126,7 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
         // TODO add your handling code here:
         if(evt.getClickCount() == 2){
             int fila = tblAmbiente.getSelectedRow();
-            if(padre instanceof MantenimientoBien){
-                
-                ((MantenimientoInventario)padre).setElemento("ambienteId", lista.get(fila));                
-            }
+            this.ambiente = lista.get(fila);
             this.dispose();
         }
     }//GEN-LAST:event_tblAmbienteMouseReleased
@@ -178,7 +175,7 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
     private javax.swing.JTextField txtBusqueda;
     // End of variables declaration//GEN-END:variables
 
-    private void binding() {
+    private void listar() {
         lista = this.ambienteControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
         
@@ -192,14 +189,9 @@ public class DlgAmbienteBusqueda extends DialogoAbstract {
 
         binding.bind();
     }
-
-    @Override
-    public void setElemento(String propiedad, Object valor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void actualizar(String valor) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    public Ambiente getAmbiente(){
+        this.setVisible(true);
+        return this.ambiente;
     }
 }

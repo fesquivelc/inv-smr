@@ -52,6 +52,7 @@ public class Principal extends javax.swing.JFrame {
         MenuCampo = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -65,13 +66,13 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SISTEMA DE PATRIMONIO v0.1");
+        setTitle("SISTEMA DE PATRIMONIO v2.0");
 
         javax.swing.GroupLayout desktoppaneLayout = new javax.swing.GroupLayout(desktoppane);
         desktoppane.setLayout(desktoppaneLayout);
         desktoppaneLayout.setHorizontalGroup(
             desktoppaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 428, Short.MAX_VALUE)
         );
         desktoppaneLayout.setVerticalGroup(
             desktoppaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,6 +82,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.setText("Actividades");
         jMenu1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
+        jMenuItem7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem7.setText("Actualizar Inventario");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +149,15 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         menuMantenimiento.add(jMenuItem9);
+
+        jMenuItem14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem14.setText("Factura");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        menuMantenimiento.add(jMenuItem14);
 
         jMenuItem4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jMenuItem4.setText("Inventario");
@@ -387,6 +398,15 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        // TODO add your handling code here:
+        MantenimientoFactura factura = MantenimientoFactura.getInstancia();
+        if (!this.desktoppane.isAncestorOf(factura)) {
+            this.desktoppane.add(factura);
+            factura.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -434,6 +454,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

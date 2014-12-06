@@ -129,12 +129,11 @@ public  class Ambiente implements Serializable {
   public void setInventarios (List<Inventario> inventarios) {
         this.inventarios = inventarios;
     }
-
-    @Override
+  
+  @Override
     public String toString() {
-        return nombre;
+        return codigo+" - "+nombre;
     }
 
-  
 }
 

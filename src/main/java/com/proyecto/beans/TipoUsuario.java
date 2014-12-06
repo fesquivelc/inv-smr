@@ -70,5 +70,12 @@ public  class TipoUsuario implements Serializable {
         this.usuarios = usuarios;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+  
+  
+
 }
 

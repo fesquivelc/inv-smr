@@ -32,5 +32,12 @@ public class AmbienteControlador extends AbstractControlador<Ambiente> {
         
         return this.getDao().buscar(jpql, null, limite, offset);
     }
-
+    
+    public List<Ambiente> buscarXNombreXCodigo(String buscar){
+        String jpql = "SELECT a FROM Ambiente a WHERE a.nombre LIKE CONCAT('%',:buscar,'%') OR a.codigo LIKE CONCAT('%',:buscar,'%')";
+        Map<String, Object> parametros = new HashMap<>();       
+        parametros.put("buscar", buscar);
+        return this.getDao().buscar(jpql, parametros);      
+        
+    }
 }

@@ -118,5 +118,11 @@ public  class Proveedor implements Serializable {
         this.inventarios = inventarios;
     }
 
+    @Override
+    public String toString() {
+        return nombreProveedor;
+    }
+
+  
 }
 

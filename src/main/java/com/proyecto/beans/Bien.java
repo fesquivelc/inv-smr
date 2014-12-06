@@ -3,7 +3,6 @@ package com.proyecto.beans;
 import java.io.Serializable;
 
 import java.lang.String;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,8 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="bien")
@@ -35,10 +32,6 @@ public  class Bien implements Serializable {
     private Long id;
 
 
-    @OneToMany(targetEntity=DetalleBienCampo.class,mappedBy="bien")
-    private List<DetalleBienCampo> detalleBienCampoList;
-
-
     @Column(name="descripcion",table="bien",length=45)
     @Basic
     private String descripcion;
@@ -49,13 +42,11 @@ public  class Bien implements Serializable {
     private Clase clase;
 
 
-    @Column(name="fecha_ingreso",table="bien")
-    @Temporal(TemporalType.TIMESTAMP)
-    @Basic
-    private Date fechaIngreso;
+    @OneToMany(fetch=FetchType.LAZY,targetEntity=DetalleBienCampo.class,mappedBy="bien")
+    private List<DetalleBienCampo> ListaCampos;
 
 
-    @Column(name="foto",table="bien",length=45)
+    @Column(name="foto",table="bien")
     @Basic
     private String foto;
 
@@ -90,17 +81,6 @@ public  class Bien implements Serializable {
 
 
 
-   public List<DetalleBienCampo> getDetalleBienCampoList() {
-        return this.detalleBienCampoList;
-    }
-
-
-  public void setDetalleBienCampoList (List<DetalleBienCampo> detalleBienCampoList) {
-        this.detalleBienCampoList = detalleBienCampoList;
-    }
-
-
-
    public String getDescripcion() {
         return this.descripcion;
     }
@@ -123,13 +103,13 @@ public  class Bien implements Serializable {
 
 
 
-   public Date getFechaIngreso() {
-        return this.fechaIngreso;
+   public List<DetalleBienCampo> getListaCampos() {
+        return this.ListaCampos;
     }
 
 
-  public void setFechaIngreso (Date fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+  public void setListaCampos (List<DetalleBienCampo> ListaCampos) {
+        this.ListaCampos = ListaCampos;
     }
 
 
@@ -154,5 +134,9 @@ public  class Bien implements Serializable {
         this.inventarios = inventarios;
     }
 
+  @Override
+    public String toString() {
+        return nombre;
+    }
 }
 

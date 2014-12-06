@@ -48,8 +48,6 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
      * Creates new form MantenimientoBien
      */
     private static MantenimientoBien instancia;
-    private int limite;
-    private int offset;
 
     public MantenimientoBien() {
         initComponents();
@@ -212,6 +210,11 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblbienes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblbienesMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblbienes);
 
         jButton3.setText("Buscar");
@@ -429,7 +432,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         if (accion == 1) {
             listarCampos((Clase) cmbClase.getSelectedItem());
         } else if (accion == 2) {
-
+            listarCampos(bienControlador.getSeleccionado().getClase());
         }
 
     }//GEN-LAST:event_cmbClaseActionPerformed
@@ -450,6 +453,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         accion = AbstractControlador.MODIFICAR;
 
+        cargarCombo();
         int fila = this.tblbienes.getSelectedRow();
         if (fila != -1) {
             FormularioUtil.activarComponente(panelDatos, true);
@@ -474,7 +478,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Clase", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Bien", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnmodificarActionPerformed
 
@@ -570,13 +574,13 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Bien no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         }
-        
+
         for (DetalleBienCampo detalle : lista3) {
             detalle.setBien(bienControlador.getSeleccionado());
             detalleControlador.setSeleccionado(detalle);
             detalleControlador.accion(AbstractControlador.MODIFICAR);
         }
-        
+
         lista3.clear();
         FormularioUtil.activarComponente(panelOpciones, true);
         FormularioUtil.activarComponente(panelGuardar, false);
@@ -584,7 +588,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         FormularioUtil.limpiarComponente(panelDatos);
         fotoLbl.setIcon(null);
         descripcionField.setText(null);
-        
+
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -597,6 +601,36 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         descripcionField.setText(null);
         lista3.clear();
     }//GEN-LAST:event_btncancelarActionPerformed
+
+    Bien bien;
+    private void tblbienesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbienesMouseReleased
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 1) {
+
+            int fila = tblbienes.getSelectedRow();
+            this.bien = lista.get(fila);
+
+            try {
+                nombreField.setText(BeanUtils.getProperty(bien, "nombre"));
+                descripcionField.setText(BeanUtils.getProperty(bien, "descripcion"));
+                fotoField.setText(BeanUtils.getProperty(bien, "foto"));
+
+                ImageIcon fot = new ImageIcon(fotoField.getText());
+                Icon icono = new ImageIcon(fot.getImage().getScaledInstance(fotoLbl.getWidth(), fotoLbl.getHeight(), Image.SCALE_DEFAULT));
+                fotoLbl.setIcon(icono);
+
+                cmbClase.setSelectedItem(bien.getClase());
+                listarCamposMod(bien);
+            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+                Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (evt.getClickCount() == 2) {
+            int fila = tblbienes.getSelectedRow();
+            this.bien = lista.get(fila);
+            this.dispose();
+        }
+    }//GEN-LAST:event_tblbienesMouseReleased
     private int accion;
     private List<Bien> lista;
     private List<Campo> lista2;
@@ -641,7 +675,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        lista = bienControlador.buscarXIdLazy(offset, limite);
+        lista = bienControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblbienes);
 

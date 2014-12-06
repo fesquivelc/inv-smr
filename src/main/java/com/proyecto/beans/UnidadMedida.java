@@ -66,5 +66,12 @@ public  class UnidadMedida implements Serializable {
         this.abreviatura = abreviatura;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+  
 }
+
 

@@ -34,4 +34,11 @@ public class CampoControlador extends AbstractControlador<Campo>{
         parametros.put("nombre", nombre);
         return this.getDao().buscar(jpql, parametros);
     }
+    
+    public List<Campo> buscarXClaseXModificable(Clase clase) {
+        String jpql = "SELECT a FROM Campo a WHERE a.clase = :clase AND a.modificable = true";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("clase", clase);
+        return this.getDao().buscar(jpql, parametros);
+    }
 }

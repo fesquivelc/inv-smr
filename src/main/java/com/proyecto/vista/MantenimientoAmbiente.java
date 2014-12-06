@@ -371,7 +371,9 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
 
     private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
         // TODO add your handling code here:
-        lista = ambienteControlador.buscar(txtbuscar.getText());
+        lista.clear();
+        lista.addAll(ambienteControlador.buscarXNombreXCodigo(txtbuscar.getText().toUpperCase()));
+        
 
     }//GEN-LAST:event_txtbuscarKeyReleased
 
@@ -536,6 +538,7 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
     private void listar() {
         lista = ambienteControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
+        
         JTableBinding binding = SwingBindings.createJTableBinding(UpdateStrategy.READ, lista, tblambientes);
 
         BeanProperty bId = BeanProperty.create("codigo");

@@ -5,14 +5,22 @@
  */
 package com.proyecto.vista;
 
+import com.proyecto.beans.Bien_;
+import com.proyecto.beans.Factura;
 import com.proyecto.beans.Tipo;
 import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.FacturaControlador;
 import com.proyecto.control.TipoControlador;
+import java.awt.Image;
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.commons.beanutils.BeanUtils;
 import org.jdesktop.beansbinding.AutoBinding;
@@ -25,14 +33,14 @@ import org.jdesktop.swingbinding.SwingBindings;
  *
  * @author Documentos
  */
-public class MantenimientoTipo extends javax.swing.JInternalFrame {
+public class MantenimientoFactura extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form MantenimientoTipo
      */
-    private static MantenimientoTipo instancia;
+    private static MantenimientoFactura instancia;
 
-    public MantenimientoTipo() {
+    public MantenimientoFactura() {
         initComponents();
         listar();
         FormularioUtil.activarComponente(panelDatos, false);
@@ -40,9 +48,9 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
         FormularioUtil.activarComponente(panelGuardar, false);
     }
 
-    public static MantenimientoTipo getInstancia() {
+    public static MantenimientoFactura getInstancia() {
         if (instancia == null) {
-            instancia = new MantenimientoTipo();
+            instancia = new MantenimientoFactura();
         }
         return instancia;
     }
@@ -61,14 +69,21 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbltipo = new javax.swing.JTable();
+        tblFactura = new javax.swing.JTable();
         panelDatos = new javax.swing.JPanel();
         nombreLabel = new javax.swing.JLabel();
         nombreField = new javax.swing.JTextField();
+        nombreLabel1 = new javax.swing.JLabel();
+        facturaField = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jDateFecha = new com.toedter.calendar.JDateChooser();
         panelOpciones = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
         btneliminar = new javax.swing.JButton();
+        panelFoto = new javax.swing.JPanel();
+        lblFactura = new javax.swing.JLabel();
         panelGuardar = new javax.swing.JPanel();
         btnguardar = new javax.swing.JButton();
         btncancelar = new javax.swing.JButton();
@@ -80,9 +95,9 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
 
         jButton1.setText("Buscar");
 
-        jLabel2.setText("Lista de tipos:");
+        jLabel2.setText("Lista de facturas");
 
-        tbltipo.setModel(new javax.swing.table.DefaultTableModel(
+        tblFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -93,32 +108,65 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tbltipo);
+        jScrollPane1.setViewportView(tblFactura);
 
         panelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         panelDatos.setToolTipText("");
 
-        nombreLabel.setText("Nombre:");
+        nombreLabel.setText("Numero");
+
+        nombreLabel1.setText("Ruta");
+
+        jButton2.setText("...");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Fecha");
 
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
         panelDatosLayout.setHorizontalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(nombreLabel)
-                .addGap(27, 27, 27)
-                .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosLayout.createSequentialGroup()
+                        .addComponent(nombreLabel)
+                        .addGap(27, 27, 27))
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(nombreLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(facturaField, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15))
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreLabel1)
+                    .addComponent(facturaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap())
         );
 
         panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
@@ -152,7 +200,7 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnmodificar, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                     .addComponent(btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnnuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
@@ -169,7 +217,25 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        panelFoto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+
+        javax.swing.GroupLayout panelFotoLayout = new javax.swing.GroupLayout(panelFoto);
+        panelFoto.setLayout(panelFotoLayout);
+        panelFotoLayout.setHorizontalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelFotoLayout.setVerticalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFotoLayout.createSequentialGroup()
+                .addComponent(lblFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Acciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
 
         btnguardar.setText("Guardar");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -189,17 +255,17 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
         panelGuardar.setLayout(panelGuardarLayout);
         panelGuardarLayout.setHorizontalGroup(
             panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGuardarLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(32, 32, 32))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGuardarLayout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
         panelGuardarLayout.setVerticalGroup(
             panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGuardarLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addComponent(btnguardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btncancelar)
@@ -213,24 +279,27 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jScrollPane1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(1, 1, 1))
-                                .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtbuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,15 +312,18 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -260,7 +332,7 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.NUEVO;
-        tipoControlador.prepararCrear();
+        facturaControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
         FormularioUtil.activarComponente(panelDatos, true);
@@ -271,17 +343,19 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         accion = AbstractControlador.MODIFICAR;
 
-        int fila = this.tbltipo.getSelectedRow();
+        int fila = this.tblFactura.getSelectedRow();
         if (fila != -1) {
             FormularioUtil.activarComponente(panelDatos, true);
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
 
             accion = AbstractControlador.MODIFICAR;
-            tipoControlador.setSeleccionado(lista.get(fila));
-            Tipo tipo = tipoControlador.getSeleccionado();
+            facturaControlador.setSeleccionado(lista.get(fila));
+            Factura factura = facturaControlador.getSeleccionado();
             try {
-                nombreField.setText(BeanUtils.getProperty(tipo, "nombre"));
+                nombreField.setText(BeanUtils.getProperty(factura, "numeroFactura"));
+                facturaField.setText(BeanUtils.getProperty(factura, "ruta"));
+
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
                 Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -293,23 +367,23 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.ELIMINAR;
-        if (tbltipo.getSelectedRow() != -1) {
+        if (tblFactura.getSelectedRow() != -1) {
 
-            Integer codigo = tbltipo.getSelectedRow();
+            Integer codigo = tblFactura.getSelectedRow();
 
-            Tipo tipo = tipoControlador.buscarPorId(lista.get(codigo).getId());
+            Factura factura = facturaControlador.buscarPorId(lista.get(codigo).getId());
 
-            if (tipo != null) {
+            if (factura != null) {
                 if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar el Tipo?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                    int[] filas = tbltipo.getSelectedRows();
+                    int[] filas = tblFactura.getSelectedRows();
                     for (int i = 0; i < filas.length; i++) {
-                        Tipo empleado2 = lista.get(filas[0]);
-                        lista.remove(empleado2);
-                        tipoControlador.setSeleccionado(empleado2);
-                        tipoControlador.accion(accion);
+                        Factura factura2 = lista.get(filas[0]);
+                        lista.remove(factura2);
+                        facturaControlador.setSeleccionado(factura2);
+                        facturaControlador.accion(accion);
                     }
-                    if (tipoControlador.accion(accion) == 3) {
+                    if (facturaControlador.accion(accion) == 3) {
                         JOptionPane.showMessageDialog(null, "Tipo eliminado correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
@@ -327,7 +401,7 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:
         List<Integer> array = new ArrayList();
-        array.add(FormularioUtil.Validar(FormularioUtil.TipoValidacion.NUMERO, this.nombreField, "Nombre"));
+        array.add(FormularioUtil.Validar(FormularioUtil.TipoValidacion.LETRA, this.nombreField, "Nombre"));
         FormularioUtil.validar2(array);
 
         if (FormularioUtil.error) {
@@ -343,10 +417,12 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
 
                 if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " el Tipo?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                    tipoControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
+                    facturaControlador.getSeleccionado().setNumeroFactura(nombreField.getText());
+                    facturaControlador.getSeleccionado().setFecha(jDateFecha.getDate());
+                    facturaControlador.getSeleccionado().setRuta(facturaField.getText());
 
-                    tipoControlador.accion(accion);
-                    lista.add(tipoControlador.getSeleccionado());
+                    facturaControlador.accion(accion);
+                    lista.add(facturaControlador.getSeleccionado());
 
                     if (accion == 1) {
                         JOptionPane.showMessageDialog(null, "Tipo " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
@@ -368,8 +444,10 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, "Tipo " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
 
                         lista.clear();
-                        tipoControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
-                        tipoControlador.accion(accion);
+                        facturaControlador.getSeleccionado().setNumeroFactura(nombreField.getText());
+                        facturaControlador.getSeleccionado().setFecha(jDateFecha.getDate());
+                        facturaControlador.getSeleccionado().setRuta(facturaField.getText());
+                        facturaControlador.accion(accion);
                         listar();
 
                         FormularioUtil.limpiarComponente(panelDatos);
@@ -383,9 +461,11 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
                 }
             }
             FormularioUtil.limpiarComponente(panelDatos);
+            FormularioUtil.limpiarComponente(panelFoto);
             FormularioUtil.activarComponente(panelOpciones, true);
             FormularioUtil.activarComponente(panelGuardar, false);
             FormularioUtil.activarComponente(panelDatos, false);
+            lblFactura.setIcon(null);
         }
 
     }//GEN-LAST:event_btnguardarActionPerformed
@@ -394,12 +474,30 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         FormularioUtil.activarComponente(panelDatos, false);
         FormularioUtil.limpiarComponente(panelDatos);
+        FormularioUtil.limpiarComponente(panelFoto);
         FormularioUtil.activarComponente(panelOpciones, true);
         FormularioUtil.activarComponente(panelGuardar, false);
+        lblFactura.setIcon(null);
     }//GEN-LAST:event_btncancelarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        int respuesta = fc.showOpenDialog(this);
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            File archivoElegido = fc.getSelectedFile();
+            facturaField.setText(archivoElegido.getAbsolutePath());            
+
+//            fotolbl.setIcon(new ImageIcon("C:/Users/Documentos/Desktop/HS/" + fotosField.getText()));
+            ImageIcon fot = new ImageIcon(facturaField.getText());
+            Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblFactura.getWidth(), lblFactura.getHeight(), Image.SCALE_DEFAULT));
+            lblFactura.setIcon(icono);
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
     private int accion;
-    private List<Tipo> lista;
-    private final TipoControlador tipoControlador = new TipoControlador();
+    private List<Factura> lista;
+    private final FacturaControlador facturaControlador = new FacturaControlador();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncancelar;
@@ -407,32 +505,43 @@ public class MantenimientoTipo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
+    private javax.swing.JTextField facturaField;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblFactura;
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreLabel;
+    private javax.swing.JLabel nombreLabel1;
     private javax.swing.JPanel panelDatos;
+    private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelGuardar;
     private javax.swing.JPanel panelOpciones;
-    private javax.swing.JTable tbltipo;
+    private javax.swing.JTable tblFactura;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        lista = tipoControlador.buscarTodos();
+        lista = this.facturaControlador.buscarTodos();
         lista = ObservableCollections.observableList(lista);
-        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tbltipo);
+
+        JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblFactura);
 
         BeanProperty bId = BeanProperty.create("id");
-        BeanProperty bNombre = BeanProperty.create("nombre");
+        BeanProperty bNumero = BeanProperty.create("numeroFactura");
+        BeanProperty bFecha = BeanProperty.create("fecha");
+        BeanProperty bRuta = BeanProperty.create("ruta");
+        
 
         binding.addColumnBinding(bId).setColumnName("ID").setEditable(false);
-
-        binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
-
+        binding.addColumnBinding(bNumero).setColumnName("NUMERO").setEditable(false);
+        binding.addColumnBinding(bFecha).setColumnName("FECHA").setEditable(false);
+        binding.addColumnBinding(bRuta).setColumnName("RUTA").setEditable(false);
+        
         binding.bind();
-
     }
 }

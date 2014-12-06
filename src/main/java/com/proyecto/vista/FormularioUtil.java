@@ -159,9 +159,10 @@ public class FormularioUtil {
     }
 
     public static void limpiarComponente(Component component) {
-        if (component instanceof JComboBox) {
-            ((JComboBox) component).removeAllItems();
-        } else if (component instanceof JTextComponent) {
+//        if (component instanceof JComboBox) {
+//            ((JComboBox) component).setSelectedIndex(0);
+//        } else 
+            if (component instanceof JTextComponent) {
             ((JTextComponent) component).setText("");
         } else if (component instanceof JDateChooser) {
             ((JDateChooser) component).setDate(null);
