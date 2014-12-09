@@ -61,6 +61,7 @@ public class DAO<T> {
     public List<T> buscar(String queryJPQL, Map<String, Object> parametros) {
         return this.buscar(queryJPQL, parametros, -1, -1);
     }
+    
 
     public List<T> buscar(String queryJPQL, Map<String, Object> parametros, int offset, int limit) {
         Query query = getEntityManager().createQuery(queryJPQL);
@@ -107,6 +108,17 @@ public class DAO<T> {
             }
         }
         return  ((Long) query.getSingleResult()).intValue();
+    }
+    
+    public String buscarUltimo(String queryJPQL, Map<String, Object> parametros) {
+        Query query = getEntityManager().createQuery(queryJPQL);
+
+        if (parametros != null) {
+            for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+        return  query.getSingleResult().toString();
     }
 
     public T buscarPorId(Object id) {

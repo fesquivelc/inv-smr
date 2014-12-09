@@ -409,17 +409,27 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        int respuesta = fc.showOpenDialog(this);
-        if (respuesta == JFileChooser.APPROVE_OPTION) {
-            File archivoElegido = fc.getSelectedFile();
-            fotoField.setText(archivoElegido.getAbsolutePath());
+//        JFileChooser fc = new JFileChooser();
+//        int respuesta = fc.showOpenDialog(this);
+//        if (respuesta == JFileChooser.APPROVE_OPTION) {
+//            File archivoElegido = fc.getSelectedFile();
+//            String absolute = archivoElegido.getAbsolutePath();
+//            fotoField.setText(archivoElegido.ge);
+//
+////            fotolbl.setIcon(new ImageIcon("C:/Users/Documentos/Desktop/HS/" + fotosField.getText()));
+//            ImageIcon fot = new ImageIcon(absolute);
+//            Icon icono = new ImageIcon(fot.getImage().getScaledInstance(fotoLbl.getWidth(), fotoLbl.getHeight(), Image.SCALE_DEFAULT));
+//            fotoLbl.setIcon(icono);
+//
+//        }
+        String foto = FormularioUtil.chooserImagen(this);
 
-//            fotolbl.setIcon(new ImageIcon("C:/Users/Documentos/Desktop/HS/" + fotosField.getText()));
-            ImageIcon fot = new ImageIcon(fotoField.getText());
+        if (!foto.equals("")) {
+            fotoField.setText(foto);
+
+            ImageIcon fot = new ImageIcon(foto);
             Icon icono = new ImageIcon(fot.getImage().getScaledInstance(fotoLbl.getWidth(), fotoLbl.getHeight(), Image.SCALE_DEFAULT));
             fotoLbl.setIcon(icono);
-
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -706,22 +716,27 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 //        }
 //        cmblazy.setModel(modeloCombo);
 //    }
+    List<DetalleBienCampo> listaDetalle;
+//    DetalleBienCampoControlador detalleControlador = new DetalleBienCampoControlador();
     private void listarCampos(Clase clase) {
 
         lista2 = campoControlador.buscarXClase(clase);
         lista3 = new ArrayList<>();
 //        lista2 = ObservableCollections.observableList(lista);
-
-        for (Campo campo : lista2) {
-            DetalleBienCampo detalle = new DetalleBienCampo();
-            detalle.setCampo(campo);
-            detalle.setValor(null);
-            detalle.setBien(null);
-            lista3.add(detalle);
+        if (accion == 1) {
+            for (Campo campo : lista2) {
+                DetalleBienCampo detalle = new DetalleBienCampo();
+                detalle.setCampo(campo);
+                detalle.setValor(null);
+                detalle.setBien(null);
+                lista3.add(detalle);
+            }            
+        }else if(accion == 2){
+            listaDetalle = detalleControlador.buscarXBienFull(bienControlador.getSeleccionado());
+            lista3.clear();
+            lista3.addAll(listaDetalle);
         }
-
         BindTabla(lista3, tblDetalle);
-
     }
 
     private void listarCamposMod(Bien bien) {

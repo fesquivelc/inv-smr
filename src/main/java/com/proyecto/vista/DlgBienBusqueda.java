@@ -91,7 +91,7 @@ public class DlgBienBusqueda extends JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -180,16 +180,12 @@ public class DlgBienBusqueda extends JDialog {
 
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblBien);
 
-        BeanProperty bCodigoId = BeanProperty.create("codigo");
+        BeanProperty bCodigoId = BeanProperty.create("id");
         BeanProperty bNombre = BeanProperty.create("nombre");
-        BeanProperty bDescripcion = BeanProperty.create("descripcion");
-        BeanProperty bFotos = BeanProperty.create("foto");
         BeanProperty bClaseId = BeanProperty.create("clase");
 
-        binding.addColumnBinding(bCodigoId).setColumnName("CODIGO").setEditable(false);
+        binding.addColumnBinding(bCodigoId).setColumnName("ID").setEditable(false);
         binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
-        binding.addColumnBinding(bDescripcion).setColumnName("DESCRIPCION").setEditable(false);
-        binding.addColumnBinding(bFotos).setColumnName("FOTO").setEditable(false);
         binding.addColumnBinding(bClaseId).setColumnName("CLASE").setEditable(false);
 
         binding.bind();

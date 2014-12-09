@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,14 +58,25 @@ public class InventarioControlador extends AbstractControlador<Inventario>{
         return this.getDao().buscar(jpql, parametros);
     }
     
-    public List<Inventario> buscarXPeriodoXFecha(Periodo periodo, Date inicio, Date fin) {
-        String jpql = "SELECT a FROM Inventario a WHERE a.periodo = :periodo AND a.fechaIngreso BETWEEN :inicio AND :fin";
+    public List<Inventario> buscarXFecha(Date inicio, Date fin) {
+        String jpql = "SELECT a FROM Inventario a WHERE a.fechaIngreso BETWEEN :inicio AND :fin";
         Map<String, Object> parametros = new HashMap<>();
-        parametros.put("periodo", periodo);
         parametros.put("inicio", inicio);
         parametros.put("fin", fin);
         return this.getDao().buscar(jpql, parametros);
     }
     
+    public String obtenerUltimaSerie(String serie) {
+        String jpql = "SELECT MAX(i.serie) FROM Inventario i WHERE i.bien.clase.codigo = :serie";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("serie", serie);
+        return this.getDao().buscarUltimo(jpql, parametros);
+    }
     
+    public List<Inventario> buscarXPeriodo(Periodo periodo) {
+        String jpql = "SELECT a FROM Inventario a WHERE a.periodo = :periodo ";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("periodo", periodo);
+        return this.getDao().buscar(jpql, parametros);
+    }
 }

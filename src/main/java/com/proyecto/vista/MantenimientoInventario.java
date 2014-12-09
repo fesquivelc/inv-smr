@@ -16,6 +16,7 @@ import com.proyecto.control.PeriodoControlador;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,13 +40,13 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
      * Creates new form MantenimientoInventario
      */
     private static MantenimientoInventario instancia;
-    
+
     public MantenimientoInventario() {
         initComponents();
         cargarComboPeriodo();
         listar();
     }
-    
+
     public static MantenimientoInventario getInstancia() {
         if (instancia == null) {
             instancia = new MantenimientoInventario();
@@ -55,7 +56,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
 
     private List<Inventario> lista;
     private final BienControlador bienControlador = new BienControlador();
-    private final InventarioControlador  inventarioControlador= new InventarioControlador();
+    private final InventarioControlador inventarioControlador = new InventarioControlador();
     private Bien bien;
 
     /**
@@ -96,6 +97,11 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(tblInventario);
 
         cmbPeriodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPeriodoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("-");
 
@@ -114,41 +120,52 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cmbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(489, 489, 489)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jdateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(cmbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(cmbPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8))
-                            .addComponent(jdateInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel7)
-                        .addComponent(jDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jdateInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(10, 10, 10)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -157,17 +174,31 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Periodo periodo = (Periodo)cmbPeriodo.getSelectedItem();
+        Periodo periodo = (Periodo) cmbPeriodo.getSelectedItem();
         Date inicio = jdateInicio.getDate();
         Date fin = jDateFin.getDate();
-        
-        if(jdateInicio == null || jDateFin == null){
-            //implementar !!!
+
+        Calendar cal = Calendar.getInstance();
+
+        if (jdateInicio == null) {
+            cal.set(cal.get(Calendar.YEAR), cal.getActualMinimum(Calendar.MONTH), cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+                        
+            jdateInicio.setDate(cal.getTime());
+        }else if(jDateFin == null){
+            cal.set(cal.get(Calendar.YEAR), cal.getActualMaximum(Calendar.MONTH), cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+                        
+            jdateInicio.setDate(cal.getTime());
         }
-        
+
         lista.clear();
-        lista.addAll(inventarioControlador.buscarXPeriodoXFecha(periodo, inicio, fin));
+        lista.addAll(inventarioControlador.buscarXFecha(inicio, fin));
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cmbPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPeriodoActionPerformed
+        // TODO add your handling code here:
+        lista.clear();
+        lista.addAll(inventarioControlador.buscarXPeriodo((Periodo)cmbPeriodo.getSelectedItem()));
+    }//GEN-LAST:event_cmbPeriodoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,16 +216,15 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     private void listar() {
         lista = new ArrayList();
         lista = ObservableCollections.observableList(lista);
-        
+
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblInventario);
 
-        BeanProperty bBienId = BeanProperty.create("bien");       
+        BeanProperty bBienId = BeanProperty.create("bien");
         BeanProperty bSerie = BeanProperty.create("serie");
         BeanProperty bAmbienteId = BeanProperty.create("ambiente");
         BeanProperty bPeriodoId = BeanProperty.create("periodo");
         BeanProperty bBaja = BeanProperty.create("baja");
-        
-        
+
         binding.addColumnBinding(bBienId).setColumnName("BIEN").setEditable(false);
         binding.addColumnBinding(bSerie).setColumnName("SERIE").setEditable(false);
         binding.addColumnBinding(bAmbienteId).setColumnName("AMBIENTE").setEditable(false);
@@ -204,10 +234,10 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         binding.bind();
 
     }
-    
-     private void cargarComboPeriodo() {
-         PeriodoControlador periodoControlador = new PeriodoControlador();
-         List<Periodo> periodo = periodoControlador.buscarTodos();
-         cmbPeriodo.setModel(new DefaultComboBoxModel(periodo.toArray()));
-     }
+
+    private void cargarComboPeriodo() {
+        PeriodoControlador periodoControlador = new PeriodoControlador();
+        List<Periodo> periodo = periodoControlador.buscarTodos();
+        cmbPeriodo.setModel(new DefaultComboBoxModel(periodo.toArray()));
+    }
 }

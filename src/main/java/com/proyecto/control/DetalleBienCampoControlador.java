@@ -29,6 +29,13 @@ public class DetalleBienCampoControlador extends AbstractControlador<DetalleBien
         return this.getDao().buscar(jpql, parametros);
     }
     
+    public List<DetalleBienCampo> buscarXBienFull(Bien bien) {
+        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.bien = :bien AND a.inventario = null";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("bien", bien);
+        return this.getDao().buscar(jpql, parametros);
+    }
+    
     public List<DetalleBienCampo> buscarXInventario(Inventario inventario) {
         String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.inventario = :inventario";
         Map<String, Object> parametros = new HashMap<>();
