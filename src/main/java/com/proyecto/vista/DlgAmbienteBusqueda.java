@@ -56,8 +56,15 @@ public class DlgAmbienteBusqueda extends JDialog {
         tblAmbiente = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Busqueda de Ambientes");
 
         jLabel1.setText("Buscar:");
+
+        txtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBusquedaKeyReleased(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +138,12 @@ public class DlgAmbienteBusqueda extends JDialog {
         }
     }//GEN-LAST:event_tblAmbienteMouseReleased
 
+    private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
+        // TODO add your handling code here:
+        lista.clear();
+        lista.addAll(ambienteControlador.buscarXNombre(txtBusqueda.getText().toUpperCase()));
+    }//GEN-LAST:event_txtBusquedaKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -181,11 +194,13 @@ public class DlgAmbienteBusqueda extends JDialog {
         
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblAmbiente);
 
+        BeanProperty bCodigo = BeanProperty.create("codigo");
         BeanProperty bNombre = BeanProperty.create("nombre");
-        BeanProperty bResponsable = BeanProperty.create("responsable");
+//        BeanProperty bResponsable = BeanProperty.create("responsable");
 
+        binding.addColumnBinding(bCodigo).setColumnName("CODIGO").setEditable(false);
         binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
-        binding.addColumnBinding(bResponsable).setColumnName("RESPONSABLE").setEditable(false);
+//        binding.addColumnBinding(bResponsable).setColumnName("RESPONSABLE").setEditable(false);
 
         binding.bind();
     }

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte1" pageWidth="595" pageHeight="842" columnWidth="497" leftMargin="56" rightMargin="42" topMargin="42" bottomMargin="42" uuid="94f9b88c-ea98-4ce0-b1fd-78e8a4ac3df1">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="d48fe1e3-f687-4040-9c4d-37ed170d12c0"/>
+	<parameter name="insignia" class="java.lang.String">
+		<defaultValueExpression><![CDATA["insignia.jpg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\RyuujiMD\\Desktop\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ruta" class="java.lang.String">
+		<defaultValueExpression><![CDATA["/home/fesquivelc/NetBeansProjects/PACO/InventariosReina"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ambiente_codigo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+a.codigo as codigo,
+a.nombre as ambiente,
+a.codigo as ambiente_codigo,
+concat(e.apellido_paterno,' ',e.apellido_materno,' ',e.nombres) as responsable
+FROM ambiente a left join empleado e on a.empleado_dni = e.dni
+WHERE
+a.codigo = $P{ambiente_codigo}]]>
+	</queryString>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="ambiente" class="java.lang.String"/>
+	<field name="ambiente_codigo" class="java.lang.String"/>
+	<field name="responsable" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="3" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="114" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="496" height="59" uuid="30614d7d-c57c-4993-8895-767035e76e48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[I.E. "SANTA MARIA REINA"
+RUC: 20105864702]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="0" width="107" height="81" uuid="7d4c2548-b4d1-4b32-9f95-23d698a5ec6d"/>
+				<imageExpression><![CDATA[$P{insignia}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="1" y="59" width="496" height="22" uuid="2f5654bc-c957-461c-93ce-422c2f3a9e01"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE BIENES POR AMBIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="0" width="59" height="9" uuid="b6e83c94-c62f-4310-ac1d-a80c65b5c398"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Impreso el :]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="407" y="0" width="56" height="9" uuid="fd09b352-f033-4570-a037-a563710d0b22"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm.ss">
+				<reportElement x="464" y="0" width="33" height="9" uuid="357e5b6b-b960-408e-ba52-cad00c0fb007"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="20" width="119" height="20" uuid="381ae456-d844-48a5-bb04-ddb4b7fe7cbc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AMBIENTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="20" width="378" height="20" uuid="9538f39c-71b4-49da-88b1-0266f8ea20a2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ambiente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="40" width="119" height="20" uuid="ba6f2ab9-c95f-4e79-9fa6-c902893f4674"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSABLES:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="119" y="40" width="378" height="20" uuid="0c9ee4cf-2639-43f3-ad4d-9ff1e9016bc8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{responsable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="119" height="20" uuid="daf89e24-c304-4da5-8dcc-15900faf692b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="120" y="0" width="377" height="20" uuid="42818eb7-f5c8-41a5-b1cb-553f9684dbd8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="500" splitType="Stretch">
+			<subreport>
+				<reportElement x="1" y="0" width="496" height="500" uuid="bd2254da-b2db-424b-bc06-88c336d450e4"/>
+				<subreportParameter name="ambiente_codigo">
+					<subreportParameterExpression><![CDATA[$F{ambiente_codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ruta">
+					<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ruta} + "/reportes/" + "sub_bienes_ambiente.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="17">
+			<staticText>
+				<reportElement x="372" y="0" width="59" height="17" uuid="9b360492-7eac-49eb-9634-2e5da21d2130"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Página N°]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="431" y="0" width="32" height="17" uuid="ce8505af-ff6c-43f1-bddc-2edd8e7bd81a"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="463" y="0" width="34" height="17" uuid="9ddfc331-d83b-4a04-8d18-44871446c4b0"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50">
+			<subreport>
+				<reportElement x="270" y="0" width="227" height="50" uuid="5a60cc59-d9b9-47e0-86ba-c12527d64259"/>
+				<subreportParameter name="ambiente_codigo">
+					<subreportParameterExpression><![CDATA[$F{ambiente_codigo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ruta} + "/reportes/" + "sub_conteo_bienes.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

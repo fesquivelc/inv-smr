@@ -5,32 +5,26 @@
  */
 package com.proyecto.vista;
 
-import com.proyecto.beans.Ambiente;
 import com.proyecto.beans.Bien;
 import com.proyecto.beans.Campo;
 import com.proyecto.beans.Clase;
 import com.proyecto.beans.DetalleBienCampo;
 import com.proyecto.control.AbstractControlador;
-import com.proyecto.control.AmbienteControlador;
 import com.proyecto.control.BienControlador;
 import com.proyecto.control.CampoControlador;
-import com.proyecto.control.ClaseControlador;
 import com.proyecto.control.DetalleBienCampoControlador;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.beans.Beans;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
 import org.apache.commons.beanutils.BeanUtils;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -52,7 +46,10 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
     public MantenimientoBien() {
         initComponents();
         listar();
-        cargarCombo();
+        buscar();
+        actualizarControlesNavegacion();
+        lista3 = ObservableCollections.observableList(lista3);
+//        cargarCombo();
 
 //        cargarComboLazy();
         fotoField.setMaximumSize(new Dimension(324, 20));
@@ -84,6 +81,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         panelDatos = new javax.swing.JPanel();
         nombreLabel = new javax.swing.JLabel();
@@ -95,12 +93,11 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         descripcionField = new javax.swing.JTextArea();
         nombreLabel2 = new javax.swing.JLabel();
-        cmbClase = new javax.swing.JComboBox();
+        claseField = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         txtbuscar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblbienes = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         panelFondo = new javax.swing.JPanel();
         fotoLbl = new javax.swing.JLabel();
@@ -114,6 +111,17 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblDetalle = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        btnPrimero = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        spPagina = new javax.swing.JSpinner();
+        txtTotal = new javax.swing.JTextField();
+        btnSiguiente = new javax.swing.JButton();
+        btnUltimo = new javax.swing.JButton();
+        cboTamanio = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblbienes = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -128,7 +136,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
         nombreLabel1.setText("Observaciones:");
 
-        jButton2.setText("...");
+        jButton2.setIcon(new javax.swing.ImageIcon("img/iconos/Search.png"));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -141,11 +149,16 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
         nombreLabel2.setText("Clase:");
 
-        cmbClase.setEditable(true);
-        cmbClase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbClase.addActionListener(new java.awt.event.ActionListener() {
+        claseField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                claseFieldPropertyChange(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon("img/iconos/Search.png"));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbClaseActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -165,17 +178,25 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                     .addComponent(nombreField, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2)
                     .addGroup(panelDatosLayout.createSequentialGroup()
-                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbClase, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fotoField, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fotoField, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2))
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(claseField, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(nombreLabel2)
+                        .addComponent(claseField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,16 +209,213 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                     .addComponent(fotosLabel)
                     .addComponent(fotoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreLabel2)
-                    .addComponent(cmbClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jLabel1.setText("Buscar: ");
 
+        txtbuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtbuscarKeyReleased(evt);
+            }
+        });
+
         jLabel2.setText("Lista de bienes:");
+
+        jButton3.setIcon(new javax.swing.ImageIcon("img/iconos/Search.png"));
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        panelFondo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+
+        javax.swing.GroupLayout panelFondoLayout = new javax.swing.GroupLayout(panelFondo);
+        panelFondo.setLayout(panelFondoLayout);
+        panelFondoLayout.setHorizontalGroup(
+            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(fotoLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+        );
+        panelFondoLayout.setVerticalGroup(
+            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(fotoLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+        );
+
+        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+        panelOpciones.setToolTipText("");
+
+        btnnuevo.setIcon(new javax.swing.ImageIcon("img/iconos/Add.png"));
+        btnnuevo.setText("Nuevo");
+        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnuevoActionPerformed(evt);
+            }
+        });
+
+        btnmodificar.setIcon(new javax.swing.ImageIcon("img/iconos/modificar.png"));
+        btnmodificar.setText("Modificar");
+        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnmodificarActionPerformed(evt);
+            }
+        });
+
+        btneliminar.setIcon(new javax.swing.ImageIcon("img/iconos/eliminar.png"));
+        btneliminar.setText("Eliminar");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
+        panelOpciones.setLayout(panelOpcionesLayout);
+        panelOpcionesLayout.setHorizontalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+        panelOpcionesLayout.setVerticalGroup(
+            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnnuevo)
+                    .addComponent(btnmodificar)
+                    .addComponent(btneliminar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Acción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Abyssinica SIL", 1, 10))); // NOI18N
+
+        btnguardar.setIcon(new javax.swing.ImageIcon("img/iconos/Save.png"));
+        btnguardar.setText("Guardar");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
+
+        btncancelar.setIcon(new javax.swing.ImageIcon("img/iconos/Delete.png"));
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelGuardarLayout = new javax.swing.GroupLayout(panelGuardar);
+        panelGuardar.setLayout(panelGuardarLayout);
+        panelGuardarLayout.setHorizontalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelGuardarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btncancelar)
+                .addContainerGap())
+        );
+        panelGuardarLayout.setVerticalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGuardarLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btncancelar)
+                    .addComponent(btnguardar))
+                .addContainerGap())
+        );
+
+        tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tblDetalle);
+
+        jLabel3.setText("Caracteristicas:");
+
+        java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
+        jPanel1Layout.columnWidths = new int[] {0};
+        jPanel1Layout.rowHeights = new int[] {0, 7, 0};
+        jPanel1.setLayout(jPanel1Layout);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+
+        btnPrimero.setText("<<");
+        btnPrimero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimeroActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnPrimero);
+
+        btnAnterior.setText("<");
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAnterior);
+
+        spPagina.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spPagina.setMinimumSize(new java.awt.Dimension(60, 20));
+        spPagina.setPreferredSize(new java.awt.Dimension(60, 20));
+        spPagina.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spPaginaStateChanged(evt);
+            }
+        });
+        jPanel2.add(spPagina);
+
+        txtTotal.setEditable(false);
+        txtTotal.setColumns(3);
+        txtTotal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtTotal.setText("1");
+        jPanel2.add(txtTotal);
+
+        btnSiguiente.setText(">");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnSiguiente);
+
+        btnUltimo.setText(">>");
+        btnUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnUltimo);
+
+        cboTamanio.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "10", "15", "20", "25", "40", "50" }));
+        cboTamanio.setMinimumSize(new java.awt.Dimension(53, 24));
+        cboTamanio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTamanioActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cboTamanio);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        jPanel1.add(jPanel2, gridBagConstraints);
 
         tblbienes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -217,130 +435,13 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblbienes);
 
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        panelFondo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
-
-        javax.swing.GroupLayout panelFondoLayout = new javax.swing.GroupLayout(panelFondo);
-        panelFondo.setLayout(panelFondoLayout);
-        panelFondoLayout.setHorizontalGroup(
-            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(fotoLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelFondoLayout.setVerticalGroup(
-            panelFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelFondoLayout.createSequentialGroup()
-                .addComponent(fotoLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
-        panelOpciones.setToolTipText("");
-
-        btnnuevo.setText("Nuevo");
-        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnnuevoActionPerformed(evt);
-            }
-        });
-
-        btnmodificar.setText("Modificar");
-        btnmodificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnmodificarActionPerformed(evt);
-            }
-        });
-
-        btneliminar.setText("Eliminar");
-        btneliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btneliminarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
-        panelOpciones.setLayout(panelOpcionesLayout);
-        panelOpcionesLayout.setHorizontalGroup(
-            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOpcionesLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(btnnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnmodificar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
-        );
-        panelOpcionesLayout.setVerticalGroup(
-            panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcionesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnnuevo)
-                    .addComponent(btnmodificar)
-                    .addComponent(btneliminar))
-                .addContainerGap())
-        );
-
-        panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Acción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Abyssinica SIL", 1, 10))); // NOI18N
-
-        btnguardar.setText("Guardar");
-        btnguardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnguardarActionPerformed(evt);
-            }
-        });
-
-        btncancelar.setText("Cancelar");
-        btncancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncancelarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelGuardarLayout = new javax.swing.GroupLayout(panelGuardar);
-        panelGuardar.setLayout(panelGuardarLayout);
-        panelGuardarLayout.setHorizontalGroup(
-            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnguardar)
-                .addGap(18, 18, 18)
-                .addComponent(btncancelar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelGuardarLayout.setVerticalGroup(
-            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelGuardarLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnguardar)
-                    .addComponent(btncancelar))
-                .addGap(14, 14, 14))
-        );
-
-        tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(tblDetalle);
-
-        jLabel3.setText("Caracteristicas:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        jPanel1.add(jScrollPane1, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -348,59 +449,61 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelOpciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtbuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane3)
+                        .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel3))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 362, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(182, 182, 182)
+                                .addGap(167, 167, 167)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(panelFondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -435,17 +538,10 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        paginaActual = 1;
+        buscar();
+        actualizarControlesNavegacion();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void cmbClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClaseActionPerformed
-        // TODO add your handling code here:
-        if (accion == 1) {
-            listarCampos((Clase) cmbClase.getSelectedItem());
-        } else if (accion == 2) {
-            listarCampos(bienControlador.getSeleccionado().getClase());
-        }
-
-    }//GEN-LAST:event_cmbClaseActionPerformed
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
@@ -454,21 +550,28 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
         FormularioUtil.activarComponente(panelDatos, true);
+        FormularioUtil.limpiarComponente(panelDatos);
+        descripcionField.setText(null);
+        claseField.setEditable(false);
+        fotoField.setEditable(false);
         nombreField.requestFocusInWindow();
-        cmbClase.removeAllItems();
-        cargarCombo();
+//        cmbClase.removeAllItems();
+//        cargarCombo();
+        lista3.clear();
     }//GEN-LAST:event_btnnuevoActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
         accion = AbstractControlador.MODIFICAR;
 
-        cargarCombo();
+//        cargarCombo();
         int fila = this.tblbienes.getSelectedRow();
         if (fila != -1) {
             FormularioUtil.activarComponente(panelDatos, true);
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
+            claseField.setEditable(false);
+            fotoField.setEditable(false);
 
             accion = AbstractControlador.MODIFICAR;
             bienControlador.setSeleccionado(lista.get(fila));
@@ -482,7 +585,8 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 Icon icono = new ImageIcon(fot.getImage().getScaledInstance(fotoLbl.getWidth(), fotoLbl.getHeight(), Image.SCALE_DEFAULT));
                 fotoLbl.setIcon(icono);
 
-                cmbClase.setSelectedItem(bien.getClase());
+//                cmbClase.setSelectedItem(bien.getClase());
+                claseField.setText(bien.getClase().getNombre());
                 listarCamposMod(bien);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
                 Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
@@ -541,9 +645,8 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 bienControlador.getSeleccionado().setDescripcion(descripcionField.getText().toUpperCase());
                 bienControlador.getSeleccionado().setFoto(fotoField.getText());
 
-                Clase clase = (Clase) cmbClase.getSelectedItem();
-                bienControlador.getSeleccionado().setClase(clase);
-
+//                Clase clase = (Clase) cmbClase.getSelectedItem();
+//                bienControlador.getSeleccionado().setClase(clase);
                 bienControlador.accion(accion);
                 lista.add(bienControlador.getSeleccionado());
 
@@ -572,8 +675,8 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                     bienControlador.getSeleccionado().setDescripcion(descripcionField.getText().toUpperCase());
                     bienControlador.getSeleccionado().setFoto(fotoField.getText());
 
-                    Clase clase = (Clase) cmbClase.getSelectedItem();
-                    bienControlador.getSeleccionado().setClase(clase);
+//                    Clase clase = (Clase) cmbClase.getSelectedItem();
+//                    bienControlador.getSeleccionado().setClase(clase);
                     bienControlador.accion(accion);
                     listar();
 
@@ -612,7 +715,38 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         lista3.clear();
     }//GEN-LAST:event_btncancelarActionPerformed
 
-    Bien bien;
+    private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
+        // TODO add your handling code here:
+        primero();
+    }//GEN-LAST:event_btnPrimeroActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        // TODO add your handling code here:
+        anterior();
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void spPaginaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spPaginaStateChanged
+        // TODO add your handling code here:
+        this.seleccionPagina();
+    }//GEN-LAST:event_spPaginaStateChanged
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        // TODO add your handling code here:
+        siguiente();
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
+        // TODO add your handling code here:
+        ultimo();
+    }//GEN-LAST:event_btnUltimoActionPerformed
+
+    private void cboTamanioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTamanioActionPerformed
+        // TODO add your handling code here:
+        this.paginaActual = 1;
+        buscar();
+        this.actualizarControlesNavegacion();
+    }//GEN-LAST:event_cboTamanioActionPerformed
+
     private void tblbienesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbienesMouseReleased
         // TODO add your handling code here:
         if (evt.getClickCount() == 1) {
@@ -629,22 +763,45 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 Icon icono = new ImageIcon(fot.getImage().getScaledInstance(fotoLbl.getWidth(), fotoLbl.getHeight(), Image.SCALE_DEFAULT));
                 fotoLbl.setIcon(icono);
 
-                cmbClase.setSelectedItem(bien.getClase());
+//                cmbClase.setSelectedItem(bien.getClase());
+                claseField.setText(bien.getClase().getNombre());
                 listarCamposMod(bien);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
                 Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } else if (evt.getClickCount() == 2) {
-            int fila = tblbienes.getSelectedRow();
-            this.bien = lista.get(fila);
-            this.dispose();
         }
     }//GEN-LAST:event_tblbienesMouseReleased
+
+    private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
+        // TODO add your handling code here:
+        paginaActual = 1;
+        buscar();
+        actualizarControlesNavegacion();
+    }//GEN-LAST:event_txtbuscarKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DlgClaseBusqueda claseDialogo = new DlgClaseBusqueda(this);
+
+        claseDialogo.setVisible(true);
+        listarCampos(claseDialogo.getClase());
+        bienControlador.getSeleccionado().setClase(claseDialogo.getClase());
+        if (bienControlador.getSeleccionado().getClase() != null) {
+            this.claseField.setText(this.bienControlador.getSeleccionado().getClase().getNombre().toUpperCase());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void claseFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_claseFieldPropertyChange
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_claseFieldPropertyChange
+
+    Bien bien;
     private int accion;
     private List<Bien> lista;
     private List<Campo> lista2;
-    private List<DetalleBienCampo> lista3;
+    private List<DetalleBienCampo> lista3= new ArrayList();
 
     private final BienControlador bienControlador = new BienControlador();
 
@@ -653,21 +810,29 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
     private final DetalleBienCampoControlador detalleControlador = new DetalleBienCampoControlador();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnPrimero;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JButton btnUltimo;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
-    private javax.swing.JComboBox cmbClase;
+    private javax.swing.JComboBox cboTamanio;
+    private javax.swing.JTextField claseField;
     private javax.swing.JTextArea descripcionField;
     private javax.swing.JTextField fotoField;
     private javax.swing.JLabel fotoLbl;
     private javax.swing.JLabel fotosLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -679,13 +844,15 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelFondo;
     private javax.swing.JPanel panelGuardar;
     private javax.swing.JPanel panelOpciones;
+    private javax.swing.JSpinner spPagina;
     private javax.swing.JTable tblDetalle;
     private javax.swing.JTable tblbienes;
+    private javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
 
     private void listar() {
-        lista = bienControlador.buscarTodos();
+        lista = new ArrayList<>();
         lista = ObservableCollections.observableList(lista);
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, lista, tblbienes);
 
@@ -701,12 +868,11 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     }
 
-    private void cargarCombo() {
-        ClaseControlador claseControl = new ClaseControlador();
-        List<Clase> clase = claseControl.buscarTodos();
-        cmbClase.setModel(new DefaultComboBoxModel(clase.toArray()));
-    }
-
+//    private void cargarCombo() {
+//        ClaseControlador claseControl = new ClaseControlador();
+//        List<Clase> clase = claseControl.buscarTodos();
+//        cmbClase.setModel(new DefaultComboBoxModel(clase.toArray()));
+//    }
 //    private void cargarComboLazy() {
 //        DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
 //        int paginacion = 5;
@@ -718,10 +884,13 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 //    }
     List<DetalleBienCampo> listaDetalle;
 //    DetalleBienCampoControlador detalleControlador = new DetalleBienCampoControlador();
+
     private void listarCampos(Clase clase) {
 
         lista2 = campoControlador.buscarXClase(clase);
-        lista3 = new ArrayList<>();
+        lista3.clear();
+//        lista3 = ObservableCollections.observableList(lista3);
+
 //        lista2 = ObservableCollections.observableList(lista);
         if (accion == 1) {
             for (Campo campo : lista2) {
@@ -730,8 +899,8 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
                 detalle.setValor(null);
                 detalle.setBien(null);
                 lista3.add(detalle);
-            }            
-        }else if(accion == 2){
+            }
+        } else if (accion == 2) {
             listaDetalle = detalleControlador.buscarXBienFull(bienControlador.getSeleccionado());
             lista3.clear();
             lista3.addAll(listaDetalle);
@@ -739,8 +908,11 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         BindTabla(lista3, tblDetalle);
     }
 
-    private void listarCamposMod(Bien bien) {
-        lista3 = detalleControlador.buscarXBien(bien);
+    private void listarCamposMod(Bien bien) {        
+
+        lista3.clear();
+        lista3.addAll(detalleControlador.buscarXBienFull(bien));
+
         BindTabla(lista3, tblDetalle);
 
     }
@@ -756,5 +928,76 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         binding.addColumnBinding(bValor).setColumnName("VALOR").setEditable(true);
 
         binding.bind();
+    }
+
+    /*
+     PARA TRABAJAR LAZY MODEL
+     */
+    private int paginaActual = 1;
+    private int totalPaginas = 0;
+    private int tamanioPagina = 0;
+
+    private void buscar() {
+        String busqueda = txtbuscar.getText().toUpperCase();
+        tamanioPagina = Integer.parseInt(cboTamanio.getSelectedItem().toString());
+
+        lista.clear();
+        lista.addAll(this.listar(busqueda, paginaActual, tamanioPagina));
+    }
+
+    private List<Bien> listar(String buscar, int pagina, int tamanio) {
+        int total = this.bienControlador.totalXNombre(buscar);
+        if (total % tamanio == 0) {
+            totalPaginas = total / tamanio;
+        } else {
+            totalPaginas = (total / tamanio) + 1;
+        }
+        return this.bienControlador.buscarLazyXNombre(buscar, (pagina - 1) * tamanio, tamanio);
+
+    }
+
+    private void siguiente() {
+        paginaActual++;
+        buscar();
+        this.actualizarControlesNavegacion();
+    }
+
+    private void ultimo() {
+        paginaActual = totalPaginas;
+        buscar();
+        this.actualizarControlesNavegacion();
+    }
+
+    private void primero() {
+        paginaActual = 1;
+        buscar();
+        this.actualizarControlesNavegacion();
+    }
+
+    private void anterior() {
+        paginaActual--;
+        buscar();
+        this.actualizarControlesNavegacion();
+    }
+
+    private void seleccionPagina() {
+        paginaActual = (int) spPagina.getValue();
+        buscar();
+        this.actualizarControlesNavegacion();
+    }
+
+    private void actualizarControlesNavegacion() {
+        spPagina.setValue(paginaActual);
+        txtTotal.setText(totalPaginas + "");
+
+        SpinnerNumberModel modeloSP = (SpinnerNumberModel) spPagina.getModel();
+        Comparable<Integer> maximo = totalPaginas;
+        modeloSP.setMaximum(maximo);
+
+        this.btnSiguiente.setEnabled(paginaActual != totalPaginas);
+        this.btnUltimo.setEnabled(paginaActual != totalPaginas);
+
+        this.btnAnterior.setEnabled(paginaActual != 1);
+        this.btnPrimero.setEnabled(paginaActual != 1);
     }
 }

@@ -5,9 +5,23 @@
  */
 package com.proyecto.vista;
 
+import com.proyecto.beans.Usuario;
 import com.proyecto.main.Login;
+import com.proyecto.reportes.ReporteBienesXAmbiente;
+import com.proyecto.reportes.ReporteStickers;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 
 /**
  *
@@ -20,16 +34,30 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-        System.out.println("USUARIO ACTUAL: "+UsuarioUtil.getUsuarioActual().getNombre());
+        File file = new File("img/iconos/inventarios.jpg");
+        ImagenFondo borde;
+        try {
+            borde = new ImagenFondo(ImageIO.read(file));
+            desktoppane.setBorder(borde);
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        if(UsuarioUtil.getUsuarioActual().getNombre().equals("ADMIN1")){
+        
+        this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        System.out.println("USUARIO ACTUAL: " + UsuarioUtil.getUsuarioActual().getNombre());
+
+        if (UsuarioUtil.getUsuarioActual().getTipoUsuario().getId()==1) {
             menuUsuario.setEnabled(true);
             menuTipoUsuario.setEnabled(true);
-        }else{
+        } else {
             menuUsuario.setEnabled(false);
             menuTipoUsuario.setEnabled(false);
         }
+        
+        Usuario user = UsuarioUtil.getUsuarioActual();
+        
+        jMenuTxt.setText(" Usuario: "+ user.getNombre());
     }
 
     /**
@@ -45,6 +73,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         menuMantenimiento = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -58,31 +87,37 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         menuTipoUsuario = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         menuUsuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuTxt = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEMA DE PATRIMONIO v2.0");
+        setIconImage(new javax.swing.ImageIcon("img/iconos/logo.png").getImage());
+
+        desktoppane.setDragMode(javax.swing.JDesktopPane.OUTLINE_DRAG_MODE);
 
         javax.swing.GroupLayout desktoppaneLayout = new javax.swing.GroupLayout(desktoppane);
         desktoppane.setLayout(desktoppaneLayout);
         desktoppaneLayout.setHorizontalGroup(
             desktoppaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGap(0, 717, Short.MAX_VALUE)
         );
         desktoppaneLayout.setVerticalGroup(
             desktoppaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 277, Short.MAX_VALUE)
         );
 
+        jMenu1.setIcon(new javax.swing.ImageIcon("img/iconos/Actividad.png"));
         jMenu1.setText("Actividades");
         jMenu1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jMenuItem7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem7.setIcon(new javax.swing.ImageIcon("img/iconos/Refresh.png"));
         jMenuItem7.setText("Actualizar Inventario");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,12 +126,24 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem7);
 
+        jMenuItem12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem12.setIcon(new javax.swing.ImageIcon("img/iconos/Warning.png"));
+        jMenuItem12.setText("Prueba");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem12);
+
         jMenuBar1.add(jMenu1);
 
+        menuMantenimiento.setIcon(new javax.swing.ImageIcon("img/iconos/Settings.png"));
         menuMantenimiento.setText("Mantenimiento");
         menuMantenimiento.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jMenuItem1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon("img/iconos/Stop.png"));
         jMenuItem1.setText("Ambiente");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +153,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem1);
 
         jMenuItem8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem8.setIcon(new javax.swing.ImageIcon("img/iconos/Location_2-20.png"));
         jMenuItem8.setText("Área");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +163,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem8);
 
         jMenuItem2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem2.setIcon(new javax.swing.ImageIcon("img/iconos/cardboard-box-20.png"));
         jMenuItem2.setText("Bien");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +173,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem2);
 
         MenuCampo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        MenuCampo.setIcon(new javax.swing.ImageIcon("img/iconos/campo.png"));
         MenuCampo.setText("Campo");
         MenuCampo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +183,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(MenuCampo);
 
         jMenuItem3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem3.setIcon(new javax.swing.ImageIcon("img/iconos/clase.png"));
         jMenuItem3.setText("Clase");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +193,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem3);
 
         jMenuItem9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem9.setIcon(new javax.swing.ImageIcon("img/iconos/personal.png"));
         jMenuItem9.setText("Empleado");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +203,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem9);
 
         jMenuItem14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem14.setIcon(new javax.swing.ImageIcon("img/iconos/Sales-by-Payment-Method-rep.png"));
         jMenuItem14.setText("Factura");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,6 +213,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem14);
 
         jMenuItem4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem4.setIcon(new javax.swing.ImageIcon("img/iconos/inventario.png"));
         jMenuItem4.setText("Inventario");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +223,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem4);
 
         jMenuItem6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem6.setIcon(new javax.swing.ImageIcon("img/iconos/periodo.png"));
         jMenuItem6.setText("Periodo");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,6 +233,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem6);
 
         jMenuItem13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem13.setIcon(new javax.swing.ImageIcon("img/iconos/provider.png"));
         jMenuItem13.setText("Proveedor");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,6 +243,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem13);
 
         jMenuItem5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem5.setIcon(new javax.swing.ImageIcon("img/iconos/tipo.png"));
         jMenuItem5.setText("Tipo");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +253,7 @@ public class Principal extends javax.swing.JFrame {
         menuMantenimiento.add(jMenuItem5);
 
         menuTipoUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        menuTipoUsuario.setIcon(new javax.swing.ImageIcon("img/iconos/tipo de user.png"));
         menuTipoUsuario.setText("Tipo de Usuario");
         menuTipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,16 +262,8 @@ public class Principal extends javax.swing.JFrame {
         });
         menuMantenimiento.add(menuTipoUsuario);
 
-        jMenuItem12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jMenuItem12.setText("Unidades de Medida");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
-            }
-        });
-        menuMantenimiento.add(jMenuItem12);
-
         menuUsuario.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        menuUsuario.setIcon(new javax.swing.ImageIcon("img/iconos/user.png"));
         menuUsuario.setText("Usuario");
         menuUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,17 +274,34 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuMantenimiento);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon("img/iconos/edit-paste.png"));
         jMenu3.setText("Reportes");
         jMenu3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
-        jMenuItem11.setText("Coming Soon...");
+        jMenuItem11.setText("Reporte de bienes");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem11);
+
+        jMenuItem15.setText("Reporte de códigos de barras");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem15);
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon("img/iconos/Log Out.png"));
         jMenu4.setText("Cerrar Sesión");
         jMenu4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
+        jMenuItem10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuItem10.setIcon(new javax.swing.ImageIcon("img/iconos/logoutmenu.png"));
         jMenuItem10.setText("Cerrar");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +311,14 @@ public class Principal extends javax.swing.JFrame {
         jMenu4.add(jMenuItem10);
 
         jMenuBar1.add(jMenu4);
+
+        jMenuTxt.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMenuTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuTxtActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuTxt);
 
         setJMenuBar(jMenuBar1);
 
@@ -346,6 +421,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(null, "¿Desea salir del sistema?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             this.dispose();
+            jMenuTxt.setText(null);
             Login login = new Login();
             login.setVisible(true);
         } else {
@@ -389,15 +465,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MenuCampoActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        // TODO add your handling code here:
-        MantenimientoUnidadMedida unidad = MantenimientoUnidadMedida.getInstancia();
-        if (!this.desktoppane.isAncestorOf(unidad)) {
-            this.desktoppane.add(unidad);
-            unidad.setVisible(true);
-        }
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
-
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         // TODO add your handling code here:
         MantenimientoFactura factura = MantenimientoFactura.getInstancia();
@@ -407,40 +474,72 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
+    private void jMenuTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTxtActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenuTxtActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        PruebaAmbienteInventario prueba = PruebaAmbienteInventario.getInstancia();
+        if (!this.desktoppane.isAncestorOf(prueba)) {
+            this.desktoppane.add(prueba);
+            prueba.setVisible(true);
+        }
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        ReporteBienesXAmbiente reporte = ReporteBienesXAmbiente.getInstance();
+        agregarAPanel(reporte);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        // TODO add your handling code here:
+        ReporteStickers rs = new ReporteStickers();
+        agregarAPanel(rs);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void agregarAPanel(JInternalFrame internal){
+        if (!this.desktoppane.isAncestorOf(internal)) {
+            this.desktoppane.add(internal);
+            internal.setVisible(true);
+        }
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Principal().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuCampo;
@@ -455,6 +554,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -463,6 +563,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenu jMenuTxt;
     private javax.swing.JMenu menuMantenimiento;
     private javax.swing.JMenuItem menuTipoUsuario;
     private javax.swing.JMenuItem menuUsuario;

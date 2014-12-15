@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_detalle_inventario" columnCount="3" printOrder="Horizontal" pageWidth="445" pageHeight="300" columnWidth="148" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="53be1f38-1f01-4705-bf62-98197d6421f8">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bien_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ambiente_codigo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     CONCAT(clase.codigo,inventario.serie) as inventario_codigo,
+inventario.codigo_fabrica as inventario_codigo_fabrica,
+     inventario.estado AS inventario_estado
+FROM
+     public.bien bien INNER JOIN public.inventario inventario ON bien.id = inventario.bien_id
+     INNER JOIN public.clase clase ON bien.clase_codigo = clase.codigo
+WHERE
+inventario.bien_id = $P{bien_id} AND inventario.ambiente_codigo = $P{ambiente_codigo}]]>
+	</queryString>
+	<field name="inventario_codigo" class="java.lang.String"/>
+	<field name="inventario_codigo_fabrica" class="java.lang.String"/>
+	<field name="inventario_estado" class="java.lang.String"/>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="54" height="20" uuid="21c58867-3a80-4eff-ba85-c3a2e5cd08a3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="54" y="0" width="56" height="20" uuid="f8b1d12b-7727-40b2-a89e-c0efe904416a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO
+DE FÁBRICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="38" height="20" uuid="2dc8d953-26fe-43dc-a3f1-e61ca66c7c52"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="54" height="20" uuid="f3e0078a-b55a-473f-bf75-cab3197d6a15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inventario_codigo}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="54" y="0" width="56" height="20" uuid="e8cb37ab-313b-4b15-bad8-51883adcefe6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inventario_codigo_fabrica}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="110" y="0" width="38" height="20" uuid="a1249e74-3b30-4fac-8479-a5c4cc599dcf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{inventario_estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

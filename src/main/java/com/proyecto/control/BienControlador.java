@@ -40,4 +40,20 @@ public class BienControlador extends AbstractControlador<Bien>{
         parametros.put("nombre", nombre);
         return this.getDao().buscar(jpql, parametros);
     }
+     
+    public List<Bien> buscarLazyXNombre(String nombre,int desde, int tamanio){
+        String jpql = "SELECT a FROM Bien a WHERE a.nombre LIKE CONCAT('%',:nombre,'%')";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("nombre", nombre);
+        return this.getDao().buscar(jpql, parametros, desde, tamanio);
+    }
+    
+    public int totalXNombre(String nombre){
+        String jpql = "SELECT COUNT(a) FROM Bien a WHERE a.nombre LIKE CONCAT('%',:nombre,'%')";
+//        Map<String, Object> parametros = new HashMap<>();
+//        parametros.put("nombre", nombre);
+        Long cont = (Long)this.getDao().getEntityManager().createQuery(jpql).setParameter("nombre", nombre).getSingleResult();
+        int conteo = cont.intValue();
+        return conteo;
+    }
 }

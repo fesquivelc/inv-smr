@@ -69,9 +69,6 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
         nombreField = new javax.swing.JTextField();
         nombreLabel1 = new javax.swing.JLabel();
         cmbClase = new javax.swing.JComboBox();
-        nombreLabel2 = new javax.swing.JLabel();
-        cmbUnidad = new javax.swing.JComboBox();
-        chckModificable = new javax.swing.JCheckBox();
         panelOpciones = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
         btnmodificar = new javax.swing.JButton();
@@ -100,12 +97,6 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
 
         cmbClase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        nombreLabel2.setText("Unidad");
-
-        cmbUnidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        chckModificable.setText("Modificable");
-
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
         panelDatosLayout.setHorizontalGroup(
@@ -114,15 +105,11 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
                 .addGap(14, 14, 14)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombreLabel)
-                    .addComponent(nombreLabel1)
-                    .addComponent(nombreLabel2))
+                    .addComponent(nombreLabel1))
                 .addGap(27, 27, 27)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chckModificable, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbClase, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(cmbUnidad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         panelDatosLayout.setVerticalGroup(
@@ -136,12 +123,6 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel1)
                     .addComponent(cmbClase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreLabel2)
-                    .addComponent(cmbUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chckModificable)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -323,7 +304,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
                         .addComponent(panelOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 21, Short.MAX_VALUE))
+                        .addGap(0, 29, Short.MAX_VALUE))
                     .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -356,8 +337,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
 
                 campoControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
                 campoControlador.getSeleccionado().setClase((Clase) cmbClase.getSelectedItem());
-                campoControlador.getSeleccionado().setUnidadMedida((UnidadMedida) cmbUnidad.getSelectedItem());
-                campoControlador.getSeleccionado().setModificable(chckModificable.isSelected());
+//                campoControlador.getSeleccionado().setUnidadMedida((UnidadMedida) cmbUnidad.getSelectedItem());
 
                 campoControlador.accion(accion);
                 lista.add(campoControlador.getSeleccionado());
@@ -385,8 +365,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
 
                     campoControlador.getSeleccionado().setNombre(nombreField.getText().toUpperCase());
                     campoControlador.getSeleccionado().setClase((Clase) cmbClase.getSelectedItem());
-                    campoControlador.getSeleccionado().setUnidadMedida((UnidadMedida) cmbUnidad.getSelectedItem());
-                    campoControlador.getSeleccionado().setModificable(chckModificable.isSelected());
+//                    campoControlador.getSeleccionado().setUnidadMedida((UnidadMedida) cmbUnidad.getSelectedItem());
 
                     campoControlador.accion(accion);
                     listar();
@@ -458,10 +437,9 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
             Campo campo = campoControlador.getSeleccionado();
             try {
                 nombreField.setText(BeanUtils.getProperty(campo, "nombre"));
-                chckModificable.setSelected(campo.getModificable());
 
                 cmbClase.setSelectedItem(campo.getClase());
-                cmbUnidad.setSelectedItem(campo.getUnidadMedida());
+//                cmbUnidad.setSelectedItem(campo.getUnidadMedida());
 
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
                 Logger.getLogger(MantenimientoCampo.class.getName()).log(Level.SEVERE, null, ex);
@@ -501,9 +479,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
-    private javax.swing.JCheckBox chckModificable;
     private javax.swing.JComboBox cmbClase;
-    private javax.swing.JComboBox cmbUnidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
@@ -511,7 +487,6 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreLabel;
     private javax.swing.JLabel nombreLabel1;
-    private javax.swing.JLabel nombreLabel2;
     private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelGuardar;
     private javax.swing.JPanel panelOpciones;
@@ -528,14 +503,10 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
         BeanProperty bId = BeanProperty.create("id");
         BeanProperty bNombre = BeanProperty.create("nombre");
         BeanProperty bClase = BeanProperty.create("clase");
-        BeanProperty bUnidad = BeanProperty.create("unidadMedida");
-        BeanProperty bMod = BeanProperty.create("modificable");
 
         binding.addColumnBinding(bId).setColumnName("ID").setEditable(false);
         binding.addColumnBinding(bNombre).setColumnName("NOMBRE").setEditable(false);
         binding.addColumnBinding(bClase).setColumnName("CLASE").setEditable(false);
-        binding.addColumnBinding(bUnidad).setColumnName("UNIDAD").setEditable(false);
-        binding.addColumnBinding(bMod).setColumnName("MODIFICABLE").setEditable(false).setColumnClass(Boolean.class);
 
         binding.bind();
 
@@ -553,7 +524,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
         List<UnidadMedida> unidad = new ArrayList();
         unidad.add(null);
         unidad.addAll(unidadControl.buscarTodos());
-        cmbUnidad.setModel(new DefaultComboBoxModel(unidad.toArray()));
+//        cmbUnidad.setModel(new DefaultComboBoxModel(unidad.toArray()));
     }
     
     private void cargarCombos(){

@@ -11,58 +11,47 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="unidad_medida")
-public  class UnidadMedida implements Serializable {
+@Table(name = "unidad_medida")
+public class UnidadMedida implements Serializable {
 
-
-    @Column(name="nombre")
+    @Column(name = "nombre")
     @Basic
     private String nombre;
 
-
-    @Column(name="id")
+    @Column(name = "id")
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Column(name="abreviatura")
+    @Column(name = "abreviatura")
     @Basic
     private String abreviatura;
 
-    public UnidadMedida(){
+    public UnidadMedida() {
 
     }
 
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-
-  public void setId (Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-
-
-   public String getAbreviatura() {
+    public String getAbreviatura() {
         return this.abreviatura;
     }
 
-
-  public void setAbreviatura (String abreviatura) {
+    public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
     }
 
@@ -71,7 +60,4 @@ public  class UnidadMedida implements Serializable {
         return nombre;
     }
 
-  
 }
-
-

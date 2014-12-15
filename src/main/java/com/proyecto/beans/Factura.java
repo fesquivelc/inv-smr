@@ -17,97 +17,77 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="factura")
-public  class Factura implements Serializable {
+@Table(name = "factura")
+public class Factura implements Serializable {
 
-
-    @OneToMany(fetch=FetchType.LAZY,targetEntity=Inventario.class,mappedBy="factura")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Inventario.class, mappedBy = "factura")
     private List<Inventario> inventarioList;
 
-
-    @Column(name="id",nullable=false)
+    @Column(name = "id", nullable = false)
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Column(name="fecha")
+    @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     @Basic
     private Date fecha;
 
-
-    @Column(name="numero_factura")
+    @Column(name = "numero_factura")
     @Basic
     private String numeroFactura;
 
-
-    @Column(name="ruta")
+    @Column(name = "ruta")
     @Basic
     private String ruta;
 
-    public Factura(){
+    public Factura() {
 
     }
 
-
-   public List<Inventario> getInventarioList() {
+    public List<Inventario> getInventarioList() {
         return this.inventarioList;
     }
 
-
-  public void setInventarioList (List<Inventario> inventarioList) {
+    public void setInventarioList(List<Inventario> inventarioList) {
         this.inventarioList = inventarioList;
     }
 
-
-
-   public Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-
-  public void setId (Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-
-
-   public Date getFecha() {
+    public Date getFecha() {
         return this.fecha;
     }
 
-
-  public void setFecha (Date fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-
-
-   public String getNumeroFactura() {
+    public String getNumeroFactura() {
         return this.numeroFactura;
     }
 
-
-  public void setNumeroFactura (String numeroFactura) {
+    public void setNumeroFactura(String numeroFactura) {
         this.numeroFactura = numeroFactura;
     }
 
-
-
-   public String getRuta() {
+    public String getRuta() {
         return this.ruta;
     }
 
-
-  public void setRuta (String ruta) {
+    public void setRuta(String ruta) {
         this.ruta = ruta;
     }
-  
-  @Override
+
+    @Override
     public String toString() {
         return numeroFactura;
     }
 
 }
-

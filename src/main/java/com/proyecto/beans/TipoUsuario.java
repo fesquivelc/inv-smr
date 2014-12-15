@@ -16,66 +16,65 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tipo_usuario")
-public  class TipoUsuario implements Serializable {
+@Table(name = "tipo_usuario")
+public class TipoUsuario implements Serializable {
 
-
-    @Column(name="nombre",table="tipo_usuario",length=45)
+    @Column(name = "nombre", table = "tipo_usuario", length = 45)
     @Basic
     private String nombre;
+    
+    @Column(name = "baja")
+    @Basic
+    private Boolean baja;
 
-
-    @Column(name="id",table="tipo_usuario",nullable=false)
+    @Column(name = "id", table = "tipo_usuario", nullable = false)
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @OneToMany(fetch=FetchType.LAZY,targetEntity=Usuario.class,mappedBy="tipoUsuario")
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Usuario.class, mappedBy = "tipoUsuario")
     private List<Usuario> usuarios;
 
-    public TipoUsuario(){
+    public TipoUsuario() {
 
     }
 
-
-   public String getNombre() {
+    public String getNombre() {
         return this.nombre;
     }
 
-
-  public void setNombre (String nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-
-
-   public Long getId() {
+    public Long getId() {
         return this.id;
     }
 
-
-  public void setId (Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-
-
-   public List<Usuario> getUsuarios() {
+    public List<Usuario> getUsuarios() {
         return this.usuarios;
     }
 
-
-  public void setUsuarios (List<Usuario> usuarios) {
+    public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
     }
 
+    public Boolean getBaja() {
+        return baja;
+    }
+
+    public void setBaja(Boolean baja) {
+        this.baja = baja;
+    }
+
+    
     @Override
     public String toString() {
         return nombre;
     }
-  
-  
 
 }
-

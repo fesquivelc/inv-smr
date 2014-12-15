@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.proyecto.vista;
 
 import com.proyecto.beans.Periodo;
@@ -31,18 +30,18 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
      * Creates new form MantenimientoPeriodo
      */
     private static MantenimientoPeriodo instancia;
-    
+
     public MantenimientoPeriodo() {
         initComponents();
         listar();
-        
+
         FormularioUtil.activarComponente(panelDatos, false);
         FormularioUtil.activarComponente(panelOpciones, true);
         FormularioUtil.activarComponente(panelGuardar, false);
     }
-    
-    public static MantenimientoPeriodo getInstancia(){
-        if(instancia == null){
+
+    public static MantenimientoPeriodo getInstancia() {
+        if (instancia == null) {
             instancia = new MantenimientoPeriodo();
         }
         return instancia;
@@ -65,6 +64,9 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
         panelDatos = new javax.swing.JPanel();
         periodoLabel = new javax.swing.JLabel();
         periodoField = new javax.swing.JTextField();
+        chckVigente = new javax.swing.JCheckBox();
+        jDateFecha = new com.toedter.calendar.JDateChooser();
+        periodoLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         panelOpciones = new javax.swing.JPanel();
         btnnuevo = new javax.swing.JButton();
@@ -100,28 +102,49 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
         periodoLabel.setText("Periodo:");
 
+        chckVigente.setText("Vigente");
+
+        periodoLabel1.setText("Fecha Creación");
+
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
         panelDatosLayout.setHorizontalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(periodoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(periodoField, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(periodoLabel)
+                    .addComponent(periodoLabel1))
+                .addGap(40, 40, 40)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chckVigente)
+                    .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(periodoField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(periodoLabel)
-                    .addComponent(periodoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(periodoLabel)
+                            .addComponent(periodoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(periodoLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chckVigente)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         panelOpciones.setToolTipText("");
@@ -195,7 +218,7 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
                 .addGap(34, 34, 34)
                 .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
         );
         panelGuardarLayout.setVerticalGroup(
@@ -284,8 +307,15 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
             accion = AbstractControlador.MODIFICAR;
             periodoControlador.setSeleccionado(lista.get(fila));
             Periodo periodo = periodoControlador.getSeleccionado();
-            try {                
+            try {
                 periodoField.setText(BeanUtils.getProperty(periodo, "periodo"));
+                if(periodo.getFechaCreacion() != null){
+                    jDateFecha.setDate(periodo.getFechaCreacion());
+                }
+                if(periodo.getVigente() != null){
+                    chckVigente.setSelected(periodo.getVigente());
+                }
+                
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
                 Logger.getLogger(MantenimientoClase.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -337,7 +367,11 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
             palabra2 = "registrado";
 
             if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Periodo?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                periodoControlador.setearVigenteFalse();
                 periodoControlador.getSeleccionado().setPeriodo(Integer.parseInt(periodoField.getText()));
+                periodoControlador.getSeleccionado().setFechaCreacion(jDateFecha.getDate());
+                periodoControlador.getSeleccionado().setVigente(chckVigente.isSelected());
 
                 periodoControlador.accion(accion);
                 lista.add(periodoControlador.getSeleccionado());
@@ -363,6 +397,8 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
                     lista.clear();
                     periodoControlador.getSeleccionado().setPeriodo(Integer.parseInt(periodoField.getText()));
+                    periodoControlador.getSeleccionado().setFechaCreacion(jDateFecha.getDate());
+                    periodoControlador.getSeleccionado().setVigente(chckVigente.isSelected());
                     periodoControlador.accion(accion);
                     listar();
 
@@ -390,6 +426,18 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
         FormularioUtil.activarComponente(panelGuardar, false);
     }//GEN-LAST:event_btncancelarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int anio = Integer.parseInt(txtbuscar.getText());
+
+            lista.clear();
+            lista.addAll(periodoControlador.buscarPeriodosXAnio(anio));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, e, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private int accion;
     private List<Periodo> lista;
     private final PeriodoControlador periodoControlador = new PeriodoControlador();
@@ -400,7 +448,9 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnnuevo;
+    private javax.swing.JCheckBox chckVigente;
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -409,6 +459,7 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelOpciones;
     private javax.swing.JTextField periodoField;
     private javax.swing.JLabel periodoLabel;
+    private javax.swing.JLabel periodoLabel1;
     private javax.swing.JTable tblperiodo;
     private javax.swing.JTextField txtbuscar;
     // End of variables declaration//GEN-END:variables
@@ -420,10 +471,11 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
         BeanProperty bId = BeanProperty.create("id");
         BeanProperty bPeriodo = BeanProperty.create("periodo");
+        BeanProperty bVigente = BeanProperty.create("vigente");
 
         binding.addColumnBinding(bId).setColumnName("ID").setEditable(false);
-
         binding.addColumnBinding(bPeriodo).setColumnName("PERIODO").setEditable(false);
+        binding.addColumnBinding(bVigente).setColumnName("VIGENTE").setEditable(false).setColumnClass(Boolean.class);
 
         binding.bind();
 

@@ -33,11 +33,6 @@ public  class DetalleBienCampo implements Serializable {
     private String valor;
 
 
-    @ManyToOne(targetEntity=Inventario.class)
-    @JoinColumn(name="inventario_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
-    private Inventario inventario;
-
-
     @ManyToOne(targetEntity=Bien.class)
     @JoinColumn(name="bien_id",referencedColumnName="id",insertable=true,nullable=true,unique=false,updatable=true)
     private Bien bien;
@@ -77,20 +72,7 @@ public  class DetalleBienCampo implements Serializable {
   public void setValor (String valor) {
         this.valor = valor;
     }
-
-
-
-   public Inventario getInventario() {
-        return this.inventario;
-    }
-
-
-  public void setInventario (Inventario inventario) {
-        this.inventario = inventario;
-    }
-
-
-
+  
    public Bien getBien() {
         return this.bien;
     }

@@ -84,6 +84,26 @@ public class DAO<T> {
 
         return lista;
     }
+    
+    public void ejecutarQuery(String queryJPQL, Map<String, Object> parametros, int offset, int limit){
+        Query query = getEntityManager().createQuery(queryJPQL);
+
+        if (parametros != null) {
+            for (Map.Entry<String, Object> entry : parametros.entrySet()) {
+                query.setParameter(entry.getKey(), entry.getValue());
+            }
+        }
+
+        if (offset != -1) {
+            query.setFirstResult(offset);
+        }
+
+        if (limit != -1) {
+            query.setMaxResults(limit);
+        }
+
+        query.executeUpdate();
+    }
 
     public List<T> buscarTodos() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();

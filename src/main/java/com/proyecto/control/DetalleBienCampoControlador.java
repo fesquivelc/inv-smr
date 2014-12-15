@@ -23,14 +23,14 @@ public class DetalleBienCampoControlador extends AbstractControlador<DetalleBien
     }
     
     public List<DetalleBienCampo> buscarXBien(Bien bien) {
-        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.bien = :bien AND a.campo.modificable = true AND a.inventario = null";
+        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.bien = :bien";
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("bien", bien);
         return this.getDao().buscar(jpql, parametros);
     }
     
     public List<DetalleBienCampo> buscarXBienFull(Bien bien) {
-        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.bien = :bien AND a.inventario = null";
+        String jpql = "SELECT a FROM DetalleBienCampo a WHERE a.bien = :bien";
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("bien", bien);
         return this.getDao().buscar(jpql, parametros);

@@ -95,7 +95,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
         nombreLabel1.setText("Tipo: ");
 
-        btntipo.setText("...");
+        btntipo.setIcon(new javax.swing.ImageIcon("img/iconos/Search.png"));
         btntipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btntipoActionPerformed(evt);
@@ -138,19 +138,21 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
                     .addComponent(nombreLabel1)
                     .addComponent(tipoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btntipo))
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
 
         panelOpciones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Opciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         panelOpciones.setToolTipText("");
 
-        btnnuevo.setText("Nuevo");
+        btnnuevo.setIcon(new javax.swing.ImageIcon("img/iconos/Add.png"));
+        btnnuevo.setText(" Nuevo");
         btnnuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnnuevoActionPerformed(evt);
             }
         });
 
+        btnmodificar.setIcon(new javax.swing.ImageIcon("img/iconos/modificar.png"));
         btnmodificar.setText("Modificar");
         btnmodificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +160,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             }
         });
 
+        btneliminar.setIcon(new javax.swing.ImageIcon("img/iconos/eliminar.png"));
         btneliminar.setText("Eliminar");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,6 +200,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             }
         });
 
+        btnbuscar.setIcon(new javax.swing.ImageIcon("img/iconos/Search.png"));
         btnbuscar.setText("Buscar");
         btnbuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,16 +230,16 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(txtbuscar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnbuscar))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(txtbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnbuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -255,6 +259,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
         panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        btnguardar.setIcon(new javax.swing.ImageIcon("img/iconos/Save.png"));
         btnguardar.setText("Guardar");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,6 +267,7 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
             }
         });
 
+        btncancelar.setIcon(new javax.swing.ImageIcon("img/iconos/Delete.png"));
         btncancelar.setText("Cancelar");
         btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,18 +407,18 @@ public class MantenimientoClase extends javax.swing.JInternalFrame {
 
             Integer id = tblclase.getSelectedRow();
 
-            Clase clase = claseControlador.buscarPorId(lista.get(id).getId());
+//            Clase clase = claseControlador.buscarPorId(lista.get(id).getId());
 
-            if (clase != null) {
+            if (tblclase.getSelectedRow() != -1) {
                 if (JOptionPane.showConfirmDialog(null, "¿Desea Eliminar la Clase?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-                    int[] filas = tblclase.getSelectedRows();
-                    for (int i = 0; i < filas.length; i++) {
-                        Clase clase2 = lista.get(filas[0]);
-                        lista.remove(clase2);
-                        claseControlador.setSeleccionado(clase2);
+//                    int[] filas = tblclase.getSelectedRows();
+//                    for (int i = 0; i < filas.length; i++) {
+//                        Clase clase2 = lista.get(filas[0]);
+                        claseControlador.setSeleccionado(lista.get(id));
+                        lista.remove(lista.get(id));
                         claseControlador.accion(accion);
-                    }
+//                    }
                     if (claseControlador.accion(accion) == 3) {
                         JOptionPane.showMessageDialog(null, "Clase eliminada correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
 

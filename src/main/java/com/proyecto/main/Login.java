@@ -11,7 +11,9 @@ import com.proyecto.vista.FormularioUtil;
 import com.proyecto.vista.Principal;
 import com.proyecto.vista.UsuarioUtil;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,13 +21,16 @@ import javax.swing.JOptionPane;
  * @author Documentos
  */
 public class Login extends javax.swing.JFrame {
-
     /**
      * Creates new form Login
      */
+    private static final Logger LOG = Logger.getLogger(Login.class.getName());
+
+    
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        LOG.info("ARCHIVO EXISTE?: "+new File("img/iconos/ampliar.png").exists());
     }
 
     /**
@@ -59,8 +64,10 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon("img/iconos/user-alt-16.png"));
         jLabel1.setText("Usuario: ");
 
+        jLabel3.setIcon(new javax.swing.ImageIcon("img/iconos/lock-24-16.png"));
         jLabel3.setText("Contraseña: ");
 
         txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -84,14 +91,14 @@ public class Login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                    .addComponent(txtpassword))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtusuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtpassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,6 +114,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
+        jButton1.setIcon(new javax.swing.ImageIcon("img/iconos/login-20.png"));
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +122,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon("img/iconos/logout-20.png"));
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,7 +148,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,7 +160,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
+                .addContainerGap(66, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67))
         );
@@ -169,7 +178,6 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void entrar() {
-        FormularioUtil.convertirMayusculas(txtusuario);
 
         String user = txtusuario.getText();
         String password = txtpassword.getText();

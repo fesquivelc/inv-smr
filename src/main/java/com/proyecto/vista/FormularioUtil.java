@@ -88,9 +88,10 @@ public class FormularioUtil {
 
     public static String chooserImagen(Component component) {
         JFileChooser chooser = null;
+        String ruta = "img/";
         if (chooser == null) {
             chooser = new JFileChooser();
-            chooser.setCurrentDirectory(new java.io.File("."));
+            chooser.setCurrentDirectory(new java.io.File(ruta));
         } else {
             chooser.setCurrentDirectory(chooser.getSelectedFile());
         }
@@ -100,7 +101,7 @@ public class FormularioUtil {
         chooser.setAcceptAllFileFilterUsed(false);
         //    
         if (chooser.showOpenDialog(JOptionPane.getFrameForComponent(component)) == JFileChooser.APPROVE_OPTION) {
-            File file = new File(chooser.getSelectedFile().getAbsolutePath().concat("/reporte.txt"));
+            File file = new File(chooser.getSelectedFile().getPath());
             if (file.exists()) {
                 System.out.println("EXISTE");
             }
@@ -108,7 +109,7 @@ public class FormularioUtil {
                     + chooser.getCurrentDirectory());
             System.out.println("getSelectedFile() : "
                     + chooser.getSelectedFile());
-            return chooser.getSelectedFile().getAbsolutePath();
+            return chooser.getSelectedFile().getPath();
         } else {
             System.out.println("No Selection ");
             return "";

@@ -1,407 +1,391 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <jpa:entity-mappings persistenceUnitName="postgresql-PU" id="_14107218781431" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd" xmlns:ns4="http://nbmodeler.java.net" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <jpa:package>com.proyecto.beans</jpa:package>
-    <jpa:entity class="Area" visibile="true" minimized="false" id="_14107218781474">
+    <jpa:entity class="Area" minimized="false" id="_14107218781474">
         <jpa:table name="area"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187815817">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187815817">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="area" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187815918">
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141072187815918">
                 <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="area" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="codigo" attribute-type="String" visibile="true" id="_141711243822959">
+            <jpa:basic name="codigo" attribute-type="String" id="_141711243822959">
                 <jpa:column name="codigo" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="ambientes" target-entity="Ambiente" fetch="LAZY" mapped-by="area" collection-type="java.util.List" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816046" visibile="true" id="_141072187815919">
+            <jpa:one-to-many name="ambientes" target-entity="Ambiente" fetch="LAZY" mapped-by="area" collection-type="java.util.List" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816046" id="_141072187815919">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="DetalleMovimiento" visibile="true" minimized="false" id="_14107218781535">
+    <jpa:entity class="DetalleMovimiento" minimized="false" id="_14107218781535">
         <jpa:table name="detalle_movimiento"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187815920">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187815920">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="detalle_movimiento" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:many-to-one name="movimiento" target-entity="Movimiento" optional="false" primaryKey="false" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816170" visibile="true" id="_141072187816021">
+            <jpa:many-to-one name="movimiento" target-entity="Movimiento" optional="false" primaryKey="false" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816170" id="_141072187816021">
                 <jpa:join-column name="movimiento_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="inventario" target-entity="Inventario" optional="false" primaryKey="false" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816054" visibile="true" id="_141072187816022">
+            <jpa:many-to-one name="inventario" target-entity="Inventario" optional="false" primaryKey="false" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816054" id="_141072187816022">
                 <jpa:join-column name="inventario_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Empleado" visibile="true" minimized="false" id="_14107218781536">
+    <jpa:entity class="Empleado" minimized="false" id="_14107218781536">
         <jpa:table name="empleado"/>
         <jpa:attributes>
-            <jpa:id name="dni" attribute-type="java.lang.String" visibile="true" id="_141072187816023">
+            <jpa:id name="dni" attribute-type="java.lang.String" id="_141072187816023">
                 <jpa:column name="dni" unique="false" nullable="false" insertable="true" updatable="true" table="empleado" length="8" precision="0" scale="0"/>
             </jpa:id>
-            <jpa:basic name="nombres" optional="false" attribute-type="java.lang.String" visibile="true" id="_141072187816024">
+            <jpa:basic name="nombres" optional="false" attribute-type="java.lang.String" id="_141072187816024">
                 <jpa:column name="nombres" unique="false" nullable="false" insertable="true" updatable="true" table="empleado" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="telefono" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816025">
+            <jpa:basic name="telefono" optional="true" attribute-type="java.lang.String" id="_141072187816025">
                 <jpa:column name="telefono" unique="false" nullable="true" insertable="true" updatable="true" table="empleado" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="apellidoPaterno" optional="false" attribute-type="java.lang.String" visibile="true" id="_141072187816026">
+            <jpa:basic name="apellidoPaterno" optional="false" attribute-type="java.lang.String" id="_141072187816026">
                 <jpa:column name="apellido_paterno" unique="false" nullable="false" insertable="true" updatable="true" table="empleado" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="apellidoMaterno" optional="false" attribute-type="java.lang.String" visibile="true" id="_141072187816027">
+            <jpa:basic name="apellidoMaterno" optional="false" attribute-type="java.lang.String" id="_141072187816027">
                 <jpa:column name="apellido_materno" unique="false" nullable="false" insertable="true" updatable="true" table="empleado" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="ambienteList" target-entity="Ambiente" fetch="LAZY" mapped-by="empleado" collection-type="java.util.List" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816045" visibile="true" id="_141072187816029">
+            <jpa:one-to-many name="ambienteList" target-entity="Ambiente" fetch="LAZY" mapped-by="empleado" collection-type="java.util.List" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816045" id="_141072187816029">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="usuario" target-entity="Usuario" optional="true" mapped-by="empleado" primaryKey="false" connected-entity-id="_14107218781537" connected-attribute-id="_141791299428842" visibile="true" id="_141791299431643">
+            <jpa:one-to-one name="usuario" target-entity="Usuario" optional="true" mapped-by="empleado" primaryKey="false" connected-entity-id="_14107218781537" connected-attribute-id="_141791299428842" id="_141791299431643">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Usuario" visibile="true" minimized="false" id="_14107218781537">
+    <jpa:entity class="Usuario" minimized="false" id="_14107218781537">
         <jpa:table name="usuario"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187816030">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187816030">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="usuario" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816031">
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141072187816031">
                 <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="usuario" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="password" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816032">
+            <jpa:basic name="password" optional="true" attribute-type="java.lang.String" id="_141072187816032">
                 <jpa:column name="password" unique="false" nullable="true" insertable="true" updatable="true" table="usuario" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:many-to-one name="tipoUsuario" target-entity="TipoUsuario" optional="false" primaryKey="false" connected-entity-id="_141072187815315" connected-attribute-id="_141072187816176" visibile="true" id="_141072187816034">
+            <jpa:basic name="baja" attribute-type="Boolean" id="_141831620687287">
+                <jpa:column name="baja" unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="tipoUsuario" target-entity="TipoUsuario" optional="false" primaryKey="false" connected-entity-id="_141072187815315" connected-attribute-id="_141072187816176" id="_141072187816034">
                 <jpa:join-column name="tipo_usuario_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:one-to-many name="movimientos" target-entity="Movimiento" fetch="LAZY" mapped-by="usuario" collection-type="java.util.List" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816173" visibile="true" id="_141072187816035">
+            <jpa:one-to-many name="movimientos" target-entity="Movimiento" fetch="LAZY" mapped-by="usuario" collection-type="java.util.List" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816173" id="_141072187816035">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-one name="empleado" target-entity="Empleado" optional="true" primaryKey="false" connected-entity-id="_14107218781536" connected-attribute-id="_141791299431643" visibile="true" id="_141791299428842">
+            <jpa:one-to-one name="empleado" target-entity="Empleado" optional="true" primaryKey="false" connected-entity-id="_14107218781536" connected-attribute-id="_141791299431643" id="_141791299428842">
                 <jpa:join-table/>
             </jpa:one-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Tipo" visibile="true" minimized="false" id="_14107218781538">
+    <jpa:entity class="Tipo" minimized="false" id="_14107218781538">
         <jpa:table name="tipo"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187816036">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187816036">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="tipo" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816037">
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141072187816037">
                 <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="tipo" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="clases" target-entity="Clase" mapped-by="tipo" collection-type="java.util.List" connected-entity-id="_14107218781539" connected-attribute-id="_141072187816041" visibile="true" id="_141072187816038">
+            <jpa:one-to-many name="clases" target-entity="Clase" mapped-by="tipo" collection-type="java.util.List" connected-entity-id="_14107218781539" connected-attribute-id="_141072187816041" id="_141072187816038">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Clase" visibile="true" minimized="false" id="_14107218781539">
+    <jpa:entity class="Clase" minimized="false" id="_14107218781539">
         <jpa:table name="clase"/>
         <jpa:attributes>
-            <jpa:id name="codigo" attribute-type="String" visibile="true" id="_141791367325044">
+            <jpa:id name="codigo" attribute-type="String" id="_141791367325044">
                 <jpa:column unique="false" nullable="false" insertable="true" updatable="true" length="45" precision="0" scale="0"/>
                 <jpa:generated-value/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_141791410091345">
+            <jpa:basic name="nombre" attribute-type="String" id="_141791410091345">
                 <jpa:column unique="false" nullable="false" insertable="true" updatable="true" length="255"/>
             </jpa:basic>
-            <jpa:many-to-one name="tipo" target-entity="Tipo" optional="false" primaryKey="false" connected-entity-id="_14107218781538" connected-attribute-id="_141072187816038" visibile="true" id="_141072187816041">
+            <jpa:many-to-one name="tipo" target-entity="Tipo" optional="false" primaryKey="false" connected-entity-id="_14107218781538" connected-attribute-id="_141072187816038" id="_141072187816041">
                 <jpa:join-column name="tipo_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:one-to-many name="bienes" target-entity="Bien" fetch="LAZY" mapped-by="clase" collection-type="java.util.List" connected-entity-id="_141072187815316" connected-attribute-id="_141072187816284" visibile="true" id="_141072187816042">
+            <jpa:one-to-many name="bienes" target-entity="Bien" fetch="LAZY" mapped-by="clase" collection-type="java.util.List" connected-entity-id="_141072187815316" connected-attribute-id="_141072187816284" id="_141072187816042">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="campoList" target-entity="Campo" fetch="LAZY" mapped-by="clase" collection-type="java.util.List" connected-entity-id="_1417050170063" connected-attribute-id="_141705040922486" visibile="true" id="_141705040922787">
+            <jpa:one-to-many name="campoList" target-entity="Campo" fetch="LAZY" mapped-by="clase" collection-type="java.util.List" connected-entity-id="_1417050170063" connected-attribute-id="_141705040922486" id="_141705040922787">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Ambiente" visibile="true" minimized="false" id="_141072187815310">
+    <jpa:entity class="Ambiente" minimized="false" id="_141072187815310">
         <jpa:table name="ambiente"/>
         <jpa:attributes>
-            <jpa:id name="codigo" attribute-type="java.lang.String" visibile="true" id="_141072187816043">
+            <jpa:id name="codigo" attribute-type="java.lang.String" id="_141072187816043">
                 <jpa:column name="codigo" unique="false" nullable="false" insertable="true" updatable="true" table="ambiente" length="10" precision="0" scale="0"/>
                 <jpa:generated-value/>
             </jpa:id>
-            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816044">
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141072187816044">
                 <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="ambiente" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:many-to-one name="empleado" target-entity="Empleado" optional="false" primaryKey="false" connected-entity-id="_14107218781536" connected-attribute-id="_141072187816029" visibile="true" id="_141072187816045">
+            <jpa:many-to-one name="empleado" target-entity="Empleado" optional="false" primaryKey="false" connected-entity-id="_14107218781536" connected-attribute-id="_141072187816029" id="_141072187816045">
                 <jpa:join-column name="empleado_dni" referenced-column-name="dni" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="area" target-entity="Area" fetch="EAGER" optional="false" primaryKey="false" connected-entity-id="_14107218781474" connected-attribute-id="_141072187815919" visibile="true" id="_141072187816046">
+            <jpa:many-to-one name="area" target-entity="Area" fetch="EAGER" optional="false" primaryKey="false" connected-entity-id="_14107218781474" connected-attribute-id="_141072187815919" id="_141072187816046">
                 <jpa:join-column name="area_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="ambiente" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816055" visibile="true" id="_141072187816047">
+            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="ambiente" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816055" id="_141072187816047">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="movimientosDestino" target-entity="Movimiento" fetch="LAZY" mapped-by="ambienteDestino" collection-type="java.util.List" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816171" visibile="true" id="_141072187816048">
+            <jpa:one-to-many name="movimientosDestino" target-entity="Movimiento" fetch="LAZY" mapped-by="ambienteDestino" collection-type="java.util.List" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816171" id="_141072187816048">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="movimientosOrigen" target-entity="Movimiento" fetch="LAZY" mapped-by="ambienteOrigen" collection-type="java.util.List" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816172" visibile="true" id="_141072187816049">
+            <jpa:one-to-many name="movimientosOrigen" target-entity="Movimiento" fetch="LAZY" mapped-by="ambienteOrigen" collection-type="java.util.List" connected-entity-id="_141072187815314" connected-attribute-id="_141072187816172" id="_141072187816049">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Inventario" visibile="true" minimized="false" id="_141072187815311">
+    <jpa:entity class="Inventario" minimized="false" id="_141072187815311">
         <jpa:table name="inventario"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187816050">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187816050">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="inventario" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="precio" optional="true" attribute-type="Double" visibile="true" id="_141072187816051">
+            <jpa:basic name="precio" optional="true" attribute-type="Double" id="_141072187816051">
                 <jpa:column name="precio" unique="false" nullable="true" insertable="true" updatable="true" table="inventario" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="estado" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816052">
+            <jpa:basic name="estado" optional="true" attribute-type="java.lang.String" id="_141072187816052">
                 <jpa:column name="estado" unique="false" nullable="true" insertable="true" updatable="true" table="inventario" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="serie" optional="true" attribute-type="String" visibile="true" id="_141072187816053">
+            <jpa:basic name="serie" optional="true" attribute-type="String" id="_141072187816053">
                 <jpa:column name="serie" unique="false" nullable="true" insertable="true" updatable="true" table="inventario" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="codigoFabrica" attribute-type="String" visibile="true" id="_141711230259058">
+            <jpa:basic name="codigoFabrica" attribute-type="String" id="_141711230259058">
                 <jpa:column name="codigo_fabrica" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="baja" attribute-type="Boolean" visibile="true" id="_141781251547649">
+            <jpa:basic name="baja" attribute-type="Boolean" id="_141781251547649">
                 <jpa:column name="baja" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fechaIngreso" attribute-type="java.util.Date" visibile="true" id="_141781556751850">
+            <jpa:basic name="fechaIngreso" attribute-type="java.util.Date" id="_141781556751850">
                 <jpa:column name="fecha_ingreso" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:many-to-one name="ambiente" target-entity="Ambiente" optional="false" primaryKey="false" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816047" visibile="true" id="_141072187816055">
+            <jpa:basic name="impresionPendiente" attribute-type="Boolean" id="_141818270613942">
+                <jpa:column name="impresion_pendiente" unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:many-to-one name="ambiente" target-entity="Ambiente" optional="false" primaryKey="false" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816047" id="_141072187816055">
                 <jpa:join-column name="ambiente_codigo" referenced-column-name="codigo" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="periodo" target-entity="Periodo" optional="false" primaryKey="false" connected-entity-id="_141072187815313" connected-attribute-id="_141072187816166" visibile="true" id="_141072187816056">
+            <jpa:many-to-one name="periodo" target-entity="Periodo" optional="false" primaryKey="false" connected-entity-id="_141072187815313" connected-attribute-id="_141072187816166" id="_141072187816056">
                 <jpa:join-column name="periodo_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="bien" target-entity="Bien" optional="false" primaryKey="false" connected-entity-id="_141072187815316" connected-attribute-id="_141072187816282" visibile="true" id="_141072187816057">
+            <jpa:many-to-one name="bien" target-entity="Bien" optional="false" primaryKey="false" connected-entity-id="_141072187815316" connected-attribute-id="_141072187816282" id="_141072187816057">
                 <jpa:join-column name="bien_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="proveedor" target-entity="Proveedor" optional="true" primaryKey="false" connected-entity-id="_141072187815312" connected-attribute-id="_1410722367116148" visibile="true" id="_1410722367093147">
+            <jpa:many-to-one name="proveedor" target-entity="Proveedor" optional="true" primaryKey="false" connected-entity-id="_141072187815312" connected-attribute-id="_1410722367116148" id="_1410722367093147">
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="factura" target-entity="Factura" optional="true" primaryKey="false" connected-entity-id="_1417109901470" connected-attribute-id="_141711023845757" visibile="true" id="_141711023842956">
+            <jpa:many-to-one name="factura" target-entity="Factura" optional="true" primaryKey="false" connected-entity-id="_1417109901470" connected-attribute-id="_141711023845757" id="_141711023842956">
                 <jpa:join-column name="factura_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:one-to-many name="detalleMovimientos" target-entity="DetalleMovimiento" fetch="LAZY" mapped-by="inventario" collection-type="java.util.List" connected-entity-id="_14107218781535" connected-attribute-id="_141072187816022" visibile="true" id="_141072187816054">
-                <jpa:join-table/>
-            </jpa:one-to-many>
-            <jpa:one-to-many name="detalleBienCampoList" target-entity="DetalleBienCampo" fetch="LAZY" mapped-by="inventario" collection-type="java.util.List" connected-entity-id="_1417107658024" connected-attribute-id="_141778851140941" visibile="true" id="_141778851140942">
+            <jpa:one-to-many name="detalleMovimientos" target-entity="DetalleMovimiento" fetch="LAZY" mapped-by="inventario" collection-type="java.util.List" connected-entity-id="_14107218781535" connected-attribute-id="_141072187816022" id="_141072187816054">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Proveedor" visibile="true" minimized="false" id="_141072187815312">
+    <jpa:entity class="Proveedor" minimized="false" id="_141072187815312">
         <jpa:table name="proveedor"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187816158">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187816158">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="proveedor" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="nombreProveedor" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816159">
+            <jpa:basic name="nombreProveedor" optional="true" attribute-type="java.lang.String" id="_141072187816159">
                 <jpa:column name="nombreProveedor" unique="false" nullable="true" insertable="true" updatable="true" table="proveedor" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="direccion" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816160">
+            <jpa:basic name="direccion" optional="true" attribute-type="java.lang.String" id="_141072187816160">
                 <jpa:column name="direccion" unique="false" nullable="true" insertable="true" updatable="true" table="proveedor" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="ruc" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816161">
+            <jpa:basic name="ruc" optional="true" attribute-type="java.lang.String" id="_141072187816161">
                 <jpa:column name="RUC" unique="false" nullable="true" insertable="true" updatable="true" table="proveedor" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="telefono" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816162">
+            <jpa:basic name="telefono" optional="true" attribute-type="java.lang.String" id="_141072187816162">
                 <jpa:column name="Telefono" unique="false" nullable="true" insertable="true" updatable="true" table="proveedor" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="proveedor" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_1410722367093147" visibile="true" id="_1410722367116148">
+            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="proveedor" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_1410722367093147" id="_1410722367116148">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Periodo" visibile="true" minimized="false" id="_141072187815313">
+    <jpa:entity class="Periodo" minimized="false" id="_141072187815313">
         <jpa:table name="periodo"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187816164">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187816164">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="periodo" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="periodo" optional="true" attribute-type="java.lang.Integer" visibile="true" id="_141072187816165">
+            <jpa:basic name="periodo" optional="true" attribute-type="java.lang.Integer" id="_141072187816165">
                 <jpa:column name="periodo" unique="false" nullable="true" insertable="true" updatable="true" table="periodo" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="periodo" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816056" visibile="true" id="_141072187816166">
+            <jpa:basic name="vigente" attribute-type="Boolean" id="_141831467188542">
+                <jpa:column name="vigente" unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="periodo" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816056" id="_141072187816166">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Movimiento" visibile="true" minimized="false" id="_141072187815314">
+    <jpa:entity class="Movimiento" minimized="false" id="_141072187815314">
         <jpa:table name="movimiento"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187816167">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187816167">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="movimiento" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="fecha" optional="true" attribute-type="java.util.Date" visibile="true" id="_141072187816168">
+            <jpa:basic name="fecha" optional="true" attribute-type="java.util.Date" id="_141072187816168">
                 <jpa:column name="fecha" unique="false" nullable="true" insertable="true" updatable="true" table="movimiento" length="255" precision="0" scale="0"/>
                 <jpa:temporal>TIMESTAMP</jpa:temporal>
             </jpa:basic>
-            <jpa:basic name="detalle" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816169">
+            <jpa:basic name="detalle" optional="true" attribute-type="java.lang.String" id="_141072187816169">
                 <jpa:column name="detalle" unique="false" nullable="true" insertable="true" updatable="true" table="movimiento" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:many-to-one name="ambienteDestino" target-entity="Ambiente" optional="false" primaryKey="false" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816048" visibile="true" id="_141072187816171">
+            <jpa:many-to-one name="ambienteDestino" target-entity="Ambiente" optional="false" primaryKey="false" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816048" id="_141072187816171">
                 <jpa:join-column name="ambiente_codigo_destino" referenced-column-name="codigo" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="ambienteOrigen" target-entity="Ambiente" optional="false" primaryKey="false" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816049" visibile="true" id="_141072187816172">
+            <jpa:many-to-one name="ambienteOrigen" target-entity="Ambiente" optional="false" primaryKey="false" connected-entity-id="_141072187815310" connected-attribute-id="_141072187816049" id="_141072187816172">
                 <jpa:join-column name="ambiente_codigo_origen" referenced-column-name="codigo" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="usuario" target-entity="Usuario" optional="false" primaryKey="false" connected-entity-id="_14107218781537" connected-attribute-id="_141072187816035" visibile="true" id="_141072187816173">
+            <jpa:many-to-one name="usuario" target-entity="Usuario" optional="false" primaryKey="false" connected-entity-id="_14107218781537" connected-attribute-id="_141072187816035" id="_141072187816173">
                 <jpa:join-column name="usuario_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true"/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:one-to-many name="detalles" target-entity="DetalleMovimiento" fetch="LAZY" mapped-by="movimiento" collection-type="java.util.List" connected-entity-id="_14107218781535" connected-attribute-id="_141072187816021" visibile="true" id="_141072187816170">
+            <jpa:one-to-many name="detalles" target-entity="DetalleMovimiento" fetch="LAZY" mapped-by="movimiento" collection-type="java.util.List" connected-entity-id="_14107218781535" connected-attribute-id="_141072187816021" id="_141072187816170">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="TipoUsuario" visibile="true" minimized="false" id="_141072187815315">
+    <jpa:entity class="TipoUsuario" minimized="false" id="_141072187815315">
         <jpa:table name="tipo_usuario"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="java.lang.Long" visibile="true" id="_141072187816174">
+            <jpa:id name="id" attribute-type="java.lang.Long" id="_141072187816174">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="tipo_usuario" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816175">
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141072187816175">
                 <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="tipo_usuario" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:one-to-many name="usuarios" target-entity="Usuario" fetch="LAZY" mapped-by="tipoUsuario" collection-type="java.util.List" connected-entity-id="_14107218781537" connected-attribute-id="_141072187816034" visibile="true" id="_141072187816176">
+            <jpa:basic name="baja" attribute-type="Boolean" id="_141831616608186">
+                <jpa:column name="baja" unique="false" nullable="true" insertable="true" updatable="true" length="255"/>
+            </jpa:basic>
+            <jpa:one-to-many name="usuarios" target-entity="Usuario" fetch="LAZY" mapped-by="tipoUsuario" collection-type="java.util.List" connected-entity-id="_14107218781537" connected-attribute-id="_141072187816034" id="_141072187816176">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Bien" visibile="true" minimized="false" id="_141072187815316">
+    <jpa:entity class="Bien" minimized="false" id="_141072187815316">
         <jpa:table name="bien"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" visibile="true" id="_141072187816277">
+            <jpa:id name="id" attribute-type="Long" id="_141072187816277">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" table="bien" length="45" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816278">
+            <jpa:basic name="nombre" optional="true" attribute-type="java.lang.String" id="_141072187816278">
                 <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" table="bien" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" visibile="true" id="_141072187816279">
+            <jpa:basic name="descripcion" optional="true" attribute-type="java.lang.String" id="_141072187816279">
                 <jpa:column name="descripcion" unique="false" nullable="true" insertable="true" updatable="true" table="bien" length="45" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="foto" optional="true" attribute-type="String" visibile="true" id="_141072187816281">
+            <jpa:basic name="foto" optional="true" attribute-type="String" id="_141072187816281">
                 <jpa:column name="foto" unique="false" nullable="true" insertable="true" updatable="true" table="bien" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:many-to-one name="clase" target-entity="Clase" optional="false" primaryKey="false" connected-entity-id="_14107218781539" connected-attribute-id="_141072187816042" visibile="true" id="_141072187816284">
+            <jpa:many-to-one name="clase" target-entity="Clase" optional="false" primaryKey="false" connected-entity-id="_14107218781539" connected-attribute-id="_141072187816042" id="_141072187816284">
                 <jpa:join-column name="clase_codigo" referenced-column-name="codigo" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="bien" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816057" visibile="true" id="_141072187816282">
+            <jpa:one-to-many name="inventarios" target-entity="Inventario" fetch="LAZY" mapped-by="bien" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141072187816057" id="_141072187816282">
                 <jpa:join-table/>
             </jpa:one-to-many>
-            <jpa:one-to-many name="ListaCampos" target-entity="DetalleBienCampo" fetch="LAZY" mapped-by="bien" collection-type="java.util.List" connected-entity-id="_1417107658024" connected-attribute-id="_141779423815944" visibile="true" id="_141779423816545">
-                <jpa:join-table/>
-            </jpa:one-to-many>
+            <jpa:one-to-many name="detalleBienCampoList" target-entity="DetalleBienCampo" fetch="LAZY" mapped-by="bien" collection-type="java.util.List" connected-entity-id="_1417107658024" connected-attribute-id="_141831505060584" id="_141831505060585"/>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Campo" visibile="true" minimized="false" id="_1417050170063">
+    <jpa:entity class="Campo" minimized="false" id="_1417050170063">
         <jpa:table name="campo"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" visibile="true" id="_141705017632573">
+            <jpa:id name="id" attribute-type="Long" id="_141705017632573">
                 <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_141705017672574">
+            <jpa:basic name="nombre" attribute-type="String" id="_141705017672574">
                 <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="modificable" attribute-type="Boolean" visibile="true" id="_141780163126248">
+            <jpa:basic name="modificable" attribute-type="Boolean" id="_141780163126248">
                 <jpa:column name="modificable" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:many-to-one name="unidadMedida" target-entity="UnidadMedida" optional="true" primaryKey="false" connected-entity-id="_1417050280854" visibile="true" id="_141705037857785">
-                <jpa:join-column name="unidad_medida_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
+            <jpa:many-to-one name="clase" target-entity="Clase" optional="true" primaryKey="false" connected-entity-id="_14107218781539" connected-attribute-id="_141705040922787" id="_141705040922486">
+                <jpa:join-column name="clase_codigo" referenced-column-name="codigo" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="clase" target-entity="Clase" optional="true" primaryKey="false" connected-entity-id="_14107218781539" connected-attribute-id="_141705040922787" visibile="true" id="_141705040922486">
-                <jpa:join-column name="clase_codigo" referenced-column-name="clase" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
-                <jpa:join-table/>
-            </jpa:many-to-one>
-            <jpa:one-to-many name="detalleBienCampoList" target-entity="DetalleBienCampo" fetch="LAZY" mapped-by="campo" collection-type="java.util.List" connected-entity-id="_1417107658024" connected-attribute-id="_141710769675140" visibile="true" id="_141710769675341">
+            <jpa:one-to-many name="detalleBienCampoList" target-entity="DetalleBienCampo" fetch="LAZY" mapped-by="campo" collection-type="java.util.List" connected-entity-id="_1417107658024" connected-attribute-id="_141710769675140" id="_141710769675341">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="UnidadMedida" visibile="true" minimized="false" id="_1417050280854">
-        <jpa:table name="unidad_medida"/>
-        <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" visibile="true" id="_141705029686579">
-                <jpa:column name="id" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-                <jpa:generated-value strategy="IDENTITY"/>
-            </jpa:id>
-            <jpa:basic name="nombre" attribute-type="String" visibile="true" id="_141705029764980">
-                <jpa:column name="nombre" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-            </jpa:basic>
-            <jpa:basic name="abreviatura" attribute-type="String" visibile="true" id="_141705029808981">
-                <jpa:column name="abreviatura" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
-            </jpa:basic>
-        </jpa:attributes>
-    </jpa:entity>
-    <jpa:entity class="DetalleBienCampo" visibile="true" minimized="false" id="_1417107658024">
+    <jpa:entity class="DetalleBienCampo" minimized="false" id="_1417107658024">
         <jpa:table name="detalle_bien_campo"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" visibile="true" id="_141710767773437">
+            <jpa:id name="id" attribute-type="Long" id="_141710767773437">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="valor" attribute-type="String" visibile="true" id="_141711281283460">
+            <jpa:basic name="valor" attribute-type="String" id="_141711281283460">
                 <jpa:column name="valor" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:many-to-one name="campo" target-entity="Campo" optional="true" primaryKey="false" connected-entity-id="_1417050170063" connected-attribute-id="_141710769675341" visibile="true" id="_141710769675140">
+            <jpa:many-to-one name="campo" target-entity="Campo" optional="true" primaryKey="false" connected-entity-id="_1417050170063" connected-attribute-id="_141710769675341" id="_141710769675140">
                 <jpa:join-column name="campo_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
                 <jpa:join-table/>
             </jpa:many-to-one>
-            <jpa:many-to-one name="inventario" target-entity="Inventario" optional="true" primaryKey="false" connected-entity-id="_141072187815311" connected-attribute-id="_141778851140942" visibile="true" id="_141778851140941">
-                <jpa:join-column name="inventario_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
-                <jpa:join-table/>
-            </jpa:many-to-one>
-            <jpa:many-to-one name="bien" target-entity="Bien" optional="true" primaryKey="false" connected-entity-id="_141072187815316" connected-attribute-id="_141779423816545" visibile="true" id="_141779423815944">
+            <jpa:many-to-one name="bien" target-entity="Bien" optional="true" primaryKey="false" connected-entity-id="_141072187815316" connected-attribute-id="_141831505060585" id="_141831505060584">
                 <jpa:join-column name="bien_id" referenced-column-name="id" unique="false" nullable="true" insertable="true" updatable="true" column-definition="" table=""/>
                 <jpa:join-table/>
             </jpa:many-to-one>
         </jpa:attributes>
     </jpa:entity>
-    <jpa:entity class="Factura" visibile="true" minimized="false" id="_1417109901470">
+    <jpa:entity class="Factura" minimized="false" id="_1417109901470">
         <jpa:table name="factura"/>
         <jpa:attributes>
-            <jpa:id name="id" attribute-type="Long" visibile="true" id="_141710991331849">
+            <jpa:id name="id" attribute-type="Long" id="_141710991331849">
                 <jpa:column name="id" unique="false" nullable="false" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:generated-value strategy="IDENTITY"/>
             </jpa:id>
-            <jpa:basic name="ruta" attribute-type="String" visibile="true" id="_141710991380650">
+            <jpa:basic name="ruta" attribute-type="String" id="_141710991380650">
                 <jpa:column name="ruta" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="numeroFactura" attribute-type="String" visibile="true" id="_141711004543853">
+            <jpa:basic name="numeroFactura" attribute-type="String" id="_141711004543853">
                 <jpa:column name="numero_factura" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
             </jpa:basic>
-            <jpa:basic name="fecha" attribute-type="java.util.Date" visibile="true" id="_141781665355351">
+            <jpa:basic name="fecha" attribute-type="java.util.Date" id="_141781665355351">
                 <jpa:column name="fecha" unique="false" nullable="true" insertable="true" updatable="true" length="255" precision="0" scale="0"/>
                 <jpa:temporal>DATE</jpa:temporal>
             </jpa:basic>
-            <jpa:one-to-many name="inventarioList" target-entity="Inventario" fetch="LAZY" mapped-by="factura" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141711023842956" visibile="true" id="_141711023845757">
+            <jpa:one-to-many name="inventarioList" target-entity="Inventario" fetch="LAZY" mapped-by="factura" collection-type="java.util.List" connected-entity-id="_141072187815311" connected-attribute-id="_141711023842956" id="_141711023845757">
                 <jpa:join-table/>
             </jpa:one-to-many>
         </jpa:attributes>
@@ -409,55 +393,52 @@
     <jpa:diagram id="_14107218781452">
         <plane elementRef="_14107218781431" id="_14107218781463_p">
             <shape elementRef="_14107218781474" id="_14107218781474_gui">
-                <Bounds x="1124.0" y="319.0" width="129.0" height="138.0"/>
+                <Bounds x="1124.0" y="319.0" width="128.0" height="147.0"/>
             </shape>
             <shape elementRef="_14107218781535" id="_14107218781535_gui">
-                <Bounds x="376.0" y="812.0" width="228.0" height="106.0"/>
+                <Bounds x="376.0" y="812.0" width="200.0" height="113.0"/>
             </shape>
             <shape elementRef="_14107218781536" id="_14107218781536_gui">
-                <Bounds x="1264.0" y="64.0" width="165.0" height="198.0"/>
+                <Bounds x="1264.0" y="64.0" width="152.0" height="210.0"/>
             </shape>
             <shape elementRef="_14107218781537" id="_14107218781537_gui">
-                <Bounds x="1124.0" y="878.0" width="151.0" height="178.0"/>
+                <Bounds x="1124.0" y="898.0" width="140.0" height="210.0"/>
             </shape>
             <shape elementRef="_14107218781538" id="_14107218781538_gui">
-                <Bounds x="379.0" y="458.0" width="128.0" height="118.0"/>
+                <Bounds x="379.0" y="458.0" width="128.0" height="126.0"/>
             </shape>
             <shape elementRef="_14107218781539" id="_14107218781539_gui">
-                <Bounds x="379.0" y="239.0" width="135.0" height="158.0"/>
+                <Bounds x="379.0" y="239.0" width="128.0" height="168.0"/>
             </shape>
             <shape elementRef="_141072187815310" id="_141072187815310_gui">
-                <Bounds x="1124.0" y="496.0" width="183.0" height="198.0"/>
+                <Bounds x="1124.0" y="496.0" width="171.0" height="210.0"/>
             </shape>
             <shape elementRef="_141072187815311" id="_141072187815311_gui">
-                <Bounds x="774.0" y="497.0" width="191.0" height="338.0"/>
+                <Bounds x="774.0" y="497.0" width="163.0" height="357.0"/>
             </shape>
             <shape elementRef="_141072187815312" id="_141072187815312_gui">
-                <Bounds x="376.0" y="606.0" width="169.0" height="178.0"/>
+                <Bounds x="376.0" y="606.0" width="155.0" height="189.0"/>
             </shape>
             <shape elementRef="_141072187815313" id="_141072187815313_gui">
-                <Bounds x="1124.0" y="732.0" width="151.0" height="118.0"/>
+                <Bounds x="1124.0" y="732.0" width="140.0" height="147.0"/>
             </shape>
             <shape elementRef="_141072187815314" id="_141072187815314_gui">
-                <Bounds x="379.0" y="973.0" width="177.0" height="198.0"/>
+                <Bounds x="379.0" y="973.0" width="161.0" height="210.0"/>
             </shape>
             <shape elementRef="_141072187815315" id="_141072187815315_gui">
-                <Bounds x="1397.0" y="908.0" width="181.0" height="118.0"/>
+                <Bounds x="1397.0" y="908.0" width="164.0" height="147.0"/>
             </shape>
             <shape elementRef="_141072187815316" id="_141072187815316_gui">
-                <Bounds x="733.0" y="235.0" width="136.0" height="198.0"/>
+                <Bounds x="733.0" y="235.0" width="180.0" height="210.0"/>
             </shape>
             <shape elementRef="_1417050170063" id="_1417050170063_gui">
-                <Bounds x="379.0" y="17.0" width="191.0" height="178.0"/>
-            </shape>
-            <shape elementRef="_1417050280854" id="_1417050280854_gui">
-                <Bounds x="1007.0" y="64.0" width="198.0" height="106.0"/>
+                <Bounds x="379.0" y="17.0" width="180.0" height="168.0"/>
             </shape>
             <shape elementRef="_1417107658024" id="_1417107658024_gui">
-                <Bounds x="723.0" y="17.0" width="226.0" height="158.0"/>
+                <Bounds x="723.0" y="17.0" width="200.0" height="147.0"/>
             </shape>
             <shape elementRef="_1417109901470" id="_1417109901470_gui">
-                <Bounds x="774.0" y="908.0" width="150.0" height="158.0"/>
+                <Bounds x="774.0" y="908.0" width="139.0" height="168.0"/>
             </shape>
         </plane>
     </jpa:diagram>

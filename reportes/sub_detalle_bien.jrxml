@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_detalle_bien" columnCount="3" pageWidth="360" pageHeight="63" orientation="Landscape" columnWidth="120" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="97fe83d6-3935-4d1d-ab1b-c6a1227158d3">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bien_id" class="java.lang.Long"/>
+	<queryString>
+		<![CDATA[SELECT
+     detalle_bien_campo.valor AS valor,
+     campo.nombre AS campo
+FROM
+     public.campo campo INNER JOIN public.detalle_bien_campo detalle_bien_campo ON campo.id = detalle_bien_campo.campo_id
+WHERE
+detalle_bien_campo.bien_id = $P{bien_id}]]>
+	</queryString>
+	<field name="valor" class="java.lang.String"/>
+	<field name="campo" class="java.lang.String"/>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField>
+				<reportElement x="71" y="0" width="51" height="10" uuid="40483dd4-7632-4d4c-af6c-77c560f144fa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="71" height="10" uuid="b5dfc37f-ef2e-446f-a60a-cba23665d0e2"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{campo} +":"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
