@@ -141,7 +141,7 @@ public class DlgAmbienteBusqueda extends JDialog {
     private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
         // TODO add your handling code here:
         lista.clear();
-        lista.addAll(ambienteControlador.buscarXNombre(txtBusqueda.getText().toUpperCase()));
+        lista.addAll(ambienteControlador.buscarXNombreXCodigo(txtBusqueda.getText().toUpperCase()));
     }//GEN-LAST:event_txtBusquedaKeyReleased
 
     /**
