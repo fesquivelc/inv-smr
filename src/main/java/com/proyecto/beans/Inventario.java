@@ -68,6 +68,10 @@ public class Inventario implements Serializable {
     @Column(name = "precio", table = "inventario")
     @Basic
     private Double precio;
+    
+    @Column(name = "observacion", table = "inventario", length = 255)
+    @Basic
+    private String observacion;
 
     @ManyToOne(optional = false, targetEntity = Periodo.class)
     @JoinColumn(name = "periodo_id", referencedColumnName = "id", insertable = true, nullable = true, unique = false, updatable = true)
@@ -194,6 +198,14 @@ public class Inventario implements Serializable {
 
     public void setImpresionPendiente(Boolean impresionPendiente) {
         this.impresionPendiente = impresionPendiente;
+    }
+    
+    public String getObservacion() {
+        return observacion;
+    }
+
+    public void setObservacion(String observacion) {
+        this.observacion = observacion;
     }
 
 }
