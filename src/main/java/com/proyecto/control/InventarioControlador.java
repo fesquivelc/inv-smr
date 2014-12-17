@@ -136,4 +136,9 @@ public class InventarioControlador extends AbstractControlador<Inventario> {
         parametros.put("periodo", periodo);
         return this.getDao().buscar(jpql, parametros);
     }
+    
+    public List<Inventario> buscarFaltaEtiqueta(){
+        String jpql = "SELECT a FROM Inventario a WHERE a.impresionPendiente = TRUE";
+        return this.getDao().buscar(jpql);
+    }
 }

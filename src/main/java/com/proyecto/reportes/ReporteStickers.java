@@ -5,6 +5,8 @@
  */
 package com.proyecto.reportes;
 
+import com.proyecto.beans.Inventario;
+import com.proyecto.control.InventarioControlador;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +29,15 @@ public class ReporteStickers extends javax.swing.JInternalFrame {
 
     private List<PrintService> impresoras;
     private PrintService impresoraSeleccionada;
+    private InventarioControlador ic;
     /**
      * Creates new form ReporteStickers
      */
     public ReporteStickers() {
         initComponents();
+        ic = new InventarioControlador();
         bindeoSalvaje();
+        
     }
 
     /**
@@ -48,18 +53,17 @@ public class ReporteStickers extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         cboImpresora = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblCodigos = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtImpresora = new javax.swing.JTextArea();
 
         setTitle("IMPRESIÓN DE CÓDIGO DE BARRAS");
 
         java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
-        jPanel1Layout.columnWidths = new int[] {0, 5, 0, 5, 0};
-        jPanel1Layout.rowHeights = new int[] {0, 6, 0, 6, 0, 6, 0};
+        jPanel1Layout.columnWidths = new int[] {0, 5, 0};
+        jPanel1Layout.rowHeights = new int[] {0, 6, 0, 6, 0};
         jPanel1.setLayout(jPanel1Layout);
 
         jLabel1.setText("Impresora:");
@@ -80,28 +84,6 @@ public class ReporteStickers extends javax.swing.JInternalFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         jPanel1.add(cboImpresora, gridBagConstraints);
 
-        tblCodigos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblCodigos);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
-        jPanel1.add(jScrollPane1, gridBagConstraints);
-
         jPanel2.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
         jButton1.setText("IMPRIMIR");
@@ -117,14 +99,22 @@ public class ReporteStickers extends javax.swing.JInternalFrame {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 3;
         jPanel1.add(jPanel2, gridBagConstraints);
+
+        txtImpresora.setColumns(20);
+        txtImpresora.setRows(5);
+        jScrollPane2.setViewportView(txtImpresora);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel1.add(txtCodigo, gridBagConstraints);
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        jPanel1.add(jScrollPane2, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -148,8 +138,9 @@ public class ReporteStickers extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String codigo = txtCodigo.getText();
-        if(ImpresoraUtil.imprimirCodigoDeBarras(codigo, impresoraSeleccionada)){
+        String codigo = txtImpresora.getText();
+        List<Inventario> porImprimir = ic.buscarFaltaEtiqueta();
+        if(ImpresoraUtil.imprimirCodBarInventario(porImprimir, impresoraSeleccionada)){
             JOptionPane.showMessageDialog(this, "IMPRIMIENDO", "MENSAJE DEL SISTEMA", JOptionPane.INFORMATION_MESSAGE);
         }else{
             JOptionPane.showMessageDialog(this, "NO SE PUDO IMPRIMIR", "MENSAJE DEL SISTEMA", JOptionPane.INFORMATION_MESSAGE);
@@ -174,9 +165,8 @@ public class ReporteStickers extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCodigos;
-    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea txtImpresora;
     // End of variables declaration//GEN-END:variables
 
     private void bindeoSalvaje() {
