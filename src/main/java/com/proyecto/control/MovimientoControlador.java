@@ -12,7 +12,7 @@ import com.proyecto.beans.Movimiento;
  *
  * @author Documentos
  */
-public class MovimientoControlador extends AbstractControlador<Movimiento>{
+public class MovimientoControlador extends Controlador<Movimiento>{
 
     public MovimientoControlador() {
         super(Movimiento.class);

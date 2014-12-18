@@ -7,7 +7,7 @@ package com.proyecto.vista;
 
 import com.proyecto.beans.Campo;
 import com.proyecto.beans.Clase;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.ClaseControlador;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -286,7 +286,7 @@ public class DlgCrearClase extends JDialog {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         claseControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);

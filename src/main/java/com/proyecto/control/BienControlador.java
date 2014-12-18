@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author Documentos
  */
-public class BienControlador extends AbstractControlador<Bien>{
+public class BienControlador extends Controlador<Bien>{
      public BienControlador() {
         super(Bien.class);
     }

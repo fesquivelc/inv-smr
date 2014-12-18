@@ -9,7 +9,7 @@ import com.proyecto.beans.Ambiente;
 import com.proyecto.beans.Bien;
 import com.proyecto.beans.Inventario;
 import com.proyecto.beans.Periodo;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.BienControlador;
 import com.proyecto.control.InventarioControlador;
 import com.proyecto.control.PeriodoControlador;
@@ -267,17 +267,20 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
 
         if (inicio == null) {
             cal.set(cal.get(Calendar.YEAR), cal.getActualMinimum(Calendar.MONTH), cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-            Date fecha1 = cal.getTime(); 
-            System.out.println("FECHA 1: "+ fecha1);
-            jdateInicio.setDate(fecha1);
-        }else if(fin == null){
+            Date ini = cal.getTime(); 
+            System.out.println("FECHA 1: "+ ini);
+            jdateInicio.setDate(ini);
+        } 
+        if(fin == null){
             cal.set(cal.get(Calendar.YEAR), cal.getActualMaximum(Calendar.MONTH), cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-                        
-            jDateFin.setDate(cal.getTime());
+                  
+            Date finals = cal.getTime();
+            
+            jDateFin.setDate(finals);
         }
         
-        System.out.println("DATE 1: "+ jdateInicio.getDate());
-        System.out.println("DATE 2: "+ jDateFin.getDate());
+//        System.out.println("DATE 1: "+ jdateInicio.getDate());
+//        System.out.println("DATE 2: "+ jDateFin.getDate());
 
         paginaActual = 1;
         buscar();
@@ -390,7 +393,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         tamanioPagina = Integer.parseInt(cboTamanio.getSelectedItem().toString());
 
         lista.clear();
-        lista.addAll(inventarioControlador.buscarXFecha(inicio, fin));
+        lista.addAll(this.listar(inicio, fin, paginaActual, tamanioPagina));
     }
 
     private List<Inventario> listar(Date inicio, Date fin, int pagina, int tamanio) {

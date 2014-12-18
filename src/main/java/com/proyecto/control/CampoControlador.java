@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author Documentos
  */
-public class CampoControlador extends AbstractControlador<Campo>{
+public class CampoControlador extends Controlador<Campo>{
     public CampoControlador(){
         super(Campo.class);
     }

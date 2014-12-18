@@ -8,7 +8,7 @@ package com.proyecto.vista;
 import com.proyecto.beans.Ambiente;
 import com.proyecto.beans.Inventario;
 import com.proyecto.beans.Periodo;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.InventarioControlador;
 import com.proyecto.control.PeriodoControlador;
 import java.util.List;
@@ -382,7 +382,7 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             
-            accion = AbstractControlador.MODIFICAR;
+            accion = Controlador.MODIFICAR;
             
             FormularioUtil.activarComponente(panelGuardar, true);
             FormularioUtil.activarComponente(panelDatos, true);

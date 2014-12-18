@@ -16,7 +16,7 @@ import javax.persistence.Query;
  *
  * @author Documentos
  */
-public class PeriodoControlador extends AbstractControlador<Periodo>{
+public class PeriodoControlador extends Controlador<Periodo>{
      public PeriodoControlador() {
         super(Periodo.class);
     }

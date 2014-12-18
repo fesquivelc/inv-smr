@@ -9,7 +9,7 @@ import com.proyecto.beans.Bien;
 import com.proyecto.beans.Campo;
 import com.proyecto.beans.Clase;
 import com.proyecto.beans.DetalleBienCampo;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.BienControlador;
 import com.proyecto.control.CampoControlador;
 import com.proyecto.control.DetalleBienCampoControlador;
@@ -545,7 +545,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         bienControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
@@ -562,7 +562,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
 
 //        cargarCombo();
         int fila = this.tblbienes.getSelectedRow();
@@ -573,7 +573,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
             claseField.setEditable(false);
             fotoField.setEditable(false);
 
-            accion = AbstractControlador.MODIFICAR;
+            accion = Controlador.MODIFICAR;
             bienControlador.setSeleccionado(lista.get(fila));
             Bien bien = bienControlador.getSeleccionado();
             try {
@@ -598,7 +598,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
+        accion = Controlador.ELIMINAR;
         if (tblbienes.getSelectedRow() != -1) {
 
             Integer codigo = tblbienes.getSelectedRow();
@@ -691,7 +691,7 @@ public class MantenimientoBien extends javax.swing.JInternalFrame {
         for (DetalleBienCampo detalle : lista3) {
             detalle.setBien(bienControlador.getSeleccionado());
             detalleControlador.setSeleccionado(detalle);
-            detalleControlador.accion(AbstractControlador.MODIFICAR);
+            detalleControlador.accion(Controlador.MODIFICAR);
         }
 
         lista3.clear();

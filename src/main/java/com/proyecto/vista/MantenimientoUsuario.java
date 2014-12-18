@@ -7,7 +7,7 @@ package com.proyecto.vista;
 
 import com.proyecto.beans.TipoUsuario;
 import com.proyecto.beans.Usuario;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.TipoUsuarioControlador;
 import com.proyecto.control.UsuarioControlador;
 import java.util.List;
@@ -265,7 +265,7 @@ public class MantenimientoUsuario extends javax.swing.JInternalFrame {
         btnguardar.setEnabled(true);
         passwordField.setEnabled(true);
         btnnuevo.setEnabled(false);
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         usuarioControlador.prepararCrear();
         usuarioField.setEnabled(true);
         usuarioField.requestFocusInWindow();
@@ -335,7 +335,7 @@ public class MantenimientoUsuario extends javax.swing.JInternalFrame {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
         btnguardar.setEnabled(true);
         btnmodificar.setEnabled(false);
         btnnuevo.setEnabled(false);
@@ -343,7 +343,7 @@ public class MantenimientoUsuario extends javax.swing.JInternalFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
+        accion = Controlador.ELIMINAR;
         if (tblusuario.getSelectedRow() != -1) {
             Integer codigo = (Integer) tblusuario.getModel().getValueAt(tblusuario.getSelectedRow(), 0);
 

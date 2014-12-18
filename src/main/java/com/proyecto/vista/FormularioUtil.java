@@ -24,7 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import java.util.List;
 
 /**
@@ -58,15 +58,15 @@ public class FormularioUtil {
         String titulo = "MENSAJE DEL SISTEMA";
         int tipoMensaje = 0;
         switch (accion) {
-            case AbstractControlador.NUEVO:
+            case Controlador.NUEVO:
                 mensaje = "¿DESEA GUARDAR LA INFORMACIÓN?";
                 tipoMensaje = JOptionPane.QUESTION_MESSAGE;
                 break;
-            case AbstractControlador.MODIFICAR:
+            case Controlador.MODIFICAR:
                 mensaje = "¿DESEA GUARDAR LOS CAMBIOS REALIZADOS?";
                 tipoMensaje = JOptionPane.QUESTION_MESSAGE;
                 break;
-            case AbstractControlador.ELIMINAR:
+            case Controlador.ELIMINAR:
                 mensaje = "¿ESTA SEGURO QUE DESEA ELIMINAR LA INFORMACIÓN?";
                 tipoMensaje = JOptionPane.WARNING_MESSAGE;
                 break;

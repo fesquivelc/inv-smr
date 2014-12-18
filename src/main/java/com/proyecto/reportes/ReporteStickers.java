@@ -5,6 +5,7 @@
  */
 package com.proyecto.reportes;
 
+import biz.juvitec.util.ImpresoraUtil;
 import com.proyecto.beans.Inventario;
 import com.proyecto.control.InventarioControlador;
 import java.awt.Component;

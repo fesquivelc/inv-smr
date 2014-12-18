@@ -14,7 +14,7 @@ import com.proyecto.beans.Factura;
 import com.proyecto.beans.Inventario;
 import com.proyecto.beans.Periodo;
 import com.proyecto.beans.Proveedor;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.AmbienteControlador;
 import com.proyecto.control.BienControlador;
 import com.proyecto.control.CampoControlador;
@@ -938,7 +938,7 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
     private void buscar() {
         System.out.println("SE EJECUTO");
 
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
 //        cargarCombos();
 //        cantidadField.setEditable(false);
 

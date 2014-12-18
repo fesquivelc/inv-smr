@@ -5,12 +5,17 @@
  */
 package com.proyecto.dao;
 
+import biz.juvitec.util.ParametrosUtil;
+import biz.juvitec.util.PropertiesUtil;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -20,8 +25,10 @@ import javax.persistence.Query;
 public class DAO<T> {
 
     private final String PU = "postgresql-PU";
-    private EntityManager em;
+    private static EntityManager em;
     private final Class<T> clase;
+    
+    private static final Logger LOG = Logger.getLogger(DAO.class.getName());
 
     public DAO(Class<T> clase) {
         this.clase = clase;
@@ -29,29 +36,62 @@ public class DAO<T> {
 
     public EntityManager getEntityManager() {
         if (em == null) {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory(this.PU);
+            Properties configuracion = PropertiesUtil.cargarProperties("configuracion/bd-config.properties");
+            int tipoBD = Integer.parseInt(configuracion.getProperty("tipo"));
+
+            String driver = ParametrosUtil.obtenerDriver(tipoBD);
+            String url = configuracion.getProperty("url");
+            String usuario = configuracion.getProperty("usuario");
+            String password = configuracion.getProperty("password");
+
+            Map<String, String> properties = new HashMap<>();
+            properties.put("javax.persistence.jdbc.user", usuario);
+            properties.put("javax.persistence.jdbc.password", password);
+            properties.put("javax.persistence.jdbc.driver", driver);
+            properties.put("javax.persistence.jdbc.url", url);
+            
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory(this.PU, properties);
             em = emf.createEntityManager();
         }
         return em;
     }
 
-    public void guardar(T objeto) {
+    public boolean guardar(T objeto) {
+        try {
+            getEntityManager().getTransaction().begin();
+            getEntityManager().persist(objeto);
+            getEntityManager().getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            LOG.error("ERROR EN EL GUARDADO: " + e.getLocalizedMessage() + " " + e.getMessage());
+            return false;
+        }
 
-        getEntityManager().getTransaction().begin();
-        getEntityManager().persist(objeto);
-        getEntityManager().getTransaction().commit();
     }
 
-    public void modificar(T objeto) {
-        getEntityManager().getTransaction().begin();
-        getEntityManager().merge(objeto);
-        getEntityManager().getTransaction().commit();
+    public boolean modificar(T objeto) {
+        try {
+            getEntityManager().getTransaction().begin();
+            getEntityManager().merge(objeto);
+            getEntityManager().getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            LOG.error("ERROR AL MODIFICAR: " + e.getLocalizedMessage() + " " + e.getMessage());
+            return false;
+        }
+
     }
 
-    public void eliminar(T objeto) {
-        getEntityManager().getTransaction().begin();
-        getEntityManager().remove(objeto);
-        getEntityManager().getTransaction().commit();
+    public boolean eliminar(T objeto) {
+        try {
+            getEntityManager().getTransaction().begin();
+            getEntityManager().remove(objeto);
+            getEntityManager().getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            LOG.error("ERROR AL ELIMINAR: " + e.getLocalizedMessage() + " " + e.getMessage());
+            return false;
+        }
     }
 
     public List<T> buscar(String queryJPQL) {
@@ -61,7 +101,6 @@ public class DAO<T> {
     public List<T> buscar(String queryJPQL, Map<String, Object> parametros) {
         return this.buscar(queryJPQL, parametros, -1, -1);
     }
-    
 
     public List<T> buscar(String queryJPQL, Map<String, Object> parametros, int offset, int limit) {
         Query query = getEntityManager().createQuery(queryJPQL);
@@ -84,8 +123,8 @@ public class DAO<T> {
 
         return lista;
     }
-    
-    public void ejecutarQuery(String queryJPQL, Map<String, Object> parametros, int offset, int limit){
+
+    public void ejecutarQuery(String queryJPQL, Map<String, Object> parametros, int offset, int limit) {
         Query query = getEntityManager().createQuery(queryJPQL);
 
         if (parametros != null) {
@@ -127,9 +166,9 @@ public class DAO<T> {
                 query.setParameter(entry.getKey(), entry.getValue());
             }
         }
-        return  ((Long) query.getSingleResult()).intValue();
+        return ((Long) query.getSingleResult()).intValue();
     }
-    
+
     public String buscarUltimo(String queryJPQL, Map<String, Object> parametros) {
         Query query = getEntityManager().createQuery(queryJPQL);
 
@@ -138,7 +177,7 @@ public class DAO<T> {
                 query.setParameter(entry.getKey(), entry.getValue());
             }
         }
-        return  query.getSingleResult().toString();
+        return query.getSingleResult().toString();
     }
 
     public T buscarPorId(Object id) {

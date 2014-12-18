@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author RyuujiMD
  * @param <T>
  */
-public abstract class AbstractControlador<T> {
+public abstract class Controlador<T> {
 
     private final DAO<T> dao;
     public static final int NUEVO = 1;
@@ -45,7 +45,7 @@ public abstract class AbstractControlador<T> {
         return dao;
     }
 
-    public AbstractControlador(Class<T> clase) {
+    public Controlador(Class<T> clase) {
         this.seleccionadoClass = clase;
         this.dao = new DAO<>(clase);
     }
@@ -82,18 +82,18 @@ public abstract class AbstractControlador<T> {
         try {
             seleccionado = seleccionadoClass.newInstance();
         } catch (InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(AbstractControlador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public int accion(int accion) {
-        if (accion == AbstractControlador.NUEVO) {
+        if (accion == Controlador.NUEVO) {
             this.guardar(seleccionado);
             return 1;
-        } else if (accion == AbstractControlador.MODIFICAR) {
+        } else if (accion == Controlador.MODIFICAR) {
             this.modificar(seleccionado);
             return 2;
-        } else if (accion == AbstractControlador.ELIMINAR) {
+        } else if (accion == Controlador.ELIMINAR) {
             this.eliminar(seleccionado);
             return 3;
         }

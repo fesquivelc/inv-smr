@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Documentos
  */
-public class TipoControlador extends AbstractControlador<Tipo>{
+public class TipoControlador extends Controlador<Tipo>{
 
     public TipoControlador() {
         super(Tipo.class);

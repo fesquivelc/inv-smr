@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Documentos
  */
-public class AmbienteControlador extends AbstractControlador<Ambiente> {
+public class AmbienteControlador extends Controlador<Ambiente> {
 
     public AmbienteControlador() {
         super(Ambiente.class);

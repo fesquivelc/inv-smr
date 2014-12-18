@@ -22,7 +22,7 @@ import javax.persistence.Query;
  *
  * @author Documentos
  */
-public class InventarioControlador extends AbstractControlador<Inventario> {
+public class InventarioControlador extends Controlador<Inventario> {
 
     public InventarioControlador() {
         super(Inventario.class);

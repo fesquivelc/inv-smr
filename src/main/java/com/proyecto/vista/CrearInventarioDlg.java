@@ -11,7 +11,7 @@ import com.proyecto.beans.Campo;
 import com.proyecto.beans.DetalleBienCampo;
 import com.proyecto.beans.Inventario;
 import com.proyecto.beans.Periodo;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.CampoControlador;
 import com.proyecto.control.DetalleBienCampoControlador;
 import com.proyecto.control.InventarioControlador;
@@ -48,7 +48,7 @@ public class CrearInventarioDlg extends JDialog {
         this.setLocationRelativeTo(componente);
         initComponents();
         
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         inventarioControlador.prepararCrear();
         cargarCombos();
         FormularioUtil.activarComponente(panelGuardar, true);

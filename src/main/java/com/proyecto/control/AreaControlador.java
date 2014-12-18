@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Documentos
  */
-public class AreaControlador extends AbstractControlador<Area>{
+public class AreaControlador extends Controlador<Area>{
 
     public AreaControlador() {
         super(Area.class);

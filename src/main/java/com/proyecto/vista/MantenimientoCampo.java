@@ -8,7 +8,7 @@ package com.proyecto.vista;
 import com.proyecto.beans.Campo;
 import com.proyecto.beans.Clase;
 import com.proyecto.beans.UnidadMedida;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.CampoControlador;
 import com.proyecto.control.ClaseControlador;
 import com.proyecto.control.UnidadMedidaControlador;
@@ -86,7 +86,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Mantenimiento de Clases");
+        setTitle("Mantenimiento de Campos");
 
         panelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
         panelDatos.setToolTipText("");
@@ -315,7 +315,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
        
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         campoControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
@@ -389,7 +389,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
+        accion = Controlador.ELIMINAR;
         if (tblclase.getSelectedRow() != -1) {
 
             Integer id = tblclase.getSelectedRow();
@@ -423,7 +423,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
         cargarCombos();
 
         int fila = this.tblclase.getSelectedRow();
@@ -432,7 +432,7 @@ public class MantenimientoCampo extends javax.swing.JInternalFrame {
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
 
-            accion = AbstractControlador.MODIFICAR;
+            accion = Controlador.MODIFICAR;
             campoControlador.setSeleccionado(lista.get(fila));
             Campo campo = campoControlador.getSeleccionado();
             try {

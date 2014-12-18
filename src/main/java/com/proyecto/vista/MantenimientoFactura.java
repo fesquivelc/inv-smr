@@ -5,12 +5,9 @@
  */
 package com.proyecto.vista;
 
-import com.proyecto.beans.Bien_;
 import com.proyecto.beans.Factura;
-import com.proyecto.beans.Tipo;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.FacturaControlador;
-import com.proyecto.control.TipoControlador;
 import java.awt.Image;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -331,7 +328,7 @@ public class MantenimientoFactura extends javax.swing.JInternalFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         facturaControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
@@ -341,7 +338,7 @@ public class MantenimientoFactura extends javax.swing.JInternalFrame {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
 
         int fila = this.tblFactura.getSelectedRow();
         if (fila != -1) {
@@ -349,7 +346,7 @@ public class MantenimientoFactura extends javax.swing.JInternalFrame {
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
 
-            accion = AbstractControlador.MODIFICAR;
+            accion = Controlador.MODIFICAR;
             facturaControlador.setSeleccionado(lista.get(fila));
             Factura factura = facturaControlador.getSeleccionado();
             try {
@@ -366,7 +363,7 @@ public class MantenimientoFactura extends javax.swing.JInternalFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
+        accion = Controlador.ELIMINAR;
         if (tblFactura.getSelectedRow() != -1) {
 
             Integer codigo = tblFactura.getSelectedRow();

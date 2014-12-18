@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author Documentos
  */
-public class FacturaControlador extends AbstractControlador<Factura>{
+public class FacturaControlador extends Controlador<Factura>{
     public FacturaControlador(){
         super(Factura.class);
     }

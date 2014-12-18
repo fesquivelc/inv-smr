@@ -7,7 +7,7 @@ package com.proyecto.vista;
 
 import com.proyecto.beans.Ambiente;
 import com.proyecto.beans.Area;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.AmbienteControlador;
 import com.proyecto.control.AreaControlador;
 import java.lang.reflect.InvocationTargetException;
@@ -323,7 +323,7 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         ambienteControlador.prepararCrear();
 
         FormularioUtil.activarComponente(panelOpciones, false);
@@ -337,7 +337,7 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
+        accion = Controlador.ELIMINAR;
         if (tblambientes.getSelectedRow() != -1) {
 
             Integer codigo = tblambientes.getSelectedRow();
@@ -379,14 +379,14 @@ public class MantenimientoAmbiente extends javax.swing.JInternalFrame {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
         int fila = this.tblambientes.getSelectedRow();
         if (fila != -1) {
             FormularioUtil.activarComponente(panelDatos, true);
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
 
-            accion = AbstractControlador.MODIFICAR;
+            accion = Controlador.MODIFICAR;
             ambienteControlador.setSeleccionado(lista.get(fila));
             Ambiente ambiente = ambienteControlador.getSeleccionado();
             try {

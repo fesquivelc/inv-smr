@@ -6,7 +6,7 @@
 package com.proyecto.vista;
 
 import com.proyecto.beans.Area;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.AreaControlador;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -260,7 +260,7 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         areaControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
@@ -270,7 +270,7 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
 
         int fila = this.tblarea.getSelectedRow();
         if (fila != -1) {
@@ -278,7 +278,7 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
 
-            accion = AbstractControlador.MODIFICAR;
+            accion = Controlador.MODIFICAR;
             areaControlador.setSeleccionado(lista.get(fila));
             Area area = areaControlador.getSeleccionado();
             try {
@@ -293,7 +293,7 @@ public class MantenimientoArea extends javax.swing.JInternalFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
+        accion = Controlador.ELIMINAR;
         if (tblarea.getSelectedRow() != -1) {
 
             Integer codigo = tblarea.getSelectedRow();

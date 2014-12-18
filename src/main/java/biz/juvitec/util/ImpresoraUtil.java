@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.proyecto.reportes;
+package biz.juvitec.util;
 
 import com.proyecto.beans.Inventario;
 import java.util.Arrays;
@@ -58,7 +58,7 @@ public class ImpresoraUtil {
         String comandos = "";
         for (Inventario inventario : lista) {
             subtitulo = "INVENTARIO " + inventario.getPeriodo().getPeriodo();
-            codigo = inventario.getBien().getClase().getCodigo() + inventario.getSerie();
+            codigo = inventario.getBien().getClase().getCodigo() + "-" +inventario.getSerie();
             ambienteCodigo = inventario.getAmbiente().getCodigo();
             bienNombre = inventario.getBien().getNombre();
             if (bienNombre.length() > 35) {

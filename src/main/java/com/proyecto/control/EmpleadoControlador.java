@@ -15,7 +15,7 @@ import java.util.Map;
  *
  * @author Documentos
  */
-public class EmpleadoControlador extends AbstractControlador<Empleado>{
+public class EmpleadoControlador extends Controlador<Empleado>{
 
     public EmpleadoControlador() {
         super(Empleado.class);

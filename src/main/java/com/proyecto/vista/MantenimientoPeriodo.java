@@ -6,7 +6,7 @@
 package com.proyecto.vista;
 
 import com.proyecto.beans.Periodo;
-import com.proyecto.control.AbstractControlador;
+import com.proyecto.control.Controlador;
 import com.proyecto.control.PeriodoControlador;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -286,7 +286,7 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
     private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.NUEVO;
+        accion = Controlador.NUEVO;
         periodoControlador.prepararCrear();
         FormularioUtil.activarComponente(panelOpciones, false);
         FormularioUtil.activarComponente(panelGuardar, true);
@@ -296,7 +296,7 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.MODIFICAR;
+        accion = Controlador.MODIFICAR;
 
         int fila = this.tblperiodo.getSelectedRow();
         if (fila != -1) {
@@ -304,7 +304,7 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
             FormularioUtil.activarComponente(panelOpciones, false);
             FormularioUtil.activarComponente(panelGuardar, true);
 
-            accion = AbstractControlador.MODIFICAR;
+            accion = Controlador.MODIFICAR;
             periodoControlador.setSeleccionado(lista.get(fila));
             Periodo periodo = periodoControlador.getSeleccionado();
             try {
@@ -326,7 +326,7 @@ public class MantenimientoPeriodo extends javax.swing.JInternalFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
-        accion = AbstractControlador.ELIMINAR;
+        accion = Controlador.ELIMINAR;
         if (tblperiodo.getSelectedRow() != -1) {
 
             Integer codigo = tblperiodo.getSelectedRow();
