@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteimagen" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4e52105-6bd5-4b19-8a07-f8e9363d7c1a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     imagen."id" AS imagen_id,
+     imagen."descripcion_imagen" AS imagen_descripcion_imagen,
+     imagen."imagen" AS imagen_imagen
+FROM
+     "public"."imagen" imagen]]>
+	</queryString>
+	<field name="imagen_id" class="java.lang.Integer"/>
+	<field name="imagen_descripcion_imagen" class="java.lang.String"/>
+	<field name="imagen_imagen" class="java.lang.Byte"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="20" uuid="7f654ce9-4000-4d99-90c4-1d5b60d7209b"/>
+				<text><![CDATA[imagen_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="20" uuid="e41b5bb7-264e-4489-b186-9cf34d24f6db"/>
+				<text><![CDATA[imagen_descripcion_imagen]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="20" uuid="9f6f3b3c-54b4-49c0-a689-c419de3e1fd6"/>
+				<textFieldExpression><![CDATA[$F{imagen_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="20" uuid="53d37b18-70f7-4b11-b5a5-2122ee5b9403"/>
+				<textFieldExpression><![CDATA[$F{imagen_descripcion_imagen}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="421" y="0" width="134" height="100" uuid="2eda500a-ed7e-4cbc-af86-f64e44f38d56"/>
+				<imageExpression><![CDATA[$F{imagen_imagen}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

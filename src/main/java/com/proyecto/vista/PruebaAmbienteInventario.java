@@ -343,7 +343,7 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
         inventarioControlador.getSeleccionado().setAmbiente(ambienteDialog.getAmbiente());
 
         if (inventarioControlador.getSeleccionado().getAmbiente() != null) {
-            ambienteField.setText(inventarioControlador.getSeleccionado().getAmbiente().toString());
+            ambienteField1.setText(inventarioControlador.getSeleccionado().getAmbiente().toString());
         }
     }//GEN-LAST:event_jButton12ActionPerformed
 

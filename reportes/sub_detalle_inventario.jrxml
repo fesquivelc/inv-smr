@@ -11,7 +11,8 @@
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-     CONCAT(clase.codigo,inventario.serie) as inventario_codigo,
+     clase.codigo as clase_codigo,
+inventario.serie as inventario_serie,
 inventario.codigo_fabrica as inventario_codigo_fabrica,
      inventario.estado AS inventario_estado
 FROM
@@ -20,7 +21,8 @@ FROM
 WHERE
 inventario.bien_id = $P{bien_id} AND inventario.ambiente_codigo = $P{ambiente_codigo}]]>
 	</queryString>
-	<field name="inventario_codigo" class="java.lang.String"/>
+	<field name="clase_codigo" class="java.lang.String"/>
+	<field name="inventario_serie" class="java.lang.String"/>
 	<field name="inventario_codigo_fabrica" class="java.lang.String"/>
 	<field name="inventario_estado" class="java.lang.String"/>
 	<columnHeader>
@@ -68,7 +70,7 @@ DE FÁBRICA]]></text>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="6"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{inventario_codigo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{clase_codigo}+"-"+$F{inventario_serie}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="54" y="0" width="56" height="20" uuid="e8cb37ab-313b-4b15-bad8-51883adcefe6"/>

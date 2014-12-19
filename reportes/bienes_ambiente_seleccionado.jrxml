@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte1" pageWidth="595" pageHeight="842" columnWidth="497" leftMargin="56" rightMargin="42" topMargin="42" bottomMargin="42" uuid="94f9b88c-ea98-4ce0-b1fd-78e8a4ac3df1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="18"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -36,12 +36,17 @@
 	<parameter name="ambiente_codigo" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="periodo_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
 a.codigo as codigo,
 a.nombre as ambiente,
 a.codigo as ambiente_codigo,
-concat(e.apellido_paterno,' ',e.apellido_materno,' ',e.nombres) as responsable
+e.apellido_paterno as responsable_apaterno,
+e.apellido_materno as responsable_amaterno,
+e.nombres as responsable_nombres
 FROM ambiente a left join empleado e on a.empleado_dni = e.dni
 WHERE
 a.codigo = $P{ambiente_codigo}]]>
@@ -49,7 +54,9 @@ a.codigo = $P{ambiente_codigo}]]>
 	<field name="codigo" class="java.lang.String"/>
 	<field name="ambiente" class="java.lang.String"/>
 	<field name="ambiente_codigo" class="java.lang.String"/>
-	<field name="responsable" class="java.lang.String"/>
+	<field name="responsable_apaterno" class="java.lang.String"/>
+	<field name="responsable_amaterno" class="java.lang.String"/>
+	<field name="responsable_nombres" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -60,7 +67,7 @@ a.codigo = $P{ambiente_codigo}]]>
 		<band height="114" splitType="Stretch">
 			<staticText>
 				<reportElement x="1" y="0" width="496" height="59" uuid="30614d7d-c57c-4993-8895-767035e76e48"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[I.E. "SANTA MARIA REINA"
@@ -72,31 +79,17 @@ RUC: 20105864702]]></text>
 			</image>
 			<staticText>
 				<reportElement x="1" y="59" width="496" height="22" uuid="2f5654bc-c957-461c-93ce-422c2f3a9e01"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REPORTE DE BIENES POR AMBIENTE]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="348" y="0" width="59" height="9" uuid="b6e83c94-c62f-4310-ac1d-a80c65b5c398"/>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="285" y="0" width="212" height="11" uuid="fd09b352-f033-4570-a037-a563710d0b22"/>
 				<textElement textAlignment="Right">
-					<font size="7"/>
+					<font size="8"/>
 				</textElement>
-				<text><![CDATA[Impreso el :]]></text>
-			</staticText>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="407" y="0" width="56" height="9" uuid="fd09b352-f033-4570-a037-a563710d0b22"/>
-				<textElement>
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
-			<textField pattern="HH.mm.ss">
-				<reportElement x="464" y="0" width="33" height="9" uuid="357e5b6b-b960-408e-ba52-cad00c0fb007"/>
-				<textElement>
-					<font size="7"/>
-				</textElement>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Impreso el: "+new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date())]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -123,12 +116,12 @@ RUC: 20105864702]]></text>
 				</textElement>
 				<text><![CDATA[RESPONSABLES:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="119" y="40" width="378" height="20" uuid="0c9ee4cf-2639-43f3-ad4d-9ff1e9016bc8"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{responsable}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{responsable_apaterno}+" "+$F{responsable_amaterno}+" "+$F{responsable_nombres}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="0" width="119" height="20" uuid="daf89e24-c304-4da5-8dcc-15900faf692b"/>
@@ -155,6 +148,9 @@ RUC: 20105864702]]></text>
 				</subreportParameter>
 				<subreportParameter name="ruta">
 					<subreportParameterExpression><![CDATA[$P{ruta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="periodo_id">
+					<subreportParameterExpression><![CDATA[$P{periodo_id}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{ruta} + "/reportes/" + "sub_bienes_ambiente.jasper"]]></subreportExpression>

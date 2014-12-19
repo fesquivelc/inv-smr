@@ -27,6 +27,10 @@ public class DAO<T> {
     private final String PU = "postgresql-PU";
     private static EntityManager em;
     private final Class<T> clase;
+    public static String url;
+    public static String usuario;
+    public static String password;
+    public static String driver;
     
     private static final Logger LOG = Logger.getLogger(DAO.class.getName());
 
@@ -39,10 +43,10 @@ public class DAO<T> {
             Properties configuracion = PropertiesUtil.cargarProperties("configuracion/bd-config.properties");
             int tipoBD = Integer.parseInt(configuracion.getProperty("tipo"));
 
-            String driver = ParametrosUtil.obtenerDriver(tipoBD);
-            String url = configuracion.getProperty("url");
-            String usuario = configuracion.getProperty("usuario");
-            String password = configuracion.getProperty("password");
+            driver = ParametrosUtil.obtenerDriver(tipoBD);
+            url = configuracion.getProperty("url");
+            usuario = configuracion.getProperty("usuario");
+            password = configuracion.getProperty("password");
 
             Map<String, String> properties = new HashMap<>();
             properties.put("javax.persistence.jdbc.user", usuario);

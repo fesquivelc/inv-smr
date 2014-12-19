@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_bienes_ambiente_conteo" language="groovy" pageWidth="200" pageHeight="10" orientation="Landscape" columnWidth="200" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a7932023-e49c-4722-9d49-4f48bce44312">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="bien_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ambiente_codigo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     COUNT(inventario.id) as conteo
+FROM
+     public.ambiente ambiente INNER JOIN public.inventario inventario ON ambiente.codigo = inventario.ambiente_codigo
+     INNER JOIN public.bien bien ON inventario.bien_id = bien.id
+WHERE
+bien.id = $P{bien_id} AND ambiente.codigo = $P{ambiente_codigo}]]>
+	</queryString>
+	<field name="conteo" class="java.lang.Long"/>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="200" height="10" uuid="5008deb7-70c9-4755-9a9f-a63e7edc2c9c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TOTAL: " + $F{conteo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

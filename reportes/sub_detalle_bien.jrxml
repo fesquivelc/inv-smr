@@ -18,18 +18,11 @@ detalle_bien_campo.bien_id = $P{bien_id}]]>
 	<detail>
 		<band height="10" splitType="Stretch">
 			<textField>
-				<reportElement x="71" y="0" width="51" height="10" uuid="40483dd4-7632-4d4c-af6c-77c560f144fa"/>
+				<reportElement x="0" y="0" width="120" height="10" uuid="b5dfc37f-ef2e-446f-a60a-cba23665d0e2"/>
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="0" y="0" width="71" height="10" uuid="b5dfc37f-ef2e-446f-a60a-cba23665d0e2"/>
-				<textElement verticalAlignment="Middle">
-					<font size="8" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{campo} +":"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{campo} +": "+$F{valor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

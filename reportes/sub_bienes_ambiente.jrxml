@@ -8,6 +8,9 @@
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/fesquivelc/NetBeansProjects/PACO/InventariosReina/reportes/"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="periodo_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      DISTINCT(inventario.bien_id) AS bien_id,
@@ -18,7 +21,7 @@
 FROM
      public.bien bien INNER JOIN public.inventario inventario ON bien.id = inventario.bien_id
 WHERE
-inventario.ambiente_codigo = $P{ambiente_codigo}]]>
+inventario.ambiente_codigo = $P{ambiente_codigo} AND inventario.periodo_id = $P{periodo_id}]]>
 	</queryString>
 	<field name="bien_id" class="java.lang.Long"/>
 	<field name="bien_nombre" class="java.lang.String"/>
@@ -28,9 +31,9 @@ inventario.ambiente_codigo = $P{ambiente_codigo}]]>
 		<variableExpression><![CDATA[$F{bien_id}]]></variableExpression>
 	</variable>
 	<detail>
-		<band height="99">
+		<band height="93">
 			<frame>
-				<reportElement x="0" y="0" width="496" height="99" uuid="96f3fc0e-9d55-4c3f-bd90-5fd7fc682005"/>
+				<reportElement x="0" y="0" width="496" height="93" uuid="96f3fc0e-9d55-4c3f-bd90-5fd7fc682005"/>
 				<box leftPadding="10">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -59,12 +62,23 @@ inventario.ambiente_codigo = $P{ambiente_codigo}]]>
 					<textFieldExpression><![CDATA[$F{bien_nombre}]]></textFieldExpression>
 				</textField>
 				<subreport>
-					<reportElement x="124" y="27" width="360" height="63" uuid="e0a72f23-5980-4246-aacd-3905a40d3957"/>
+					<reportElement x="124" y="37" width="360" height="10" uuid="e0a72f23-5980-4246-aacd-3905a40d3957"/>
 					<subreportParameter name="bien_id">
 						<subreportParameterExpression><![CDATA[$F{bien_id}]]></subreportParameterExpression>
 					</subreportParameter>
 					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					<subreportExpression><![CDATA[$P{ruta}+"/reportes/"+ "sub_detalle_bien.jasper"]]></subreportExpression>
+				</subreport>
+				<subreport>
+					<reportElement x="124" y="27" width="200" height="10" uuid="77feaa7e-d82d-4b42-97a6-50c84fb20e3f"/>
+					<subreportParameter name="bien_id">
+						<subreportParameterExpression><![CDATA[$F{bien_id}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="ambiente_codigo">
+						<subreportParameterExpression><![CDATA[$P{ambiente_codigo}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{ruta}+"/reportes/sub_bienes_ambiente_conteo.jasper"]]></subreportExpression>
 				</subreport>
 			</frame>
 		</band>
