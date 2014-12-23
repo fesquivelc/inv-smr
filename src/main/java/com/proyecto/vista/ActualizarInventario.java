@@ -738,6 +738,8 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         lblFoto.setIcon(null);
         lblStock.setText(null);
         lblbuscar.setText(null);
+        chckBaja.setSelected(false);
+        chckImpresion.setSelected(false);
         listaDetalle.clear();
         this.txtBuscar.requestFocusInWindow();
     }//GEN-LAST:event_btncancelarActionPerformed
@@ -1192,6 +1194,8 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         lblFoto.setIcon(null);
         lblStock.setText(null);
         lblbuscar.setText(null);
+        chckBaja.setSelected(false);
+        chckImpresion.setSelected(false);
 
         listaDetalle.clear();
         this.txtBuscar.requestFocusInWindow();
