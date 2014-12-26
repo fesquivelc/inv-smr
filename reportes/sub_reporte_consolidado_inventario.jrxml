@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_reporte_consolidado_inventario" language="groovy" pageWidth="487" pageHeight="802" columnWidth="467" leftMargin="20" rightMargin="0" topMargin="0" bottomMargin="0" uuid="32cfeb7c-25e5-45c6-982c-9287d00906f6">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="periodo_id" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="clase_codigo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     bien.nombre AS bien_nombre,
+     count(inventario.id) AS conteo
+FROM
+     public.bien bien INNER JOIN public.inventario inventario ON bien.id = inventario.bien_id
+WHERE
+inventario.periodo_id = $P{periodo_id} AND bien.clase_codigo = $P{clase_codigo}
+GROUP BY bien.nombre
+ORDER BY conteo DESC]]>
+	</queryString>
+	<field name="bien_nombre" class="java.lang.String"/>
+	<field name="conteo" class="java.lang.Long"/>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="378" height="20" uuid="75f54a52-bcc2-4e68-b10e-e9a73b7a70ac"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{bien_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="0" width="88" height="20" uuid="e1e7929a-944b-45af-8a89-f55530e28b58"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{conteo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
