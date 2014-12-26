@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 import com.proyecto.control.Controlador;
 import java.util.List;
+import javax.swing.JComponent;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class FormularioUtil {
 
-    private static final File CARPETA_IMG = new File("img/");
+    private static final File CARPETA_IMG = new File("img/bienes/");
     public final static String jpeg = "jpeg";
     public final static String jpg = "jpg";
     public final static String gif = "gif";
@@ -150,8 +152,8 @@ public class FormularioUtil {
             ((JTextComponent) component).setEditable(editable);
         } else if (component instanceof AbstractButton) {
             component.setEnabled(editable);
-        } else if (component instanceof JPanel) {
-            for (Component c : ((JPanel) component).getComponents()) {
+        } else if (component instanceof JComponent) {
+            for (Component c : ((JComponent) component).getComponents()) {
                 activarComponente(c, editable);
             }
         } else {
@@ -163,7 +165,7 @@ public class FormularioUtil {
 //        if (component instanceof JComboBox) {
 //            ((JComboBox) component).setSelectedIndex(0);
 //        } else 
-            if (component instanceof JTextComponent) {
+        if (component instanceof JTextComponent) {
             ((JTextComponent) component).setText("");
         } else if (component instanceof JDateChooser) {
             ((JDateChooser) component).setDate(null);

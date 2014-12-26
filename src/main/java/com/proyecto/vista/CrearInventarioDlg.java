@@ -656,6 +656,7 @@ public class CrearInventarioDlg extends JDialog {
         descripcionField.setText(null);
         lblFoto.setIcon(null);
         listaDetalle.clear();
+        chckImpresion.setSelected(false);
         
         this.dispose();
     }//GEN-LAST:event_btncancelarActionPerformed
@@ -842,6 +843,7 @@ public class CrearInventarioDlg extends JDialog {
         FormularioUtil.limpiarComponente(panelFoto);
         descripcionField.setText(null);
         spnPrecio.setValue(0);
+        chckImpresion.setSelected(false);
         lblFoto.setIcon(null);
 
         listaDetalle.clear();

@@ -11,8 +11,11 @@ import com.proyecto.beans.Periodo;
 import com.proyecto.control.Controlador;
 import com.proyecto.control.InventarioControlador;
 import com.proyecto.control.PeriodoControlador;
+import java.awt.Image;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
@@ -79,6 +82,8 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
         btncancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cmbPeriodo = new javax.swing.JComboBox();
+        panelFoto = new javax.swing.JPanel();
+        lblFoto = new javax.swing.JLabel();
 
         setClosable(true);
 
@@ -161,7 +166,7 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDatosLayout.createSequentialGroup()
-                        .addComponent(ambienteField1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                        .addComponent(ambienteField1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -224,24 +229,41 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
             panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGuardarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelGuardarLayout.setVerticalGroup(
             panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnguardar)
-                    .addComponent(btncancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnguardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(btncancelar)
+                .addContainerGap())
         );
 
         jLabel6.setText("Periodo");
 
         cmbPeriodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        panelFoto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 10))); // NOI18N
+
+        javax.swing.GroupLayout panelFotoLayout = new javax.swing.GroupLayout(panelFoto);
+        panelFoto.setLayout(panelFotoLayout);
+        panelFotoLayout.setHorizontalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFotoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelFotoLayout.setVerticalGroup(
+            panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelFotoLayout.createSequentialGroup()
+                .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -266,11 +288,15 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(panelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(1, 1, 1))
+                    .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -297,9 +323,12 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 256, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 206, Short.MAX_VALUE))
+                            .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -361,13 +390,21 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
             if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " el Inventario?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
                 JOptionPane.showMessageDialog(null, "Inventario " + palabra + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
-                
+
                 inventarioControlador.getSeleccionado().setImpresionPendiente(chckImprimir.isSelected());
 
             } else {
                 JOptionPane.showMessageDialog(null, "Inventario no " + palabra, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         }
+        FormularioUtil.activarComponente(panelFoto, true);
+        FormularioUtil.activarComponente(panelDatos, false);
+        FormularioUtil.limpiarComponente(panelDatos);
+        lblSerie.setText(null);
+        lblBien.setText(null);
+        lblFoto.setIcon(null);
+        chckImprimir.setSelected(false);
+        this.txtBuscar.requestFocusInWindow();
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
@@ -375,29 +412,39 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
         FormularioUtil.limpiarComponente(panelDatos);
         FormularioUtil.activarComponente(panelGuardar, false);
         FormularioUtil.activarComponente(panelDatos, false);
+        FormularioUtil.activarComponente(panelFoto, false);
+        lblFoto.setIcon(null);
+        lblSerie.setText(null);
+        lblBien.setText(null);
+        chckImprimir.setSelected(false);
         this.txtBuscar.requestFocusInWindow();
     }//GEN-LAST:event_btncancelarActionPerformed
 
     private void tblInventarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblInventarioMouseReleased
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            
+
             accion = Controlador.MODIFICAR;
-            
+
             FormularioUtil.activarComponente(panelGuardar, true);
             FormularioUtil.activarComponente(panelDatos, true);
+            FormularioUtil.activarComponente(panelFoto, true);
 
             int fila = tblInventario.getSelectedRow();
             Inventario bien = lista.get(fila);
             inventarioControlador.setSeleccionado(bien);
 
             ambienteField1.setText(inventarioControlador.getSeleccionado().getAmbiente().toString());
-            if(inventarioControlador.getSeleccionado().getImpresionPendiente() != null){
+            if (inventarioControlador.getSeleccionado().getImpresionPendiente() != null) {
                 chckImprimir.setSelected(inventarioControlador.getSeleccionado().getImpresionPendiente());
             }
-            
+
             lblSerie.setText(inventarioControlador.getSeleccionado().getSerie());
             lblBien.setText(inventarioControlador.getSeleccionado().getBien().getNombre());
+
+            ImageIcon fot = new ImageIcon(inventarioControlador.getSeleccionado().getBien().getFoto());
+            Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
+            lblFoto.setIcon(icono);
         }
     }//GEN-LAST:event_tblInventarioMouseReleased
 
@@ -428,8 +475,10 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBien;
+    private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblSerie;
     private javax.swing.JPanel panelDatos;
+    private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelGuardar;
     private javax.swing.JTable tblInventario;
     private javax.swing.JTextField txtBuscar;
@@ -448,7 +497,7 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
 
         binding.addColumnBinding(bBienId).setColumnName("BIEN").setEditable(false);
         binding.addColumnBinding(bSerie).setColumnName("SERIE").setEditable(false);
-        
+
         binding.bind();
     }
 

@@ -52,6 +52,7 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
 
     public ActualizarInventario() {
         initComponents();
+        listarCampos();
 //        cargarComboPeriodoBusqueda();
         lblPeriodo.setText(periodoControlador.buscarPeriodoVigente().getPeriodo().toString());
         cargarCombos();
@@ -737,6 +738,8 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         lblFoto.setIcon(null);
         lblStock.setText(null);
         lblbuscar.setText(null);
+        chckBaja.setSelected(false);
+        chckImpresion.setSelected(false);
         listaDetalle.clear();
         this.txtBuscar.requestFocusInWindow();
     }//GEN-LAST:event_btncancelarActionPerformed
@@ -811,9 +814,9 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         DlgFactura facturaDialogo = new DlgFactura(this);
         //
         //        if (inventarioControlador.getSeleccionado() == null) {
-            //            Inventario contratoProv = new Inventario();
-            //            inventarioControlador.setSeleccionado(contratoProv);
-            //        }
+        //            Inventario contratoProv = new Inventario();
+        //            inventarioControlador.setSeleccionado(contratoProv);
+        //        }
 
         if (accion == 2) {
             facturaDialogo.setFacturas(factura);
@@ -829,9 +832,9 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         DlgProveedorBusqueda proveedorDialogo = new DlgProveedorBusqueda(this);
 
         //        if (inventarioControlador.getSeleccionado() == null) {
-            //            Inventario contratoProv = new Inventario();
-            //            inventarioControlador.setSeleccionado(contratoProv);
-            //        }
+        //            Inventario contratoProv = new Inventario();
+        //            inventarioControlador.setSeleccionado(contratoProv);
+        //        }
         inventarioControlador.getSeleccionado().setProveedor(proveedorDialogo.getProveedor());
         if (inventarioControlador.getSeleccionado().getProveedor() != null) {
             this.proveedorField.setText(this.inventarioControlador.getSeleccionado().getProveedor().getNombreProveedor().toUpperCase());
@@ -971,12 +974,14 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
 
 //            descripcionField.setText(inventarioControlador.getSeleccionado().getBien().getDescripcion());
             fotoField.setText(inventarioControlador.getSeleccionado().getBien().getFoto());
-            
+
             ImageIcon fot = new ImageIcon(inventarioControlador.getSeleccionado().getBien().getFoto());
             Icon icono = new ImageIcon(fot.getImage().getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT));
             lblFoto.setIcon(icono);
 
-            listarCampos(inventarioControlador.getSeleccionado().getBien());
+            listaDetalle.clear();
+            listaDetalle.addAll(detalleControlador.buscarXBienFull(inventarioControlador.getSeleccionado().getBien()));
+//            listarCampos();
             //INFO INVENTARIO
             cmbEstado.setSelectedItem(inventarioControlador.getSeleccionado().getEstado());
 
@@ -1032,10 +1037,10 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
 
     Boolean crearDetalle = true;
 
-    private void listarCampos(Bien bien) {
+    private void listarCampos() {
         listaDetalle = ObservableCollections.observableList(listaDetalle);
-        listaDetalle.clear();
-        listaDetalle.addAll(detalleControlador.buscarXBienFull(bien));
+//        listaDetalle.clear();
+//        listaDetalle.addAll(detalleControlador.buscarXBienFull(bien));
 
         JTableBinding binding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, listaDetalle, tblDetalle);
 
@@ -1136,7 +1141,7 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
 //                JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
 //            }
 //        } else 
-            if (accion == 2) {
+        if (accion == 2) {
             palabra = "modificar";
             palabra2 = "modificado";
 
@@ -1189,6 +1194,8 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
         lblFoto.setIcon(null);
         lblStock.setText(null);
         lblbuscar.setText(null);
+        chckBaja.setSelected(false);
+        chckImpresion.setSelected(false);
 
         listaDetalle.clear();
         this.txtBuscar.requestFocusInWindow();
