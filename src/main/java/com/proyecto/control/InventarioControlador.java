@@ -112,10 +112,24 @@ public class InventarioControlador extends Controlador<Inventario> {
         parametros.put("fin", fin);
         return this.getDao().buscar(jpql, parametros, desde, tamanio);
     }
+    
+    public List<Inventario> buscarLazyXFechasPeriodo(Periodo periodo, int desde, int tamanio) {
+        String jpql = "SELECT a FROM Inventario a WHERE a.periodo = :periodo";
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("periodo", periodo);
+        return this.getDao().buscar(jpql, parametros, desde, tamanio);
+    }
 
     public int totalXFechas(Date inicio, Date fin) {
         String jpql = "SELECT COUNT(a) FROM Inventario a WHERE a.fechaIngreso BETWEEN :inicio AND :fin";
         Long cont = (Long) this.getDao().getEntityManager().createQuery(jpql).setParameter("inicio", inicio).setParameter("fin", fin).getSingleResult();
+        int conteo = cont.intValue();
+        return conteo;
+    }
+    
+    public int totalXFechasPeriodo(Periodo periodo) {
+        String jpql = "SELECT COUNT(a) FROM Inventario a WHERE a.periodo = :periodo";
+        Long cont = (Long) this.getDao().getEntityManager().createQuery(jpql).setParameter("periodo", periodo).getSingleResult();
         int conteo = cont.intValue();
         return conteo;
     }

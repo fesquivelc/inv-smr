@@ -229,9 +229,9 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
             panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelGuardarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnguardar, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelGuardarLayout.setVerticalGroup(
@@ -355,6 +355,7 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
 
         if (ambiente != null) {
             ambienteField.setText(ambiente.toString());
+//            inventarioControlador.getSeleccionado().setAmbiente(ambiente);
             listarInventarios(ambiente);
         }
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -362,7 +363,8 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
         ambienteField.setText(null);
-        inventarioControlador.getSeleccionado().setAmbiente(null);
+//        inventarioControlador.getSeleccionado().setAmbiente(null);
+        lista.clear();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -431,8 +433,8 @@ public class PruebaAmbienteInventario extends javax.swing.JInternalFrame {
             FormularioUtil.activarComponente(panelFoto, true);
 
             int fila = tblInventario.getSelectedRow();
-            Inventario bien = lista.get(fila);
-            inventarioControlador.setSeleccionado(bien);
+            Inventario inventario = lista.get(fila);
+            inventarioControlador.setSeleccionado(inventario);
 
             ambienteField1.setText(inventarioControlador.getSeleccionado().getAmbiente().toString());
             if (inventarioControlador.getSeleccionado().getImpresionPendiente() != null) {
