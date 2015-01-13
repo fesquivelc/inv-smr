@@ -365,10 +365,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        MantenimientoInventario inventaario = MantenimientoInventario.getInstancia();
-        if (!this.desktoppane.isAncestorOf(inventaario)) {
-            this.desktoppane.add(inventaario);
-            inventaario.setVisible(true);
+        MantenimientoInventario inventario = MantenimientoInventario.getInstancia();
+        if (!this.desktoppane.isAncestorOf(inventario)) {
+            this.desktoppane.add(inventario);
+            inventario.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
