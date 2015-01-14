@@ -1145,10 +1145,10 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
             palabra = "modificar";
             palabra2 = "modificado";
 
-            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra2 + " la Clase?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra2 + " el Inventario?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
                 if (accion == 2) {
-                    JOptionPane.showMessageDialog(null, "Clase " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Inventario " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
 
                     if (!periodo.equals((Periodo) cmbPeriodo.getSelectedItem())) {
                         Inventario nuevoPeriodoInventario = new Inventario();
@@ -1173,11 +1173,11 @@ public class ActualizarInventario extends javax.swing.JInternalFrame {
                     FormularioUtil.limpiarComponente(panelDatosB);
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Inventario no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 FormularioUtil.limpiarComponente(panelDatosB);
-                JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Inventario no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
             }
         }
 

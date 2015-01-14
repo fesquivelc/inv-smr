@@ -424,9 +424,10 @@ public class Principal extends javax.swing.JFrame {
             jMenuTxt.setText(null);
             Login login = new Login();
             login.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "okis", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
-        }
+        } 
+//        else {
+////            JOptionPane.showMessageDialog(null, "okis", "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void menuTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTipoUsuarioActionPerformed

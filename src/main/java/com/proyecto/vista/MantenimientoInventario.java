@@ -8,8 +8,10 @@ package com.proyecto.vista;
 import com.proyecto.beans.Ambiente;
 import com.proyecto.beans.Bien;
 import com.proyecto.beans.DetalleBienCampo;
+import com.proyecto.beans.Factura;
 import com.proyecto.beans.Inventario;
 import com.proyecto.beans.Periodo;
+import com.proyecto.beans.Proveedor;
 import com.proyecto.control.Controlador;
 import com.proyecto.control.BienControlador;
 import com.proyecto.control.DetalleBienCampoControlador;
@@ -50,8 +52,12 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
 
     public MantenimientoInventario() {
         initComponents();
-        cargarComboPeriodo();
+        cargarCombos();
         listar();
+        
+        FormularioUtil.activarComponente(panelDatos, true);
+        FormularioUtil.activarComponente(panelFoto, true);
+        FormularioUtil.activarComponente(panelDatosB, true);
     }
 
     public static MantenimientoInventario getInstancia() {
@@ -120,6 +126,9 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         panelFoto = new javax.swing.JPanel();
         lblFoto = new javax.swing.JLabel();
+        panelGuardar = new javax.swing.JPanel();
+        btnguardar = new javax.swing.JButton();
+        btncancelar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -193,7 +202,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                         .addGroup(panelDatosBLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(idLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 193, Short.MAX_VALUE))
                     .addComponent(nombreField))
                 .addContainerGap())
         );
@@ -203,10 +212,10 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                 .addComponent(idLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -380,37 +389,37 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbPeriodo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombreLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreLabel1)
                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(spnPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(serieField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(codFabField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton10)
                     .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(ambienteField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton11))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
                         .addComponent(proveedorField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2)
                     .addComponent(jButton7))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton6)
                     .addGroup(panelDatosLayout.createSequentialGroup()
@@ -419,15 +428,15 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel12)
                                 .addComponent(facturaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton8))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addComponent(jDateIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(chckBaja)
                     .addComponent(chckImpresion)))
@@ -446,7 +455,46 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         );
         panelFotoLayout.setVerticalGroup(
             panelFotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+            .addComponent(lblFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        panelGuardar.setBorder(javax.swing.BorderFactory.createTitledBorder("Acciones"));
+
+        btnguardar.setIcon(new javax.swing.ImageIcon("img/iconos/Save.png"));
+        btnguardar.setText("Guardar");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
+
+        btncancelar.setIcon(new javax.swing.ImageIcon("img/iconos/Delete.png"));
+        btncancelar.setText("Cancelar");
+        btncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelGuardarLayout = new javax.swing.GroupLayout(panelGuardar);
+        panelGuardar.setLayout(panelGuardarLayout);
+        panelGuardarLayout.setHorizontalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btncancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelGuardarLayout.setVerticalGroup(
+            panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnguardar)
+                    .addComponent(btncancelar))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -460,15 +508,13 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 82, Short.MAX_VALUE))
+                        .addComponent(txtBuscar))
                     .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(315, 315, 315))
-                    .addComponent(panelDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,10 +526,14 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(panelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(panelDatosB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -500,7 +550,8 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Mantenimiento", jPanel3);
@@ -660,7 +711,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -689,7 +740,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -858,6 +909,33 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         buscar();
     }//GEN-LAST:event_cmbPeriodoPropertyChange
 
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        // TODO add your handling code here:
+        guardar();
+    }//GEN-LAST:event_btnguardarActionPerformed
+
+    private void btncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelarActionPerformed
+        // TODO add your handling code here:
+        FormularioUtil.activarComponente(panelDatosB, false);
+        FormularioUtil.limpiarComponente(panelDatosB);
+        FormularioUtil.limpiarComponente(panelDatos);
+        FormularioUtil.limpiarComponente(panelFoto);
+//        FormularioUtil.activarComponente(panelOpciones, true);
+//        FormularioUtil.activarComponente(panelGuardar, false);
+        FormularioUtil.activarComponente(panelDatos, false);
+        FormularioUtil.activarComponente(panelDatosB, false);
+        FormularioUtil.activarComponente(panelFoto, false);
+        spnPrecio.setValue(0);
+        //        descripcionField.setText(null);
+        lblFoto.setIcon(null);
+//        lblStock.setText(null);
+//        lblbuscar.setText(null);
+        chckBaja.setSelected(false);
+        chckImpresion.setSelected(false);
+        listaDetalle.clear();
+        this.txtBuscar.requestFocusInWindow();
+    }//GEN-LAST:event_btncancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ambienteField;
@@ -865,6 +943,8 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnSiguiente;
     private javax.swing.JButton btnUltimo;
+    private javax.swing.JButton btncancelar;
+    private javax.swing.JButton btnguardar;
     private javax.swing.JComboBox cboTamanio;
     private javax.swing.JCheckBox chckBaja;
     private javax.swing.JCheckBox chckImpresion;
@@ -916,6 +996,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelDatosB;
     private javax.swing.JPanel panelFoto;
+    private javax.swing.JPanel panelGuardar;
     private javax.swing.JTextField proveedorField;
     private javax.swing.JTextField serieField;
     private javax.swing.JSpinner spPagina;
@@ -967,8 +1048,14 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
 
     private void cargarComboPeriodo() {
         PeriodoControlador periodoControlador = new PeriodoControlador();
-        List<Periodo> periodo = periodoControlador.buscarTodos();
-        cmbPeriodo.setModel(new DefaultComboBoxModel(periodo.toArray()));
+        List<Periodo> periodos = periodoControlador.buscarTodos();
+        cmbPeriodo1.setModel(new DefaultComboBoxModel(periodos.toArray()));
+    }
+    
+    private void cargarComboPeriodo1() {
+        PeriodoControlador periodoControlador = new PeriodoControlador();
+        List<Periodo> periodos = periodoControlador.buscarTodos();
+        cmbPeriodo.setModel(new DefaultComboBoxModel(periodos.toArray()));
     }
 
     /*
@@ -983,7 +1070,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     private void buscar() {
         Date inicio = jdateInicio.getDate();
         Date fin = jDateFin.getDate();
-        Periodo periodo = (Periodo) cmbPeriodo.getSelectedItem();
+        Periodo periodos = (Periodo) cmbPeriodo.getSelectedItem();
 
         tamanioPagina = Integer.parseInt(cboTamanio.getSelectedItem().toString());
 
@@ -991,7 +1078,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
         if (flag == 0) {
             lista.addAll(this.listar(inicio, fin, paginaActual, tamanioPagina));
         } else if (flag == 1) {
-            lista.addAll(this.listarPeriodo(periodo, paginaActual, tamanioPagina));
+            lista.addAll(this.listarPeriodo(periodos, paginaActual, tamanioPagina));
             flag = 0;
         }
 
@@ -1067,6 +1154,12 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     private List<DetalleBienCampo> listaDetalle = new ArrayList();
     private final DetalleBienCampoControlador detalleControlador = new DetalleBienCampoControlador();
 
+    private Bien bienGlobal;
+    private Periodo periodo;
+    private Proveedor proveedor;
+    private Factura factura;
+    
+    
     private void buscarInventario() {
         accion = Controlador.MODIFICAR;
 //        cargarCombos();
@@ -1096,7 +1189,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
 //            System.out.println("ULTIMO NUMERO: "+ numero);
             nombreField.setText(inventarioControlador.getSeleccionado().getBien().getNombre());
 
-//            bienGlobal = inventarioControlador.getSeleccionado().getBien();
+            bienGlobal = inventarioControlador.getSeleccionado().getBien();
 //            descripcionField.setText(inventarioControlador.getSeleccionado().getBien().getDescripcion());
 //            fotoField.setText(inventarioControlador.getSeleccionado().getBien().getFoto());
             ImageIcon fot = new ImageIcon(inventarioControlador.getSeleccionado().getBien().getFoto());
@@ -1110,7 +1203,7 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
             cmbEstado.setSelectedItem(inventarioControlador.getSeleccionado().getEstado());
 
             cmbPeriodo1.setSelectedItem(inventarioControlador.getSeleccionado().getPeriodo());
-//            periodo = inventarioControlador.getSeleccionado().getPeriodo();
+            periodo = inventarioControlador.getSeleccionado().getPeriodo();
 
 //            cmbAmbiente.setSelectedItem(inventarioControlador.getSeleccionado().getAmbiente());
             if (inventarioControlador.getSeleccionado().getAmbiente() != null) {
@@ -1119,14 +1212,14 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
 
             if (inventarioControlador.getSeleccionado().getProveedor() != null) {
                 proveedorField.setText(inventarioControlador.getSeleccionado().getProveedor().getNombreProveedor());
-//                proveedor = inventarioControlador.getSeleccionado().getProveedor();
+                proveedor = inventarioControlador.getSeleccionado().getProveedor();
             }
 
             facturaField.setText(null);
 
             if (inventarioControlador.getSeleccionado().getFactura() != null) {
                 facturaField.setText(inventarioControlador.getSeleccionado().getFactura().getNumeroFactura());
-//                factura = inventarioControlador.getSeleccionado().getFactura();
+                factura = inventarioControlador.getSeleccionado().getFactura();
             }
 
             List<Inventario> conteo = inventarioControlador.buscarXBien3(inventarioControlador.getSeleccionado().getBien());
@@ -1163,5 +1256,129 @@ public class MantenimientoInventario extends javax.swing.JInternalFrame {
     private void cargarCombos() {
         cargarComboEstado();
         cargarComboPeriodo();
+        cargarComboPeriodo1();
+    }
+    
+    private void guardar() {
+        String palabra = "";
+        String palabra2 = "";
+//        if (accion == 1) {
+//            palabra = "registrar";
+//            palabra2 = "registrado";
+//
+//            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra + " la Clase?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+//
+//                //CALCULAR SERIE
+//                int cantidad = 1;
+//                if (!cantidadField.getText().isEmpty()) {
+//                    cantidad = Integer.valueOf(cantidadField.getText());
+//                }
+//
+//                System.out.println("CANTIDAD: " + cantidad);
+//                for (int i = 0; i < cantidad; i++) {
+//                    String ultimaSerie = inventarioControlador.obtenerUltimaSerie(inventarioControlador.getSeleccionado().getBien().getClase().getCodigo());
+//
+//                    Inventario inventarioFinal = new Inventario();
+//
+////                    inventarioFinal.setAmbiente((Ambiente) cmbAmbiente.getSelectedItem());
+//                    inventarioFinal.setEstado(cmbEstado.getSelectedItem().toString());
+//                    inventarioFinal.setPrecio((Double) spnPrecio.getModel().getValue());
+//                    inventarioFinal.setPeriodo((Periodo) cmbPeriodo.getSelectedItem());
+//                    inventarioFinal.setBien(bienGlobal);
+//                    inventarioFinal.setBaja(chckBaja.isSelected());
+//                    inventarioFinal.setImpresionPendiente(chckImpresion.isSelected());
+//                    inventarioFinal.setFechaIngreso(jDateIngreso.getDate());
+//                    inventarioFinal.setCodigoFabrica(codFabField.getText());
+//                    inventarioFinal.setProveedor(inventarioControlador.getSeleccionado().getProveedor());
+//                    inventarioFinal.setFactura(inventarioControlador.getSeleccionado().getFactura());
+//
+//                    int numero = Integer.valueOf(ultimaSerie);
+//                    String suma = 1000000 + numero + 1 + "";
+//                    String serie = suma.substring(1, suma.length());
+//                    inventarioFinal.setSerie(serie);
+//
+//                    inventarioControlador.setSeleccionado(inventarioFinal);
+//
+////                    listarCamposNoMod(bienGlobal);
+////                    crearDetalleInventario();
+////                    for (DetalleBienCampo detalle : listaDetalle) {
+////
+////                        detalleControlador.setSeleccionado(detalle);
+////                        detalleControlador.accion(AbstractControlador.MODIFICAR);
+////                    }
+//                    inventarioControlador.accion(accion);
+//                }
+//                // FIN CALCULO SERIE
+////                lista.add(inventarioControlador.getSeleccionado());
+//
+//                if (accion == 1) {
+//                    JOptionPane.showMessageDialog(null, "Clase " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+//                    FormularioUtil.limpiarComponente(panelDatosB);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+//                }
+//            } else {
+//                FormularioUtil.limpiarComponente(panelDatosB);
+//                JOptionPane.showMessageDialog(null, "Clase no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } else 
+        if (accion == 2) {
+            palabra = "modificar";
+            palabra2 = "modificado";
+
+            if (JOptionPane.showConfirmDialog(null, "¿Desea " + palabra2 + " el Inventario?", "Mensaje del Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+                if (accion == 2) {
+                    JOptionPane.showMessageDialog(null, "Inventario " + palabra2 + " correctamente", "Mensaje del Sistema", JOptionPane.INFORMATION_MESSAGE);
+
+                    if (!periodo.equals((Periodo) cmbPeriodo1.getSelectedItem())) {
+                        Inventario nuevoPeriodoInventario = new Inventario();
+                        inventarioControlador.setSeleccionado(nuevoPeriodoInventario);
+                        inventarioControlador.getSeleccionado().setSerie(serieField.getText());
+                    }
+
+                    inventarioControlador.getSeleccionado().setPeriodo((Periodo) cmbPeriodo1.getSelectedItem());
+//                    inventarioControlador.getSeleccionado().setAmbiente((Ambiente) cmbAmbiente.getSelectedItem());
+                    inventarioControlador.getSeleccionado().setBien(bienGlobal);
+                    inventarioControlador.getSeleccionado().setEstado(cmbEstado.getSelectedItem().toString());
+                    inventarioControlador.getSeleccionado().setPrecio((Double) spnPrecio.getModel().getValue());
+                    inventarioControlador.getSeleccionado().setProveedor(proveedor);
+                    inventarioControlador.getSeleccionado().setCodigoFabrica(codFabField.getText());
+                    inventarioControlador.getSeleccionado().setFactura(factura);
+                    inventarioControlador.getSeleccionado().setBaja(chckBaja.isSelected());
+                    inventarioControlador.getSeleccionado().setImpresionPendiente(chckImpresion.isSelected());
+                    inventarioControlador.getSeleccionado().setFechaIngreso(jDateIngreso.getDate());
+
+                    inventarioControlador.accion(accion);
+
+                    FormularioUtil.limpiarComponente(panelDatosB);
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Inventario no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                FormularioUtil.limpiarComponente(panelDatosB);
+                JOptionPane.showMessageDialog(null, "Inventario no " + palabra2, "Mensaje del Sistema", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+//        FormularioUtil.activarComponente(panelOpciones, true);
+        FormularioUtil.activarComponente(panelGuardar, false);
+        FormularioUtil.activarComponente(panelDatosB, false);
+        FormularioUtil.activarComponente(panelDatos, false);
+        FormularioUtil.activarComponente(panelFoto, false);
+        FormularioUtil.limpiarComponente(panelDatosB);
+        FormularioUtil.limpiarComponente(panelDatos);
+        FormularioUtil.limpiarComponente(panelFoto);
+//        descripcionField.setText(null);
+        spnPrecio.setValue(0);
+        lblFoto.setIcon(null);
+//        lblStock.setText(null);
+//        lblbuscar.setText(null);
+        chckBaja.setSelected(false);
+        chckImpresion.setSelected(false);
+
+        listaDetalle.clear();
+        this.txtBuscar.requestFocusInWindow();
     }
 }
